@@ -19,6 +19,7 @@
     --r-card: 18px; --r-ctl: 12px; --peek: 172px; --sab: env(safe-area-inset-bottom, 0px);
     color-scheme: dark;
   }
+  html { direction: rtl; }
   html, body { height: 100%; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
   * { box-sizing: border-box; }
@@ -158,7 +159,7 @@
 </style>
 </head>
 <body>
-<div class="app">
+<div class="app" dir="rtl" lang="ar">
   <header class="top">
     <a class="brand" href="#" aria-label="شيفون — الصفحة الرئيسية">
       <svg viewBox="0 0 64 64" width="42" height="42" aria-hidden="true" focusable="false">
@@ -237,7 +238,7 @@
 </aside>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite" hidden><span id="toastMsg"></span><button type="button" class="lnk" id="undo">تراجع</button></div>
+<div class="toast" id="toast" dir="rtl" lang="ar" role="status" aria-live="polite" hidden><span id="toastMsg"></span><button type="button" class="lnk" id="undo">تراجع</button></div>
 
 <script>
 (function () {
@@ -321,8 +322,10 @@
   function addItem(id) { cart.push({ id, employee: '' }); renderCart(); controls.get(id)?.(); buzz(8); }
   function removeOne(id) { const i = cart.findLastIndex(e => e.id === id); if (i !== -1) removeAt(i); }
   let undoTimer = null, removed = null;
+  // keep the undo toast clear of the sheet: above the peek footer while collapsed, above the send footer while open, near the bottom when the sheet is away
+  function placeToast() { if ($('toast').hidden || desk) return; $('toast').style.bottom = ((!visible ? 8 : expanded ? $('foot').offsetHeight : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek'))) + 12) + 'px'; }
   function removeAt(i) { removed = { index: i, entry: cart[i] }; const name = byId.get(cart[i].id).name; cart.splice(i, 1); renderCart(); controls.get(removed.entry.id)?.();
-    $('toastMsg').textContent = 'أُزيلت ' + name; $('toast').style.bottom = ((!visible ? 8 : expanded ? $('foot').offsetHeight : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek'))) + 12) + 'px'; $('toast').hidden = false; clearTimeout(undoTimer); undoTimer = setTimeout(() => { $('toast').hidden = true; removed = null; }, 4500); }
+    $('toastMsg').textContent = 'أُزيلت ' + name; $('toast').hidden = false; placeToast(); clearTimeout(undoTimer); undoTimer = setTimeout(() => { $('toast').hidden = true; removed = null; }, 4500); }
   $('undo').addEventListener('click', () => { if (!removed) return; cart.splice(Math.min(removed.index, cart.length), 0, removed.entry); const id = removed.entry.id; removed = null; $('toast').hidden = true; clearTimeout(undoTimer); renderCart(); controls.get(id)?.(); });
   const buzz = ms => { try { if (!reduced && navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
 
@@ -360,7 +363,7 @@
     $('sumAmt').textContent = money(svc + fee);
     sheet.classList.toggle('is-empty', cart.length === 0);
     $('sumLbl').textContent = cart.length ? `${cart.length === 1 ? 'خدمة واحدة' : cart.length === 2 ? 'خدمتان' : cart.length + ' خدمات'}${fee ? ' · يشمل رسوم الحجز' : ''}` : 'لم تختاري خدمة بعد';
-    persist(); setVisible(cart.length > 0); measure();
+    persist(); setVisible(cart.length > 0); measure(); placeToast();
   }
 
   // ——— time options / date ———
@@ -463,8 +466,9 @@
     if (v === visible) return; visible = v;
     if (desk) { document.documentElement.classList.toggle('has-cart', v); return; }
     document.documentElement.classList.toggle('has-cart', v); sheet.inert = !v; sheet.setAttribute('aria-hidden', String(!v));
-    if (v) { if (booted) spring(travel, 0, false); else setY(travel); }
-    else { expanded = false; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; if (booted) spring(hiddenY, 0, false); else setY(hiddenY); }
+    // the peek footer (متابعة) must leave the inert state applyMode gave it while the cart was empty — otherwise the button is un-tappable until the sheet is toggled
+    if (v) { $('peekfoot').inert = false; if (booted) spring(travel, 0, false); else setY(travel); }
+    else { expanded = false; $('peekfoot').inert = true; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; if (booted) spring(hiddenY, 0, false); else setY(hiddenY); }
   }
 
   // drag from the grabber and summary rows, 1:1, rubber-band past the ends, project momentum on release
