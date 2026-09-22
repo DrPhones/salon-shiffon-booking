@@ -65,7 +65,7 @@
     <section class="intro"><div><h2>اختاري خدماتك في طلب واحد</h2><p>يمكنك اختيار عدة خدمات وكتابة الموظفة المفضلة لكل خدمة. الحجز المعتمد متاح للتساريح والمكياج فقط برسوم 20 ريالًا لكل خدمة منها؛ بقية الخدمات تُدرج في الطلب وتحتاج إلى مراجعة وتأكيد منفصلين.</p></div><div class="badge">الأسعار بالريال السعودي</div></section>
     <main class="layout">
       <section class="panel" aria-labelledby="servicesTitle"><h2 id="servicesTitle">الخدمات والمنتجات</h2><div class="filters"><input id="search" class="search" type="search" placeholder="ابحثي عن خدمة..." aria-label="ابحثي عن خدمة"><select id="category" class="select" aria-label="اختيار القسم"></select></div><div id="items" class="items"></div><p class="hint">تظهر جميع الخدمات في الطلب. التساريح والمكياج فقط تدخل في الحجز برسوم؛ ما عداها يحتاج إلى تأكيد منفصل من الصالون.</p></section>
-      <section class="panel" aria-labelledby="cartTitle"><h2 id="cartTitle">طلبك <span id="count">(0)</span></h2><div id="cart"></div><div class="total"><span>قيمة الخدمات والمنتجات</span><span id="total">0 ر.س</span></div><div class="total"><span>رسوم الحجز (20 ر.س لكل تسريحة أو مكياج)</span><span id="bookingFee">0 ر.س</span></div><p class="hint">لا تُحسب رسوم على الخدمات والمنتجات الأخرى؛ أسعارها المعروضة تخضع لمراجعة الطلب. رسوم الحجز مستقلة ولا تُخصم من قيمة الخدمات.</p><label for="customer">الاسم</label><input id="customer" class="field" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"><label for="mobile">الجوال</label><input id="mobile" class="field" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"><label for="day">التاريخ المطلوب</label><input id="day" class="field" type="date"><p id="weekday" class="hint" aria-live="polite">اختاري التاريخ ليظهر اليوم.</p><label for="time">الوقت المطلوب</label><input id="time" class="field" type="time"><p class="hint">الموعد والموظفة المفضلة يخضعان للتوفر؛ المعتمد في الحجز هو الوقت.</p><button id="send" class="primary" type="button">إرسال الطلب عبر واتساب</button><div id="error" class="error" role="alert" aria-live="polite"></div><p class="notice">رسوم حجز 20 ريالًا لكل خدمة تسريحة أو مكياج، لا تُخصم من الفاتورة الأساسية وغير مستردة عند إلغاء الموعد. بقية الخدمات والمنتجات مجرد طلبات غير معتمدة نهائيًا حتى تراجعها الموظفة.</p></section>
+      <section class="panel" aria-labelledby="cartTitle"><h2 id="cartTitle">طلبك <span id="count">(0)</span></h2><div id="cart"></div><div class="total"><span>قيمة الخدمات والمنتجات</span><span id="total">0 ر.س</span></div><div class="total"><span>رسوم الحجز (20 ر.س لكل تسريحة أو مكياج)</span><span id="bookingFee">0 ر.س</span></div><p class="hint">لا تُحسب رسوم على الخدمات والمنتجات الأخرى؛ أسعارها المعروضة تخضع لمراجعة الطلب. رسوم الحجز مستقلة ولا تُخصم من قيمة الخدمات.</p><label for="customer">الاسم</label><input id="customer" class="field" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"><label for="mobile">الجوال</label><input id="mobile" class="field" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"><label for="day">التاريخ المطلوب</label><input id="day" class="field" type="date"><p id="weekday" class="hint" aria-live="polite">اختاري التاريخ ليظهر اليوم.</p><label for="time">الوقت المطلوب (بداية الساعة فقط)</label><select id="time" class="field" aria-label="الوقت المطلوب"></select><p class="hint">اختاري ساعة كاملة بين 10 صباحًا و9 مساءً؛ الموعد والموظفة المفضلة يخضعان للتوفر.</p><button id="send" class="primary" type="button">إرسال الطلب عبر واتساب</button><div id="error" class="error" role="alert" aria-live="polite"></div><p class="notice">رسوم حجز 20 ريالًا لكل خدمة تسريحة أو مكياج، لا تُخصم من الفاتورة الأساسية وغير مستردة عند إلغاء الموعد. بقية الخدمات والمنتجات مجرد طلبات غير معتمدة نهائيًا حتى تراجعها الموظفة.</p></section>
     </main>
     <footer>صالون شيفون · +966 50 662 8187 · تُراجع الأسعار والتوفر عند تأكيد الطلب.</footer>
   </div>
@@ -78,6 +78,9 @@
     const money = n => new Intl.NumberFormat('ar-SA').format(n) + ' ر.س';
     const categories = [...new Set(catalog.map(x => x.category))];
     $('category').innerHTML = '<option value="">كل الأقسام</option>' + categories.map((name, i) => `<option value="${i}">${name}</option>`).join('');
+    $('time').innerHTML = '<option value="">اختاري الساعة</option>' +
+      Array.from({length:12},(_,i) => i+10).map(hour =>
+        `<option value="${String(hour).padStart(2,'0')}:00">${hour%12 || 12}:00 ${hour<12?'صباحًا':'مساءً'}</option>`).join('');
 
     function renderItems() {
       const query = $('search').value.trim().toLocaleLowerCase('ar');
@@ -130,6 +133,7 @@
       const value=$('time').value;
       if (!value) throw new Error('حددي الوقت المطلوب قبل الإرسال.');
       const [hour,minute]=value.split(':').map(Number);
+      if (minute !== 0 || hour < 10 || hour > 21) throw new Error('اختاري بداية ساعة متاحة فقط.');
       return `${hour%12 || 12}${minute ? ':'+String(minute).padStart(2,'0') : ''} ${hour<12?'صباحًا':'مساءً'}`;
     }
 
