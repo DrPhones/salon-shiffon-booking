@@ -29,7 +29,8 @@
   button, .row, .sheet, .chip { transition: transform 120ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  .app { position: relative; max-width: 430px; margin: 0 auto; min-height: 100%; padding: 0 22px calc(var(--peek) + 28px + env(safe-area-inset-bottom, 0px)); }
+  .app { position: relative; max-width: 430px; margin: 0 auto; min-height: 100%; padding: 0 22px calc(28px + env(safe-area-inset-bottom, 0px)); transition: padding-bottom 200ms ease-out; }
+  html.has-cart .app { padding-bottom: calc(var(--peek) + 28px + env(safe-area-inset-bottom, 0px)); }
   .app > * { position: relative; z-index: 1; }
 
   .top { position: sticky; top: 0; z-index: 3; margin: 0 -22px; padding: calc(14px + env(safe-area-inset-top, 0px)) 22px 12px; display: flex; align-items: center; justify-content: space-between; background: rgba(23,19,32,0.72); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); }
@@ -277,7 +278,7 @@
   function removeOne(id) { const i = cart.findLastIndex(e => e.id === id); if (i !== -1) removeAt(i); }
   let undoTimer = null, removed = null;
   function removeAt(i) { removed = { index: i, entry: cart[i] }; const name = byId.get(cart[i].id).name; cart.splice(i, 1); renderCart(); controls.get(removed.entry.id)?.();
-    $('toastMsg').textContent = 'أُزيلت ' + name; $('toast').style.bottom = ((expanded ? $('foot').offsetHeight : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek'))) + 12) + 'px'; $('toast').hidden = false; clearTimeout(undoTimer); undoTimer = setTimeout(() => { $('toast').hidden = true; removed = null; }, 4500); }
+    $('toastMsg').textContent = 'أُزيلت ' + name; $('toast').style.bottom = ((!visible ? 8 : expanded ? $('foot').offsetHeight : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek'))) + 12) + 'px'; $('toast').hidden = false; clearTimeout(undoTimer); undoTimer = setTimeout(() => { $('toast').hidden = true; removed = null; }, 4500); }
   $('undo').addEventListener('click', () => { if (!removed) return; cart.splice(Math.min(removed.index, cart.length), 0, removed.entry); const id = removed.entry.id; removed = null; $('toast').hidden = true; clearTimeout(undoTimer); renderCart(); controls.get(id)?.(); });
   const buzz = ms => { try { if (!reduced && navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
 
@@ -314,7 +315,7 @@
     $('tServices').textContent = money(svc); $('tFee').textContent = money(fee); $('tAll').textContent = money(svc + fee);
     $('sumAmt').textContent = money(svc + fee);
     $('sumLbl').textContent = cart.length ? `${cart.length === 1 ? 'خدمة واحدة' : cart.length === 2 ? 'خدمتان' : cart.length + ' خدمات'}${fee ? ' · يشمل رسوم الحجز' : ''}` : 'لم تختاري خدمة بعد';
-    persist(); measure();
+    persist(); setVisible(cart.length > 0); measure();
   }
 
   // ——— time options / date ———
@@ -367,7 +368,7 @@
     const el = $(k); const ev = el.tagName === 'SELECT' || el.type === 'date' ? 'change' : 'blur';
     el.addEventListener(ev, () => { const msg = checks[k](); el.setAttribute('aria-invalid', msg ? 'true' : 'false'); if (!msg) el.removeAttribute('aria-invalid'); if (msg) { $('err').textContent = msg; } else if ($('err').textContent === (el.dataset.lastMsg || '')) { $('err').textContent = ''; } el.dataset.lastMsg = msg; });
   });
-  $('go').addEventListener('click', () => openSheet());
+  $('go').addEventListener('click', () => { if (visible) openSheet(); });
   $('send').addEventListener('click', () => {
     clearInvalid(); $('err').textContent = '';
     $('status').textContent = '';
@@ -377,8 +378,8 @@
 
   // ——— sheet physics: spring + drag with velocity handoff ———
   const sheet = $('sheet');
-  let expanded = false, y = 0, travel = 0, anim = null;
-  function measure() { const sab = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sab')) || 0; const head = $('grab').offsetHeight + $('sum').offsetHeight; $('peekfoot').style.top = head + 'px'; const peek = head + $('peekfoot').offsetHeight + 18 + sab; document.documentElement.style.setProperty('--peek', peek + 'px'); const full = Math.min(window.innerHeight * 0.88, 760); sheet.style.height = full + 'px'; travel = full - peek; if (!anim && !dragging) setY(expanded ? 0 : travel); }
+  let expanded = false, y = 0, travel = 0, anim = null, visible = false, hiddenY = 0, booted = false;
+  function measure() { const sab = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sab')) || 0; const head = $('grab').offsetHeight + $('sum').offsetHeight; $('peekfoot').style.top = head + 'px'; const peek = head + $('peekfoot').offsetHeight + 18 + sab; document.documentElement.style.setProperty('--peek', peek + 'px'); const full = Math.min(window.innerHeight * 0.88, 760); sheet.style.height = full + 'px'; travel = full - peek; hiddenY = full + 80; if (!anim && !dragging) setY(!visible ? hiddenY : expanded ? 0 : travel); }
   function setY(v) { y = v; sheet.style.transform = `translateX(-50%) translateY(${v}px)`; const k = travel ? Math.min(1, Math.max(0, v / travel)) : 1; $('body').style.opacity = $('foot').style.opacity = String(1 - k); $('peekfoot').style.opacity = String(k); }
   function spring(to, v0, bounce) {
     if (anim) cancelAnimationFrame(anim.raf);
@@ -398,12 +399,19 @@
   function openSheet(v0, bounce) { if (v0 == null && anim) v0 = anim.velocity(); expanded = true; $('body').inert = false; $('foot').inert = false; $('peekfoot').inert = true; $('toggle').setAttribute('aria-expanded', 'true'); $('toggle').textContent = 'إغلاق'; sheet.classList.add('open'); spring(0, v0 || 0, bounce); }
   function closeSheet(v0, bounce) { if (v0 == null && anim) v0 = anim.velocity(); expanded = false; $('body').inert = true; $('foot').inert = true; $('peekfoot').inert = false; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; spring(travel, v0 || 0, bounce); }
   $('toggle').addEventListener('click', () => expanded ? closeSheet() : openSheet());
+  // the sheet exists only once something is in the order: it rises when the first service is added and leaves when the last is removed
+  function setVisible(v) {
+    if (v === visible) return; visible = v;
+    document.documentElement.classList.toggle('has-cart', v); sheet.inert = !v; sheet.setAttribute('aria-hidden', String(!v));
+    if (v) { if (booted) spring(travel, 0, false); else setY(travel); }
+    else { expanded = false; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; if (booted) spring(hiddenY, 0, false); else setY(hiddenY); }
+  }
 
   // drag from the grabber and summary rows, 1:1, rubber-band past the ends, project momentum on release
   let dragging = false, startY = 0, startT = 0, hist = [], moved = false;
   const rubber = (over, dim = 300, c = 0.55) => (over * dim * c) / (dim + c * Math.abs(over));
   const project = (v, rate = 0.998) => (v / 1000) * rate / (1 - rate);
-  function down(e) { if (e.button && e.button !== 0) return; dragging = true; moved = false; if (anim) { cancelAnimationFrame(anim.raf); anim = null; } startY = e.clientY - y; hist = [[e.clientY, performance.now()]]; e.currentTarget.setPointerCapture(e.pointerId); }
+  function down(e) { if (!visible || (e.button && e.button !== 0)) return; dragging = true; moved = false; if (anim) { cancelAnimationFrame(anim.raf); anim = null; } startY = e.clientY - y; hist = [[e.clientY, performance.now()]]; e.currentTarget.setPointerCapture(e.pointerId); }
   function move(e) { if (!dragging) return; let ny = e.clientY - startY; if (Math.abs(e.clientY - hist[0][0]) > 6) moved = true; if (ny < 0) ny = rubber(ny); else if (ny > travel) ny = travel + rubber(ny - travel); setY(ny); hist.push([e.clientY, performance.now()]); if (hist.length > 6) hist.shift(); }
   function up(e) { if (!dragging) return; dragging = false;
     if (!moved) { expanded ? closeSheet() : openSheet(); return; }
@@ -417,8 +425,8 @@
   // ——— boot ———
   $('search').addEventListener('input', e => { query = e.target.value; renderList(); });
   renderChips(); renderList(); renderCart();
-  $('body').inert = true; $('foot').inert = true;
-  measure(); setY(travel); addEventListener('resize', measure); if (window.visualViewport) visualViewport.addEventListener('resize', measure);
+  $('body').inert = true; $('foot').inert = true; sheet.inert = !visible; sheet.setAttribute('aria-hidden', String(!visible));
+  measure(); setY(visible ? travel : hiddenY); booted = true; addEventListener('resize', measure); if (window.visualViewport) visualViewport.addEventListener('resize', measure);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 })();
 </script>
