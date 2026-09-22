@@ -2,191 +2,401 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171320">
+  <meta name="description" content="حجز خدمات صالون شيفون — مخرج 9، الرياض. اختاري خدماتكِ وأرسلي الطلب عبر واتساب.">
   <title>حجز خدمات | صالون شيفون</title>
-  <style>
-    :root { color-scheme: light; --ink:#302438; --muted:#6d6171; --plum:#604373; --plum-dark:#4b315f; --lilac:#eee6f2; --paper:#fffcfd; --line:#e8dfe9; --green:#176b55; }
-    * { box-sizing:border-box }
-    body { margin:0; font-family:Tahoma,Arial,sans-serif; color:var(--ink); background:linear-gradient(145deg,#f8f3f8,#fffaf7 65%); }
-    button,input { font:inherit }
-    button { cursor:pointer }
-    .wrap { max-width:1180px; margin:auto; padding:20px }
-    header { display:flex; gap:18px; align-items:center; justify-content:space-between; padding:18px 0 24px; border-bottom:1px solid var(--line) }
-    .brand { display:flex; gap:14px; align-items:center }
-    .mark { width:58px; height:58px; display:grid; place-items:center; border-radius:18px; background:var(--plum); color:white; font-size:29px; font-weight:bold }
-    h1,h2,h3,p { margin-top:0 }
-    h1 { font-size:24px; margin-bottom:4px }
-    .sub { color:var(--muted); line-height:1.7; margin:0 }
-    .toplink { color:var(--plum); font-weight:bold; text-decoration:none; border:1px solid var(--line); border-radius:13px; padding:11px 15px; background:white; white-space:nowrap }
-    .intro { margin:26px 0 18px; padding:24px; border-radius:22px; background:#f0e7f4; display:flex; justify-content:space-between; gap:22px; align-items:center }
-    .intro h2 { font-size:25px; margin-bottom:8px }
-    .intro p { max-width:660px; line-height:1.8; margin:0 }
-    .badge { color:var(--plum-dark); font-weight:bold; background:white; padding:10px 13px; border-radius:999px; white-space:nowrap }
-    .layout { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(320px,.8fr); gap:20px; align-items:start }
-    .panel { background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow:0 9px 30px #4b315f0a }
-    .panel h2 { font-size:19px; margin-bottom:16px }
-    .filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px }
-    .search { flex:1 1 230px; min-width:0; border:1px solid var(--line); border-radius:12px; padding:11px 13px; background:white; color:var(--ink) }
-    .select { flex:1 1 170px; min-width:0; border:1px solid var(--line); border-radius:12px; padding:11px 13px; background:white; color:var(--ink) }
-    .items { max-height:610px; overflow:auto; padding-left:3px }
-    .item { display:flex; align-items:center; justify-content:space-between; gap:15px; padding:13px 0; border-bottom:1px solid var(--line) }
-    .item:last-child { border:0 }
-    .itemname { font-weight:bold; line-height:1.5 }
-    .itemtype { display:block; color:var(--muted); font-weight:normal; font-size:12px; margin-top:3px }
-    .itemright { display:flex; align-items:center; gap:10px; white-space:nowrap }
-    .price { color:var(--plum-dark); font-weight:bold }
-    .add,.primary { border:0; background:var(--plum); color:white; border-radius:11px; padding:9px 12px; font-weight:bold }
-    .add:hover,.primary:hover { background:var(--plum-dark) }
-    .quantity { display:flex; align-items:center; gap:5px; direction:ltr; background:var(--lilac); border-radius:11px; padding:3px }
-    .quantity button { border:0; border-radius:8px; background:var(--plum); color:white; width:34px; height:34px; font-size:23px; line-height:1 }
-    .quantity output { min-width:25px; text-align:center; font-weight:bold; color:var(--plum-dark) }
-    .cartline { border:1px solid var(--line); border-radius:14px; padding:12px; margin-bottom:10px; background:white }
-    .carthead { display:flex; justify-content:space-between; gap:10px; align-items:start }
-    .carthead strong { line-height:1.5 }
-    .cartprice { white-space:nowrap; color:var(--plum-dark); font-weight:bold }
-    .remove { background:none; border:0; color:#9b3345; padding:5px 0; font-size:13px }
-    label { display:block; font-size:13px; font-weight:bold; margin:10px 0 6px }
-    .field { width:100%; border:1px solid var(--line); border-radius:11px; padding:10px 11px; background:white; color:var(--ink) }
-    .hint { font-size:12px; color:var(--muted); margin:5px 0 0; line-height:1.6 }
-    .total { display:flex; justify-content:space-between; font-size:18px; font-weight:bold; padding:14px 0; border-top:1px solid var(--line); margin-top:8px }
-    .primary { display:block; width:100%; padding:14px; margin-top:15px; font-size:15px }
-    .primary:disabled { opacity:.45; cursor:not-allowed }
-    .notice { color:var(--green); background:#eff8f4; border-radius:12px; padding:10px 12px; font-size:13px; line-height:1.7; margin-top:13px }
-    .empty { padding:18px; color:var(--muted); text-align:center; background:#faf7fa; border-radius:13px }
-    .error { color:#9b3345; font-size:13px; margin-top:8px; min-height:20px }
-    footer { text-align:center; color:var(--muted); font-size:12px; padding:28px 0; line-height:1.7 }
-    @media(max-width:850px){.layout{grid-template-columns:1fr}.intro{display:block}.badge{display:inline-block;margin-top:14px}.items{max-height:440px}}
-    @media(max-width:500px){.wrap{padding:13px}header{align-items:flex-start}.toplink{font-size:12px;padding:9px}.intro{padding:18px}.intro h2{font-size:21px}.panel{padding:15px}.itemright{gap:6px}.add{padding:8px}}
-  </style>
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' width='64' height='64' role='img' aria-label='شيفون'>  <rect width='64' height='64' rx='18' fill='%232a2340'/>  <rect x='0.5' y='0.5' width='63' height='63' rx='17.5' fill='none' stroke='%23b9a4d9' stroke-opacity='0.35'/>  <g fill='%23d4c6ea' transform='translate(-2 -5)'>    <path d='M17 20 H29 C35.5 20 38 24 38 28.5 C38 33 35.5 37 29 37 H17 C12 37 9 33.5 9 28.5 C9 23.5 12 20 17 20 Z'/>    <path d='M37 23.5 L48 20.5 V36.5 L37 33.5 Z'/>    <path d='M20.5 36.5 L16.4 51.8 C15.8 54 18.9 55 19.8 52.8 L26 36.5 Z'/>    <path d='M17.4 53.6 C17 56 18.6 57 20.2 56.2' fill='none' stroke='%23d4c6ea' stroke-width='1.4' stroke-linecap='round'/>  </g>  <g fill='none' stroke='%23b9a4d9' stroke-width='2' stroke-linecap='round' transform='translate(-2 -5)'>    <path d='M52 22 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0'/>    <path d='M52 28.5 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0'/>    <path d='M52 35 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0'/>  </g></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #171320; --card: #221c2e; --card-on: #2a2340; --line: rgba(240,235,247,0.08); --line-on: rgba(185,164,217,0.38);
+    --ink: #f0ebf7; --muted: #a99bb8; --accent: #b9a4d9; --accent-soft: rgba(185,164,217,0.16); --accent-strong: #d4c6ea; --on-accent: #171320;
+    --danger: #f2a7b5; --ok: #8fd6bb; --sheet: rgba(30,24,42,0.86);
+    --font: "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif;
+    --r-card: 18px; --r-ctl: 12px; --peek: 172px;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
+  * { box-sizing: border-box; }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  button:active { transform: scale(0.97); }
+  button, .row, .sheet, .chip { transition: transform 120ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .app { position: relative; max-width: 430px; margin: 0 auto; min-height: 100%; padding: 0 22px calc(var(--peek) + 28px + env(safe-area-inset-bottom, 0px)); }
+  .glow { position: fixed; top: -140px; right: calc(50% - 320px); width: 340px; height: 340px; border-radius: 50%; background: #3a2c55; filter: blur(80px); opacity: .85; pointer-events: none; z-index: 0; }
+  @media (max-width: 640px) { .glow { right: -80px; } }
+  .app > * { position: relative; z-index: 1; }
+
+  .top { display: flex; align-items: center; justify-content: space-between; padding-top: calc(22px + env(safe-area-inset-top, 0px)); }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--ink); }
+  .brand svg { display: block; flex: 0 0 auto; }
+  .wm { display: flex; flex-direction: column; gap: 1px; line-height: 1; }
+  .wm .ar { font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+  .wm .en { font-size: 9.5px; font-weight: 600; letter-spacing: .22em; color: var(--accent); }
+  .icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgba(240,235,247,0.08); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; color: var(--ink); }
+
+  .hero { padding: 26px 0 16px; display: flex; flex-direction: column; gap: 8px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .06em; color: var(--accent); }
+  h1 { margin: 0; font-size: 34px; line-height: 1.15; font-weight: 700; letter-spacing: -.02em; text-wrap: balance; }
+  .lead { margin: 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
+  .badge { align-self: flex-start; margin-top: 4px; height: 28px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); font-size: 12px; font-weight: 600; }
+  .listnote { margin: 14px 4px 0; font-size: 12px; line-height: 1.7; color: var(--muted); }
+  .foot-page { margin: 28px 0 0; text-align: center; font-size: 12px; line-height: 1.7; color: var(--muted); }
+  .notice { margin: 0; padding: 12px 14px; border-radius: 14px; background: rgba(143,214,187,0.1); color: var(--ok); font-size: 12.5px; line-height: 1.7; }
+  .sub { font-size: 12px; line-height: 1.6; color: var(--muted); font-weight: 400; }
+
+  .search { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 14px; border-radius: 14px; background: rgba(240,235,247,0.06); border: 1px solid var(--line); margin-bottom: 12px; }
+  .search input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font-size: 15px; }
+  .search input::placeholder { color: var(--muted); }
+
+  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0 14px; margin: 0 -22px; padding-inline: 22px; scroll-snap-type: x proximity; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: 0 0 auto; height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(240,235,247,0.08); color: var(--ink); font-size: 13px; font-weight: 500; white-space: nowrap; scroll-snap-align: start; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); font-weight: 600; }
+
+  .list { display: flex; flex-direction: column; gap: 10px; }
+  .group { font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--muted); padding: 10px 4px 2px; }
+  .row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: var(--r-card); background: var(--card); border: 1px solid var(--line); }
+  .row.on { background: var(--card-on); border-color: var(--line-on); }
+  .row .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .row .name { font-size: 15px; font-weight: 600; line-height: 1.4; }
+  .row .meta { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .row.on .meta { color: var(--accent); }
+  .add { width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--accent-soft); color: var(--accent-strong); font-size: 22px; line-height: 1; flex: 0 0 auto; }
+  .qty { display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(240,235,247,0.08); flex: 0 0 auto; direction: ltr; }
+  .qty button { width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); font-size: 19px; line-height: 1; }
+  .qty button.plus { background: var(--accent); color: var(--on-accent); }
+  .qty output { min-width: 22px; text-align: center; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; display: inline-block; transition: transform 160ms cubic-bezier(.2,.9,.3,1.4); }
+  .qty output.pop { transform: scale(1.25); }
+  .empty { padding: 26px 16px; text-align: center; color: var(--muted); font-size: 14px; border-radius: var(--r-card); background: var(--card); }
+
+  /* ——— sheet ——— */
+  .sheet { position: fixed; left: 50%; bottom: 0; width: min(100%, 430px); transform: translateX(-50%) translateY(0); z-index: 5; border-radius: 28px 28px 0 0; background: var(--sheet); backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%); border-top: 1px solid rgba(240,235,247,0.12); box-shadow: 0 -20px 60px rgba(0,0,0,.45); display: flex; flex-direction: column; will-change: transform; touch-action: none; }
+  .sheet .grab { padding: 10px 22px 6px; cursor: grab; }
+  .sheet .grab .bar { width: 36px; height: 5px; border-radius: 3px; background: rgba(240,235,247,0.28); margin: 0 auto; }
+  .sum { display: flex; align-items: center; justify-content: space-between; padding: 4px 22px 12px; cursor: grab; }
+  .sum .lbl { font-size: 12px; color: var(--muted); }
+  .sum .amt { font-size: 24px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .lnk { border: 0; background: none; color: var(--accent); font-size: 13px; font-weight: 600; padding: 8px 0; }
+  .peekfoot { position: absolute; left: 22px; right: 22px; top: 84px; }
+  .sheet.open .peekfoot { pointer-events: none; }
+  .sheet:not(.open) .body, .sheet:not(.open) .foot { pointer-events: none; }
+  .body { flex: 1; will-change: opacity; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 22px 0; display: flex; flex-direction: column; gap: 14px; touch-action: pan-y; }
+  .foot { padding: 12px 22px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px; }
+  .primary { height: 54px; border: 0; border-radius: 16px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 700; width: 100%; }
+  .primary[disabled] { opacity: .5; cursor: not-allowed; }
+  .err { min-height: 18px; font-size: 12.5px; line-height: 1.5; color: var(--danger); }
+  .note { font-size: 12px; line-height: 1.6; color: var(--muted); margin: 0; }
+
+  .line { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; background: rgba(240,235,247,0.05); border: 1px solid var(--line); }
+  .line .h { display: flex; align-items: center; gap: 10px; }
+  .line .h .n { flex: 1; min-width: 0; font-size: 15px; font-weight: 600; }
+  .line .h .p { font-size: 14px; font-variant-numeric: tabular-nums; color: var(--accent-strong); }
+  .line .s { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .line .s.fee { color: var(--ok); }
+  .field { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .field input, .field select { height: 46px; padding: 0 12px; border-radius: var(--r-ctl); border: 1px solid rgba(240,235,247,0.12); background: rgba(240,235,247,0.06); font-size: 15px; font-weight: 400; color: var(--ink); width: 100%; }
+  .field input::placeholder { color: rgba(169,155,184,.8); }
+  .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--danger); }
+  .field input[dir="ltr"] { text-align: left; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .totals { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .totals div { display: flex; justify-content: space-between; }
+  .totals b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
+  .totals .big { font-size: 18px; font-weight: 700; color: var(--ink); padding-top: 4px; }
+  .totals .big b { font-weight: 700; }
+  h2 { margin: 6px 0 0; font-size: 17px; font-weight: 700; }
+  .ok { font-size: 12px; color: var(--ok); }
+
+  @media (prefers-reduced-motion: reduce) { *, .sheet { transition: none !important; } }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand"><div class="mark" aria-hidden="true">ش</div><div><h1>صالون شيفون</h1><p class="sub">اختاري خدماتك، والموعد تؤكده موظفة الصالون</p></div></div>
-      <a class="toplink" href="https://wa.me/966506628187?text=%D8%A3%D9%87%D9%84%D9%8B%D8%A7%D8%8C%20%D9%84%D8%AF%D9%8A%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" target="_blank" rel="noopener">عندي استفسار ↗</a>
-    </header>
-    <section class="intro"><div><h2>اختاري خدماتك في طلب واحد</h2><p>يمكنك اختيار عدة خدمات وكتابة الموظفة المفضلة لكل خدمة. رسوم الحجز 20 ريالًا لكل تسريحة أو خدمة مكياج فقط؛ قص الشعر والاستشوار والويفي وبقية الخدمات تُدرج في الطلب بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p></div><div class="badge">الأسعار بالريال السعودي</div></section>
-    <main class="layout">
-      <section class="panel" aria-labelledby="servicesTitle"><h2 id="servicesTitle">الخدمات والمنتجات</h2><div class="filters"><input id="search" class="search" type="search" placeholder="ابحثي عن خدمة..." aria-label="ابحثي عن خدمة"><select id="category" class="select" aria-label="اختيار القسم"></select></div><div id="items" class="items"></div><p class="hint">تظهر جميع الخدمات في الطلب. التساريح والمكياج فقط عليهما رسوم حجز؛ قص الشعر والاستشوار والويفي وبقية الخدمات بلا رسوم حجز.</p></section>
-      <section class="panel" aria-labelledby="cartTitle"><h2 id="cartTitle">طلبك <span id="count">(0)</span></h2><div id="cart"></div><div class="total"><span>قيمة الخدمات والمنتجات</span><span id="total">0 ر.س</span></div><div class="total"><span>رسوم الحجز (20 ر.س لكل تسريحة أو مكياج)</span><span id="bookingFee">0 ر.س</span></div><p class="hint">لا تُحسب رسوم على قص الشعر والاستشوار والويفي وبقية الخدمات والمنتجات؛ أسعارها المعروضة تخضع لمراجعة الطلب. رسوم الحجز مستقلة ولا تُخصم من قيمة الخدمات.</p><label for="customer">الاسم</label><input id="customer" class="field" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"><label for="mobile">الجوال</label><input id="mobile" class="field" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"><label for="day">التاريخ المطلوب</label><input id="day" class="field" type="date"><p id="weekday" class="hint" aria-live="polite">اختاري التاريخ ليظهر اليوم.</p><label for="time">الوقت المطلوب (بداية الساعة فقط)</label><select id="time" class="field" aria-label="الوقت المطلوب"></select><p class="hint">اختاري ساعة كاملة بين 10 صباحًا و9 مساءً؛ الموعد والموظفة المفضلة يخضعان للتوفر.</p><button id="send" class="primary" type="button">إرسال الطلب عبر واتساب</button><div id="error" class="error" role="alert" aria-live="polite"></div><p class="notice">رسوم الحجز 20 ريالًا لكل تسريحة أو خدمة مكياج فقط، ولا تُخصم من الفاتورة الأساسية وغير مستردة عند إلغاء الموعد. قص الشعر والاستشوار والويفي وبقية الخدمات والمنتجات بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p></section>
-    </main>
-    <footer>صالون شيفون · +966 50 662 8187 · تُراجع الأسعار والتوفر عند تأكيد الطلب.</footer>
+<div class="glow" aria-hidden="true"></div>
+<div class="app">
+  <header class="top">
+    <a class="brand" href="#" aria-label="شيفون — الصفحة الرئيسية">
+      <svg viewBox="0 0 64 64" width="42" height="42" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="18" fill="#2a2340"/>
+        <rect x="0.5" y="0.5" width="63" height="63" rx="17.5" fill="none" stroke="#b9a4d9" stroke-opacity="0.35"/>
+        <g fill="#d4c6ea" transform="translate(-2 -5)">
+          <path d="M17 20 H29 C35.5 20 38 24 38 28.5 C38 33 35.5 37 29 37 H17 C12 37 9 33.5 9 28.5 C9 23.5 12 20 17 20 Z"/>
+          <path d="M37 23.5 L48 20.5 V36.5 L37 33.5 Z"/>
+          <path d="M20.5 36.5 L16.4 51.8 C15.8 54 18.9 55 19.8 52.8 L26 36.5 Z"/>
+          <path d="M17.4 53.6 C17 56 18.6 57 20.2 56.2" fill="none" stroke="#d4c6ea" stroke-width="1.4" stroke-linecap="round"/>
+        </g>
+        <g fill="none" stroke="#b9a4d9" stroke-width="2" stroke-linecap="round" transform="translate(-2 -5)">
+          <path d="M52 22 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0"/>
+          <path d="M52 28.5 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0"/>
+          <path d="M52 35 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0"/>
+        </g>
+      </svg>
+      <span class="wm"><span class="ar">شيفون</span><span class="en">CHIFFON</span></span>
+    </a>
+    <a class="icon-btn" href="https://wa.me/966506628187?text=%D8%A3%D9%87%D9%84%D9%8B%D8%A7%D8%8C%20%D9%84%D8%AF%D9%8A%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" target="_blank" rel="noopener" aria-label="استفسار عبر واتساب">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-5.1A8 8 0 1 1 21 12z"></path></svg>
+    </a>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">مخرج ٩ · الرياض</div>
+    <h1>اختاري خدماتكِ في طلب واحد</h1>
+    <p class="lead">يمكنكِ اختيار عدة خدمات وكتابة الموظفة المفضلة لكل خدمة، والموعد تؤكده موظفة الصالون. رسوم الحجز 20 ريالًا لكل تسريحة أو خدمة مكياج فقط؛ قص الشعر والاستشوار والويفي وبقية الخدمات تُدرج في الطلب بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p>
+    <div class="badge">الأسعار بالريال السعودي</div>
+  </section>
+
+  <label class="search">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a99bb8" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+    <input id="search" type="search" placeholder="ابحثي عن خدمة أو منتج" aria-label="ابحثي عن خدمة أو منتج" autocomplete="off">
+  </label>
+
+  <div class="chips" id="chips" role="group" aria-label="الأقسام"></div>
+
+  <main class="list" id="list" aria-live="polite"></main>
+  <p class="listnote">تظهر جميع الخدمات في الطلب. التساريح والمكياج فقط عليهما رسوم حجز؛ قص الشعر والاستشوار والويفي وبقية الخدمات بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p>
+  <footer class="foot-page">صالون شيفون · <span dir="ltr">+966 50 662 8187</span> · تُراجع الأسعار والتوفر عند تأكيد الطلب.</footer>
+</div>
+
+<aside class="sheet" id="sheet" aria-label="طلبك">
+  <div class="grab" id="grab"><div class="bar"></div></div>
+  <div class="sum" id="sum">
+    <div>
+      <div class="lbl" id="sumLbl">لم تختاري خدمة بعد</div>
+      <div class="amt" id="sumAmt">0 ر.س</div>
+    </div>
+    <button type="button" class="lnk" id="toggle" aria-expanded="false">تفاصيل</button>
   </div>
-  <script>
-    const catalog = [{"id":1,"category":"قسم الشعر (قص)","name":"قص غرة تحديد","price":11,"kind":"خدمة","bookable":false},{"id":2,"category":"قسم الشعر (قص)","name":"قص غرة مدرج","price":34,"kind":"خدمة","bookable":false},{"id":3,"category":"قسم الشعر (قص)","name":"قص تحديد","price":34,"kind":"خدمة","bookable":false},{"id":4,"category":"قسم الشعر (قص)","name":"قص مدرج","price":69,"kind":"خدمة","bookable":false},{"id":5,"category":"قسم الشعر (قص)","name":"قص بوي","price":115,"kind":"خدمة","bookable":false},{"id":6,"category":"قسم الشعر (قص)","name":"قص زيادة ماكينة","price":69,"kind":"خدمة","bookable":false},{"id":7,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر قصير","price":138,"kind":"خدمة","bookable":true},{"id":8,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر متوسط","price":184,"kind":"خدمة","bookable":true},{"id":9,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر فوق المتوسط او طويل","price":253,"kind":"خدمة","bookable":true},{"id":10,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر طويل جدا","price":299,"kind":"خدمة","bookable":true},{"id":11,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال قصير","price":69,"kind":"خدمة","bookable":true},{"id":12,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال متوسط","price":92,"kind":"خدمة","bookable":true},{"id":13,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال طويل","price":138,"kind":"خدمة","bookable":true},{"id":14,"category":"قسم الشعر ( تساريح)","name":"تسريحة عروس خارجي","price":1500,"kind":"خدمة","bookable":true},{"id":15,"category":"قسم الشعر ( تساريح)","name":"تسريحة خارجي","price":575,"kind":"خدمة","bookable":true},{"id":16,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر قصير","price":46,"kind":"خدمة","bookable":false},{"id":17,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر متوسط","price":69,"kind":"خدمة","bookable":false},{"id":18,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر فوق للمتوسط","price":92,"kind":"خدمة","bookable":false},{"id":19,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر طويل","price":138,"kind":"خدمة","bookable":false},{"id":20,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي شعر قصير بالفرشة","price":69,"kind":"خدمة","bookable":false},{"id":21,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي شعر متوسط بالفرشة","price":92,"kind":"خدمة","bookable":false},{"id":22,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي طويل بالفرشة","price":138,"kind":"خدمة","bookable":false},{"id":23,"category":"قسم الشعر ( استشوارات","name":"زيادة ويفي","price":46,"kind":"خدمة","bookable":false},{"id":24,"category":"قسم الشعر ( استشوارات","name":"زيادة سيراميك","price":46,"kind":"خدمة","bookable":false},{"id":25,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر طويل جدا","price":161,"kind":"خدمة","bookable":false},{"id":26,"category":"جدائل","name":"جديلة واحدة","price":23,"kind":"خدمة","bookable":false},{"id":27,"category":"جدائل","name":"اكسسوار جدائل الحبة","price":10,"kind":"خدمة","bookable":false},{"id":28,"category":"معالجات باردة","name":"حمام زيت كريمي شعر قصير","price":69,"kind":"خدمة","bookable":false},{"id":29,"category":"معالجات باردة","name":"حمام زيت كريمي متوسط","price":92,"kind":"خدمة","bookable":false},{"id":30,"category":"معالجات باردة","name":"حمام زيت كريمي طويل","price":115,"kind":"خدمة","bookable":false},{"id":31,"category":"معالجات باردة","name":"تنظيف فروة راس","price":184,"kind":"خدمة","bookable":false},{"id":32,"category":"معالجات باردة","name":"جلسة الكافيار الباردة","price":184,"kind":"خدمة","bookable":false},{"id":33,"category":"معالجات باردة","name":"جلسة جهاز تقصف الشعر","price":184,"kind":"خدمة","bookable":false},{"id":34,"category":"معالجات حارة","name":"بروتين شعر قصير","price":345,"kind":"خدمة","bookable":false},{"id":35,"category":"معالجات حارة","name":"بروتين جذور","price":315,"kind":"خدمة","bookable":false},{"id":36,"category":"معالجات حارة","name":"اوميغا زيرو+ شامبو بلسم","price":600,"kind":"خدمة","bookable":false},{"id":37,"category":"معالجات حارة","name":"سيليكون شعر قصير","price":535,"kind":"خدمة","bookable":false},{"id":38,"category":"معالجات حارة","name":"سيليكون شعر متوسط","price":840,"kind":"خدمة","bookable":false},{"id":39,"category":"معالجات حارة","name":"سيليكون شعر طويل","price":1050,"kind":"خدمة","bookable":false},{"id":40,"category":"قسم سبا الاظافر","name":"تنظيف يدين رجول كلاسيك","price":120,"kind":"خدمة","bookable":false},{"id":41,"category":"قسم سبا الاظافر","name":"تنظيف يدين","price":40,"kind":"خدمة","bookable":false},{"id":42,"category":"قسم سبا الاظافر","name":"تنظيف ارجل","price":80,"kind":"خدمة","bookable":false},{"id":43,"category":"قسم سبا الاظافر","name":"برافين يدين رجول","price":46,"kind":"خدمة","bookable":false},{"id":44,"category":"قسم سبا الاظافر","name":"برافين يدين","price":23,"kind":"خدمة","bookable":false},{"id":45,"category":"قسم سبا الاظافر","name":"برافين ارجل","price":23,"kind":"خدمة","bookable":false},{"id":46,"category":"قسم سبا الاظافر","name":"لون عادي","price":17,"kind":"خدمة","bookable":false},{"id":47,"category":"قسم سبا الاظافر","name":"لون فرنسي","price":23,"kind":"خدمة","bookable":false},{"id":48,"category":"قسم سبا الاظافر","name":"لون امبري","price":120,"kind":"خدمة","bookable":false},{"id":49,"category":"قسم سبا الاظافر","name":"لون جل","price":369,"kind":"خدمة","bookable":false},{"id":50,"category":"قسم سبا الاظافر","name":"جل اكستنشن","price":345,"kind":"خدمة","bookable":false},{"id":51,"category":"قسم سبا الاظافر","name":"اكليريك","price":345,"kind":"خدمة","bookable":false},{"id":52,"category":"قسم سبا الاظافر","name":"بولي جل","price":369,"kind":"خدمة","bookable":false},{"id":53,"category":"قسم سبا الاظافر","name":"لون بياب","price":249,"kind":"خدمة","bookable":false},{"id":54,"category":"قسم سبا الاظافر","name":"بياب اكستنشن","price":249,"kind":"خدمة","bookable":false},{"id":55,"category":"قسم سبا الاظافر","name":"لون كات اي","price":120,"kind":"خدمة","bookable":false},{"id":56,"category":"قسم سبا الاظافر","name":"لون كروم","price":120,"kind":"خدمة","bookable":false},{"id":57,"category":"قسم سبا الاظافر","name":"نيل ارت اظفر واحد","price":11,"kind":"خدمة","bookable":false},{"id":58,"category":"قسم سبا الاظافر","name":"اكسسوار اظفر واحد","price":11,"kind":"خدمة","bookable":false},{"id":59,"category":"قسم سبا الاظافر","name":"إزالة بياب اكستنشن","price":31,"kind":"خدمة","bookable":false},{"id":60,"category":"قسم سبا الاظافر","name":"إزالة بولي جل","price":31,"kind":"خدمة","bookable":false},{"id":61,"category":"قسم سبا الاظافر","name":"إزالة جل اكستنشن","price":31,"kind":"خدمة","bookable":false},{"id":62,"category":"قسم سبا الاظافر","name":"تنظيف روسي","price":150,"kind":"خدمة","bookable":false},{"id":63,"category":"تنظيف البشرة","name":"فتلة وجه","price":46,"kind":"خدمة","bookable":false},{"id":64,"category":"تنظيف البشرة","name":"شمع وجه","price":46,"kind":"خدمة","bookable":false},{"id":65,"category":"تنظيف البشرة","name":"فتلة اوشمع شنب","price":23,"kind":"خدمة","bookable":false},{"id":66,"category":"تنظيف البشرة","name":"شمع او حلاوة يدين وارجل","price":138,"kind":"خدمة","bookable":false},{"id":67,"category":"تنظيف البشرة","name":"شمع اوحلاوة يدين اوارجل","price":69,"kind":"خدمة","bookable":false},{"id":68,"category":"تنظيف البشرة","name":"شمع او حلاوة ظهر اوبطن اوصدر","price":69,"kind":"خدمة","bookable":false},{"id":69,"category":"تنظيف البشرة","name":"شمع اوحلاوة ابط","price":23,"kind":"خدمة","bookable":false},{"id":70,"category":"تنظيف البشرة","name":"شمع رقبة","price":23,"kind":"خدمة","bookable":false},{"id":71,"category":"المكياج","name":"مكياج ناعم","price":184,"kind":"خدمة","bookable":true},{"id":72,"category":"المكياج","name":"مكياج كنتور","price":253,"kind":"خدمة","bookable":true},{"id":73,"category":"المكياج","name":"مكياج بناتي","price":138,"kind":"خدمة","bookable":true},{"id":74,"category":"المكياج","name":"مكياج خارجي","price":575,"kind":"خدمة","bookable":true},{"id":75,"category":"المكياج","name":"كحل عيون فقط","price":34,"kind":"خدمة","bookable":false},{"id":76,"category":"المكياج","name":"رموش حبات","price":115,"kind":"منتج","bookable":false},{"id":77,"category":"المكياج","name":"تركيب رموش كاملة","price":23,"kind":"خدمة","bookable":false},{"id":78,"category":"المكياج","name":"تركيب رموش حبات","price":69,"kind":"خدمة","bookable":false},{"id":79,"category":"المكياج","name":"رموش كاملة","price":57,"kind":"منتج","bookable":false},{"id":80,"category":"المكياج","name":"رسم حواجب","price":23,"kind":"خدمة","bookable":false},{"id":81,"category":"المكياج","name":"صبغة وتشقير","price":46,"kind":"خدمة","bookable":false},{"id":82,"category":"المكياج","name":"صبغة اوتشقير","price":23,"kind":"خدمة","bookable":false},{"id":83,"category":"الصبغات","name":"تست صبغات","price":11,"kind":"خدمة","bookable":false},{"id":84,"category":"الصبغات","name":"رينساج","price":168,"kind":"خدمة","bookable":false},{"id":85,"category":"الصبغات","name":"زيادة اوبلكس","price":63,"kind":"خدمة","bookable":false},{"id":86,"category":"الصبغات","name":"زيادة صبغة بدون امونيا","price":63,"kind":"خدمة","bookable":false},{"id":87,"category":"الصبغات","name":"صبغة اطراف","price":210,"kind":"خدمة","bookable":false},{"id":88,"category":"الصبغات","name":"سحب اطراف","price":105,"kind":"خدمة","bookable":false},{"id":89,"category":"الصبغات","name":"امبرى فقط","price":315,"kind":"خدمة","bookable":false},{"id":90,"category":"الصبغات","name":"خصل قصدير قصير+ متوسط + فوق المتوسط","price":231,"kind":"خدمة","bookable":false},{"id":91,"category":"الصبغات","name":"خصل قصدير طويل وطويل جدا","price":273,"kind":"خدمة","bookable":false},{"id":92,"category":"الصبغات","name":"خصل طاقية قصير + متوسط + فوق المتوسط","price":168,"kind":"خدمة","bookable":false},{"id":93,"category":"الصبغات","name":"خصل طاقية طويل وطويل جدا","price":231,"kind":"خدمة","bookable":false},{"id":94,"category":"الصبغات","name":"صبغة جذور","price":83,"kind":"خدمة","bookable":false},{"id":95,"category":"الصبغات","name":"صبغة جذور بدون امونيا","price":150,"kind":"خدمة","bookable":false},{"id":96,"category":"الصبغات","name":"خصل كنتور فقط","price":63,"kind":"خدمة","bookable":false},{"id":97,"category":"الصبغات","name":"كنتور كامل + لون","price":450,"kind":"خدمة","bookable":false},{"id":98,"category":"الصبغات","name":"خصلة واحدة","price":21,"kind":"خدمة","bookable":false},{"id":99,"category":"الصبغات","name":"صبغة لون قصير","price":210,"kind":"خدمة","bookable":false},{"id":100,"category":"الصبغات","name":"صبغة لون متوسط","price":273,"kind":"خدمة","bookable":false},{"id":101,"category":"الصبغات","name":"صبغة لون فوق المتوسط","price":378,"kind":"خدمة","bookable":false},{"id":102,"category":"الصبغات","name":"صبغة لون طويل","price":483,"kind":"خدمة","bookable":false},{"id":103,"category":"الصبغات","name":"صبغة لون طويل جدا","price":588,"kind":"خدمة","bookable":false}];
-    const phone = '966506628187';
-    const cart = [];
-    const quantityControls = new Map();
-    const bookingFeePerService = 20;
-    const $ = id => document.getElementById(id);
-    const money = n => new Intl.NumberFormat('ar-SA').format(n) + ' ر.س';
-    const categories = [...new Set(catalog.map(x => x.category))];
-    $('category').innerHTML = '<option value="">كل الأقسام</option>' + categories.map((name, i) => `<option value="${i}">${name}</option>`).join('');
-    $('time').innerHTML = '<option value="">اختاري الساعة</option>' +
-      Array.from({length:12},(_,i) => i+10).map(hour =>
-        `<option value="${String(hour).padStart(2,'0')}:00">${hour%12 || 12}:00 ${hour<12?'صباحًا':'مساءً'}</option>`).join('');
+  <div class="peekfoot" id="peekfoot"><button type="button" class="primary" id="go">متابعة</button></div>
+  <div class="body" id="body">
+    <div id="lines"></div>
+    <h2>بيانات الموعد</h2>
+    <div class="grid2">
+      <label class="field">التاريخ<input id="day" type="date"></label>
+      <label class="field">الوقت المطلوب (بداية الساعة فقط)<select id="time"></select></label>
+    </div>
+    <p class="note" id="weekday">اختاري التاريخ ليظهر اليوم.</p>
+    <p class="note">اختاري ساعة كاملة بين 10 صباحًا و9 مساءً؛ الموعد والموظفة المفضلة يخضعان للتوفر.</p>
+    <label class="field">الاسم<input id="customer" type="text" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"></label>
+    <label class="field">الجوال<input id="mobile" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"></label>
+    <div class="totals">
+      <div><span>قيمة الخدمات والمنتجات</span><b id="tServices">0 ر.س</b></div>
+      <div><span>رسوم الحجز (20 ر.س لكل تسريحة أو مكياج)</span><b id="tFee">0 ر.س</b></div>
+      <div class="big"><span>الإجمالي التقديري</span><b id="tAll">0 ر.س</b></div>
+    </div>
+    <p class="note">لا تُحسب رسوم على قص الشعر والاستشوار والويفي وبقية الخدمات والمنتجات؛ أسعارها المعروضة تخضع لمراجعة الطلب. رسوم الحجز مستقلة ولا تُخصم من قيمة الخدمات.</p>
+    <p class="notice">رسوم الحجز 20 ريالًا لكل تسريحة أو خدمة مكياج فقط، ولا تُخصم من الفاتورة الأساسية وغير مستردة عند إلغاء الموعد. قص الشعر والاستشوار والويفي وبقية الخدمات والمنتجات بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p>
+  </div>
+  <div class="foot" id="foot">
+    <div class="err" id="err" role="alert" aria-live="polite"></div>
+    <button type="button" class="primary" id="send">إرسال الطلب عبر واتساب</button>
+  </div>
+</aside>
 
-    function renderItems() {
-      const query = $('search').value.trim().toLocaleLowerCase('ar');
-      const selected = $('category').value;
-      const shown = catalog.filter(x => (selected === '' || x.category === categories[Number(selected)]) && (x.name.toLocaleLowerCase('ar').includes(query) || x.category.toLocaleLowerCase('ar').includes(query)));
-      const host = $('items'); host.replaceChildren(); quantityControls.clear();
-      if (!shown.length) { const p = document.createElement('p'); p.className='empty'; p.textContent='لم نجد خدمة بهذا الاسم.'; host.append(p); return; }
-      for (const item of shown) {
-        const row = document.createElement('div'); row.className='item';
-        const info = document.createElement('div'); info.className='itemname'; info.textContent=item.name;
-        const type = document.createElement('small'); type.className='itemtype'; type.textContent=item.category + (item.bookable ? ' · حجز برسوم 20 ر.س' : ' · طلب يحتاج مراجعة'); info.append(type);
-        const right = document.createElement('div'); right.className='itemright';
-        const price = document.createElement('span'); price.className='price'; price.textContent=money(item.price);
-        const control = document.createElement('span');
-        quantityControls.set(item.id, () => {
-          const count = cart.filter(entry => entry.item.id === item.id).length;
-          control.replaceChildren();
-          if (!count) {
-            const add=document.createElement('button'); add.className='add'; add.type='button'; add.textContent='إضافة'; add.setAttribute('aria-label','إضافة '+item.name);
-            add.addEventListener('click',() => { cart.push({item,employee:''}); renderCart(); }); control.append(add); return;
-          }
-          const quantity=document.createElement('span'); quantity.className='quantity'; quantity.setAttribute('aria-label',`${item.name}: ${count} في الطلب`);
-          const plus=document.createElement('button'); plus.type='button'; plus.textContent='+'; plus.setAttribute('aria-label','زيادة '+item.name); plus.addEventListener('click',() => { cart.push({item,employee:''}); renderCart(); });
-          const number=document.createElement('output'); number.textContent=String(count);
-          const minus=document.createElement('button'); minus.type='button'; minus.textContent='−'; minus.setAttribute('aria-label','تقليل '+item.name); minus.addEventListener('click',() => { const index=cart.findLastIndex(entry => entry.item.id===item.id); if(index!==-1) cart.splice(index,1); renderCart(); });
-          quantity.append(plus,number,minus); control.append(quantity);
-        });
-        quantityControls.get(item.id)(); right.append(price,control); row.append(info,right); host.append(row);
-      }
-    }
+<script>
+(function () {
+  'use strict';
+  const catalog = [{"id":1,"category":"قسم الشعر (قص)","name":"قص غرة تحديد","price":11,"kind":"خدمة","bookable":false},{"id":2,"category":"قسم الشعر (قص)","name":"قص غرة مدرج","price":34,"kind":"خدمة","bookable":false},{"id":3,"category":"قسم الشعر (قص)","name":"قص تحديد","price":34,"kind":"خدمة","bookable":false},{"id":4,"category":"قسم الشعر (قص)","name":"قص مدرج","price":69,"kind":"خدمة","bookable":false},{"id":5,"category":"قسم الشعر (قص)","name":"قص بوي","price":115,"kind":"خدمة","bookable":false},{"id":6,"category":"قسم الشعر (قص)","name":"قص زيادة ماكينة","price":69,"kind":"خدمة","bookable":false},{"id":7,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر قصير","price":138,"kind":"خدمة","bookable":true},{"id":8,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر متوسط","price":184,"kind":"خدمة","bookable":true},{"id":9,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر فوق المتوسط او طويل","price":253,"kind":"خدمة","bookable":true},{"id":10,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر طويل جدا","price":299,"kind":"خدمة","bookable":true},{"id":11,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال قصير","price":69,"kind":"خدمة","bookable":true},{"id":12,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال متوسط","price":92,"kind":"خدمة","bookable":true},{"id":13,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال طويل","price":138,"kind":"خدمة","bookable":true},{"id":14,"category":"قسم الشعر ( تساريح)","name":"تسريحة عروس خارجي","price":1500,"kind":"خدمة","bookable":true},{"id":15,"category":"قسم الشعر ( تساريح)","name":"تسريحة خارجي","price":575,"kind":"خدمة","bookable":true},{"id":16,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر قصير","price":46,"kind":"خدمة","bookable":false},{"id":17,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر متوسط","price":69,"kind":"خدمة","bookable":false},{"id":18,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر فوق للمتوسط","price":92,"kind":"خدمة","bookable":false},{"id":19,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر طويل","price":138,"kind":"خدمة","bookable":false},{"id":20,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي شعر قصير بالفرشة","price":69,"kind":"خدمة","bookable":false},{"id":21,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي شعر متوسط بالفرشة","price":92,"kind":"خدمة","bookable":false},{"id":22,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي طويل بالفرشة","price":138,"kind":"خدمة","bookable":false},{"id":23,"category":"قسم الشعر ( استشوارات","name":"زيادة ويفي","price":46,"kind":"خدمة","bookable":false},{"id":24,"category":"قسم الشعر ( استشوارات","name":"زيادة سيراميك","price":46,"kind":"خدمة","bookable":false},{"id":25,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر طويل جدا","price":161,"kind":"خدمة","bookable":false},{"id":26,"category":"جدائل","name":"جديلة واحدة","price":23,"kind":"خدمة","bookable":false},{"id":27,"category":"جدائل","name":"اكسسوار جدائل الحبة","price":10,"kind":"خدمة","bookable":false},{"id":28,"category":"معالجات باردة","name":"حمام زيت كريمي شعر قصير","price":69,"kind":"خدمة","bookable":false},{"id":29,"category":"معالجات باردة","name":"حمام زيت كريمي متوسط","price":92,"kind":"خدمة","bookable":false},{"id":30,"category":"معالجات باردة","name":"حمام زيت كريمي طويل","price":115,"kind":"خدمة","bookable":false},{"id":31,"category":"معالجات باردة","name":"تنظيف فروة راس","price":184,"kind":"خدمة","bookable":false},{"id":32,"category":"معالجات باردة","name":"جلسة الكافيار الباردة","price":184,"kind":"خدمة","bookable":false},{"id":33,"category":"معالجات باردة","name":"جلسة جهاز تقصف الشعر","price":184,"kind":"خدمة","bookable":false},{"id":34,"category":"معالجات حارة","name":"بروتين شعر قصير","price":345,"kind":"خدمة","bookable":false},{"id":35,"category":"معالجات حارة","name":"بروتين جذور","price":315,"kind":"خدمة","bookable":false},{"id":36,"category":"معالجات حارة","name":"اوميغا زيرو+ شامبو بلسم","price":600,"kind":"خدمة","bookable":false},{"id":37,"category":"معالجات حارة","name":"سيليكون شعر قصير","price":535,"kind":"خدمة","bookable":false},{"id":38,"category":"معالجات حارة","name":"سيليكون شعر متوسط","price":840,"kind":"خدمة","bookable":false},{"id":39,"category":"معالجات حارة","name":"سيليكون شعر طويل","price":1050,"kind":"خدمة","bookable":false},{"id":40,"category":"قسم سبا الاظافر","name":"تنظيف يدين رجول كلاسيك","price":120,"kind":"خدمة","bookable":false},{"id":41,"category":"قسم سبا الاظافر","name":"تنظيف يدين","price":40,"kind":"خدمة","bookable":false},{"id":42,"category":"قسم سبا الاظافر","name":"تنظيف ارجل","price":80,"kind":"خدمة","bookable":false},{"id":43,"category":"قسم سبا الاظافر","name":"برافين يدين رجول","price":46,"kind":"خدمة","bookable":false},{"id":44,"category":"قسم سبا الاظافر","name":"برافين يدين","price":23,"kind":"خدمة","bookable":false},{"id":45,"category":"قسم سبا الاظافر","name":"برافين ارجل","price":23,"kind":"خدمة","bookable":false},{"id":46,"category":"قسم سبا الاظافر","name":"لون عادي","price":17,"kind":"خدمة","bookable":false},{"id":47,"category":"قسم سبا الاظافر","name":"لون فرنسي","price":23,"kind":"خدمة","bookable":false},{"id":48,"category":"قسم سبا الاظافر","name":"لون امبري","price":120,"kind":"خدمة","bookable":false},{"id":49,"category":"قسم سبا الاظافر","name":"لون جل","price":369,"kind":"خدمة","bookable":false},{"id":50,"category":"قسم سبا الاظافر","name":"جل اكستنشن","price":345,"kind":"خدمة","bookable":false},{"id":51,"category":"قسم سبا الاظافر","name":"اكليريك","price":345,"kind":"خدمة","bookable":false},{"id":52,"category":"قسم سبا الاظافر","name":"بولي جل","price":369,"kind":"خدمة","bookable":false},{"id":53,"category":"قسم سبا الاظافر","name":"لون بياب","price":249,"kind":"خدمة","bookable":false},{"id":54,"category":"قسم سبا الاظافر","name":"بياب اكستنشن","price":249,"kind":"خدمة","bookable":false},{"id":55,"category":"قسم سبا الاظافر","name":"لون كات اي","price":120,"kind":"خدمة","bookable":false},{"id":56,"category":"قسم سبا الاظافر","name":"لون كروم","price":120,"kind":"خدمة","bookable":false},{"id":57,"category":"قسم سبا الاظافر","name":"نيل ارت اظفر واحد","price":11,"kind":"خدمة","bookable":false},{"id":58,"category":"قسم سبا الاظافر","name":"اكسسوار اظفر واحد","price":11,"kind":"خدمة","bookable":false},{"id":59,"category":"قسم سبا الاظافر","name":"إزالة بياب اكستنشن","price":31,"kind":"خدمة","bookable":false},{"id":60,"category":"قسم سبا الاظافر","name":"إزالة بولي جل","price":31,"kind":"خدمة","bookable":false},{"id":61,"category":"قسم سبا الاظافر","name":"إزالة جل اكستنشن","price":31,"kind":"خدمة","bookable":false},{"id":62,"category":"قسم سبا الاظافر","name":"تنظيف روسي","price":150,"kind":"خدمة","bookable":false},{"id":63,"category":"تنظيف البشرة","name":"فتلة وجه","price":46,"kind":"خدمة","bookable":false},{"id":64,"category":"تنظيف البشرة","name":"شمع وجه","price":46,"kind":"خدمة","bookable":false},{"id":65,"category":"تنظيف البشرة","name":"فتلة اوشمع شنب","price":23,"kind":"خدمة","bookable":false},{"id":66,"category":"تنظيف البشرة","name":"شمع او حلاوة يدين وارجل","price":138,"kind":"خدمة","bookable":false},{"id":67,"category":"تنظيف البشرة","name":"شمع اوحلاوة يدين اوارجل","price":69,"kind":"خدمة","bookable":false},{"id":68,"category":"تنظيف البشرة","name":"شمع او حلاوة ظهر اوبطن اوصدر","price":69,"kind":"خدمة","bookable":false},{"id":69,"category":"تنظيف البشرة","name":"شمع اوحلاوة ابط","price":23,"kind":"خدمة","bookable":false},{"id":70,"category":"تنظيف البشرة","name":"شمع رقبة","price":23,"kind":"خدمة","bookable":false},{"id":71,"category":"المكياج","name":"مكياج ناعم","price":184,"kind":"خدمة","bookable":true},{"id":72,"category":"المكياج","name":"مكياج كنتور","price":253,"kind":"خدمة","bookable":true},{"id":73,"category":"المكياج","name":"مكياج بناتي","price":138,"kind":"خدمة","bookable":true},{"id":74,"category":"المكياج","name":"مكياج خارجي","price":575,"kind":"خدمة","bookable":true},{"id":75,"category":"المكياج","name":"كحل عيون فقط","price":34,"kind":"خدمة","bookable":false},{"id":76,"category":"المكياج","name":"رموش حبات","price":115,"kind":"منتج","bookable":false},{"id":77,"category":"المكياج","name":"تركيب رموش كاملة","price":23,"kind":"خدمة","bookable":false},{"id":78,"category":"المكياج","name":"تركيب رموش حبات","price":69,"kind":"خدمة","bookable":false},{"id":79,"category":"المكياج","name":"رموش كاملة","price":57,"kind":"منتج","bookable":false},{"id":80,"category":"المكياج","name":"رسم حواجب","price":23,"kind":"خدمة","bookable":false},{"id":81,"category":"المكياج","name":"صبغة وتشقير","price":46,"kind":"خدمة","bookable":false},{"id":82,"category":"المكياج","name":"صبغة اوتشقير","price":23,"kind":"خدمة","bookable":false},{"id":83,"category":"الصبغات","name":"تست صبغات","price":11,"kind":"خدمة","bookable":false},{"id":84,"category":"الصبغات","name":"رينساج","price":168,"kind":"خدمة","bookable":false},{"id":85,"category":"الصبغات","name":"زيادة اوبلكس","price":63,"kind":"خدمة","bookable":false},{"id":86,"category":"الصبغات","name":"زيادة صبغة بدون امونيا","price":63,"kind":"خدمة","bookable":false},{"id":87,"category":"الصبغات","name":"صبغة اطراف","price":210,"kind":"خدمة","bookable":false},{"id":88,"category":"الصبغات","name":"سحب اطراف","price":105,"kind":"خدمة","bookable":false},{"id":89,"category":"الصبغات","name":"امبرى فقط","price":315,"kind":"خدمة","bookable":false},{"id":90,"category":"الصبغات","name":"خصل قصدير قصير+ متوسط + فوق المتوسط","price":231,"kind":"خدمة","bookable":false},{"id":91,"category":"الصبغات","name":"خصل قصدير طويل وطويل جدا","price":273,"kind":"خدمة","bookable":false},{"id":92,"category":"الصبغات","name":"خصل طاقية قصير + متوسط + فوق المتوسط","price":168,"kind":"خدمة","bookable":false},{"id":93,"category":"الصبغات","name":"خصل طاقية طويل وطويل جدا","price":231,"kind":"خدمة","bookable":false},{"id":94,"category":"الصبغات","name":"صبغة جذور","price":83,"kind":"خدمة","bookable":false},{"id":95,"category":"الصبغات","name":"صبغة جذور بدون امونيا","price":150,"kind":"خدمة","bookable":false},{"id":96,"category":"الصبغات","name":"خصل كنتور فقط","price":63,"kind":"خدمة","bookable":false},{"id":97,"category":"الصبغات","name":"كنتور كامل + لون","price":450,"kind":"خدمة","bookable":false},{"id":98,"category":"الصبغات","name":"خصلة واحدة","price":21,"kind":"خدمة","bookable":false},{"id":99,"category":"الصبغات","name":"صبغة لون قصير","price":210,"kind":"خدمة","bookable":false},{"id":100,"category":"الصبغات","name":"صبغة لون متوسط","price":273,"kind":"خدمة","bookable":false},{"id":101,"category":"الصبغات","name":"صبغة لون فوق المتوسط","price":378,"kind":"خدمة","bookable":false},{"id":102,"category":"الصبغات","name":"صبغة لون طويل","price":483,"kind":"خدمة","bookable":false},{"id":103,"category":"الصبغات","name":"صبغة لون طويل جدا","price":588,"kind":"خدمة","bookable":false}];
+  const phone = '966506628187';
+  const bookingFeePerService = 20;
+  const $ = id => document.getElementById(id);
+  const money = n => new Intl.NumberFormat('en-US').format(n) + ' ر.س';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function renderCart() {
-      const host = $('cart'); host.replaceChildren(); $('count').textContent='(' + cart.length + ')';
-      if (!cart.length) { const p=document.createElement('p'); p.className='empty'; p.textContent='اختاري خدمة أو أكثر لبدء الطلب.'; host.append(p); }
-      cart.forEach((entry, index) => {
-        const line=document.createElement('div'); line.className='cartline';
-        const head=document.createElement('div'); head.className='carthead';
-        const name=document.createElement('strong'); name.textContent=entry.item.name;
-        const price=document.createElement('span'); price.className='cartprice'; price.textContent=money(entry.item.price);
-        head.append(name,price); line.append(head);
-        const status=document.createElement('p'); status.className='hint'; status.textContent=entry.item.bookable ? 'تدخل في الحجز برسوم 20 ر.س.' : 'هذه الخدمة/المنتج غير معتمد في الحجز حتى تراجعه الموظفة؛ بلا رسوم حجز.'; line.append(status);
-        if (entry.item.kind !== 'منتج') {
-          const label=document.createElement('label'); label.textContent='الموظفة المفضلة لهذه الخدمة (اختياري)';
-          const input=document.createElement('input'); input.className='field'; input.placeholder='اتركيها فارغة إذا ما عندك تفضيل'; input.value=entry.employee;
-          input.addEventListener('input', event => { entry.employee=event.target.value; });
-          line.append(label,input);
+  // ——— state ———
+  let cart = [];            // [{ id, employee }]
+  let category = '';        // '' = all
+  let query = '';
+  const byId = new Map(catalog.map(x => [x.id, x]));
+  const categories = [...new Set(catalog.map(x => x.category))];
+  const shortCat = c => c.replace(/^قسم\s+/, '').replace(/\s*\(\s*/g, ' ').replace(/\s*\)\s*/g, '').trim();
+
+  try { const saved = JSON.parse(localStorage.getItem('shiffon-draft') || 'null'); if (saved && Array.isArray(saved.cart)) { cart = saved.cart.filter(e => byId.has(e.id)); ['customer','mobile','day','time'].forEach(k => { if (saved[k]) $(k).value = saved[k]; }); } } catch (e) {}
+  function persist() { try { localStorage.setItem('shiffon-draft', JSON.stringify({ cart, customer: $('customer').value, mobile: $('mobile').value, day: $('day').value, time: $('time').value })); } catch (e) {} }
+
+  // ——— chips ———
+  function renderChips() {
+    const host = $('chips'); host.replaceChildren();
+    [['', 'الكل'], ...categories.map(c => [c, shortCat(c)])].forEach(([val, label]) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = label;
+      b.setAttribute('aria-pressed', String(val === category));
+      b.addEventListener('click', () => { category = val; renderChips(); renderList(); b.scrollIntoView({ inline: 'center', block: 'nearest', behavior: reduced ? 'auto' : 'smooth' }); });
+      host.append(b);
+    });
+  }
+
+  // ——— list ———
+  const count = id => cart.filter(e => e.id === id).length;
+  const controls = new Map();
+  function renderList() {
+    const host = $('list'); host.replaceChildren(); controls.clear();
+    const q = query.trim().toLocaleLowerCase('ar');
+    const shown = catalog.filter(x => (!category || x.category === category) && (!q || x.name.toLocaleLowerCase('ar').includes(q) || x.category.toLocaleLowerCase('ar').includes(q)));
+    if (!shown.length) { const p = document.createElement('div'); p.className = 'empty'; p.textContent = 'لم نجد خدمة بهذا الاسم.'; host.append(p); return; }
+    let lastCat = null;
+    for (const item of shown) {
+      if (!category && item.category !== lastCat) { lastCat = item.category; const g = document.createElement('div'); g.className = 'group'; g.textContent = shortCat(item.category); host.append(g); }
+      const row = document.createElement('div'); row.className = 'row';
+      const txt = document.createElement('div'); txt.className = 'txt';
+      const name = document.createElement('div'); name.className = 'name'; name.textContent = item.name;
+      const meta = document.createElement('div'); meta.className = 'meta';
+      txt.append(name, meta);
+      const ctl = document.createElement('span');
+      const update = () => {
+        const n = count(item.id);
+        row.classList.toggle('on', n > 0);
+        meta.textContent = (n ? 'في طلبك · ' : '') + (item.bookable ? 'حجز برسوم 20 ر.س · ' : 'طلب يحتاج مراجعة · ') + money(item.price);
+        ctl.replaceChildren();
+        if (!n) {
+          const add = document.createElement('button'); add.type = 'button'; add.className = 'add'; add.textContent = '+'; add.setAttribute('aria-label', 'إضافة ' + item.name);
+          add.addEventListener('click', () => addItem(item.id)); ctl.append(add); return;
         }
-        const remove=document.createElement('button'); remove.className='remove'; remove.type='button'; remove.textContent='إزالة'; remove.addEventListener('click', () => { cart.splice(index,1); renderCart(); }); line.append(remove); host.append(line);
+        const q = document.createElement('span'); q.className = 'qty'; q.setAttribute('aria-label', `${item.name}: ${n} في الطلب`);
+        const minus = document.createElement('button'); minus.type = 'button'; minus.textContent = '−'; minus.setAttribute('aria-label', 'تقليل ' + item.name); minus.addEventListener('click', () => removeOne(item.id));
+        const out = document.createElement('output'); out.textContent = String(n);
+        const plus = document.createElement('button'); plus.type = 'button'; plus.className = 'plus'; plus.textContent = '+'; plus.setAttribute('aria-label', 'زيادة ' + item.name); plus.addEventListener('click', () => { addItem(item.id); });
+        q.append(minus, out, plus); ctl.append(q);
+        if (!reduced) { out.classList.add('pop'); setTimeout(() => out.classList.remove('pop'), 170); }
+      };
+      controls.set(item.id, update); update();
+      row.append(txt, ctl); host.append(row);
+    }
+  }
+  function addItem(id) { cart.push({ id, employee: '' }); renderCart(); controls.get(id)?.(); }
+  function removeOne(id) { const i = cart.findLastIndex(e => e.id === id); if (i !== -1) cart.splice(i, 1); renderCart(); controls.get(id)?.(); }
+
+  // ——— cart / sheet content ———
+  const bookableCount = () => cart.filter(e => byId.get(e.id).bookable).length;
+  const servicesTotal = () => cart.reduce((s, e) => s + byId.get(e.id).price, 0);
+  function renderCart() {
+    const host = $('lines'); host.replaceChildren();
+    if (!cart.length) { const p = document.createElement('div'); p.className = 'empty'; p.textContent = 'اختاري خدمة أو أكثر لبدء الطلب.'; host.append(p); }
+    else {
+      const wrap = document.createElement('div'); wrap.style.display = 'flex'; wrap.style.flexDirection = 'column'; wrap.style.gap = '10px';
+      cart.forEach((entry, index) => {
+        const item = byId.get(entry.id);
+        const line = document.createElement('div'); line.className = 'line';
+        const h = document.createElement('div'); h.className = 'h';
+        const n = document.createElement('div'); n.className = 'n'; n.textContent = item.name;
+        const p = document.createElement('div'); p.className = 'p'; p.textContent = money(item.price);
+        const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'lnk'; rm.style.color = 'var(--danger)'; rm.style.padding = '4px 0'; rm.textContent = 'إزالة'; rm.setAttribute('aria-label', 'إزالة ' + item.name);
+        rm.addEventListener('click', () => { cart.splice(index, 1); renderCart(); controls.get(item.id)?.(); });
+        h.append(n, p, rm); line.append(h);
+        const s = document.createElement('div'); s.className = 's' + (item.bookable ? ' fee' : ''); s.textContent = item.bookable ? 'تدخل في الحجز برسوم 20 ر.س.' : 'هذه الخدمة/المنتج غير معتمد في الحجز حتى تراجعه الموظفة؛ بلا رسوم حجز.'; line.append(s);
+        if (item.kind !== 'منتج') {
+          const f = document.createElement('label'); f.className = 'field'; f.textContent = 'الموظفة المفضلة لهذه الخدمة (اختياري)';
+          const inp = document.createElement('input'); inp.type = 'text'; inp.placeholder = 'اتركيها فارغة إذا ما عندكِ تفضيل'; inp.value = entry.employee; inp.id = 'emp-' + index;
+          inp.addEventListener('input', ev => { entry.employee = ev.target.value; persist(); });
+          f.append(inp); line.append(f);
+          const av = document.createElement('div'); av.className = 'sub'; av.textContent = 'وجود الموظفة غير ملزم ويخضع للتوفر؛ المعتمد في الحجز هو الوقت.'; line.append(av);
+        }
+        wrap.append(line);
       });
-      $('total').textContent=money(cart.reduce((sum,x) => sum+x.item.price,0));
-      $('bookingFee').textContent=money(cart.filter(x => x.item.bookable).length * bookingFeePerService);
-      quantityControls.forEach(update => update());
+      host.append(wrap);
     }
+    const fee = bookableCount() * bookingFeePerService, svc = servicesTotal();
+    $('tServices').textContent = money(svc); $('tFee').textContent = money(fee); $('tAll').textContent = money(svc + fee);
+    $('sumAmt').textContent = money(svc + fee);
+    $('sumLbl').textContent = cart.length ? `${cart.length === 1 ? 'خدمة واحدة' : cart.length === 2 ? 'خدمتان' : cart.length + ' خدمات'}${fee ? ' · يشمل رسوم الحجز' : ''}` : 'لم تختاري خدمة بعد';
+    persist(); measure();
+  }
 
-    function requestedDate() {
-      const value=$('day').value;
-      if (!value) throw new Error('اختاري تاريخ الموعد قبل الإرسال.');
-      const [year,month,day]=value.split('-').map(Number);
-      const weekday=new Intl.DateTimeFormat('ar-SA',{weekday:'long',timeZone:'UTC'}).format(new Date(Date.UTC(year,month-1,day,12)));
-      return {formatted:`${month}/${day}/${year}`,weekday};
-    }
+  // ——— time options / date ———
+  $('time').innerHTML = '<option value="">اختاري الساعة</option>' + Array.from({ length: 12 }, (_, i) => i + 10).map(h => `<option value="${String(h).padStart(2, '0')}:00">${h % 12 || 12}:00 ${h < 12 ? 'صباحًا' : 'مساءً'}</option>`).join('');
+  function requestedDate() {
+    const v = $('day').value; if (!v) throw Object.assign(new Error('اختاري تاريخ الموعد قبل الإرسال.'), { field: 'day' });
+    const [y, m, d] = v.split('-').map(Number);
+    const weekday = new Intl.DateTimeFormat('ar-SA', { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d, 12)));
+    return { formatted: `${m}/${d}/${y}`, weekday };
+  }
+  function requestedTime() {
+    const v = $('time').value; if (!v) throw Object.assign(new Error('حددي الوقت المطلوب قبل الإرسال.'), { field: 'time' });
+    const [h, mi] = v.split(':').map(Number);
+    if (mi !== 0 || h < 10 || h > 21) throw Object.assign(new Error('اختاري بداية ساعة متاحة فقط.'), { field: 'time' });
+    return `${h % 12 || 12} ${h < 12 ? 'صباحًا' : 'مساءً'}`;
+  }
+  $('day').addEventListener('change', () => { try { $('weekday').textContent = $('day').value ? `اليوم: ${requestedDate().weekday}` : 'اختاري التاريخ ليظهر اليوم.'; } catch (e) {} persist(); });
+  ['customer', 'mobile', 'time'].forEach(k => $(k).addEventListener('input', persist));
 
-    function requestedTime() {
-      const value=$('time').value;
-      if (!value) throw new Error('حددي الوقت المطلوب قبل الإرسال.');
-      const [hour,minute]=value.split(':').map(Number);
-      if (minute !== 0 || hour < 10 || hour > 21) throw new Error('اختاري بداية ساعة متاحة فقط.');
-      return `${hour%12 || 12}${minute ? ':'+String(minute).padStart(2,'0') : ''} ${hour<12?'صباحًا':'مساءً'}`;
-    }
+  function bookingText() {
+    const customer = $('customer').value.trim();
+    const mobile = $('mobile').value.replace(/[\s()-]/g, '').replace(/^\+966/, '0');
+    if (!cart.length) throw Object.assign(new Error('اختاري خدمة واحدة على الأقل.'), { field: null });
+    if (!customer) throw Object.assign(new Error('اكتبي اسم العميلة قبل الإرسال.'), { field: 'customer' });
+    if (!/^05\d{8}$/.test(mobile)) throw Object.assign(new Error('اكتبي رقم جوال سعودي صحيحًا يبدأ بـ 05 ويتكون من 10 أرقام.'), { field: 'mobile' });
+    const date = requestedDate(); const time = requestedTime();
+    const lines = [`الاسم: ${customer}`, `الجوال: ${mobile}`];
+    cart.forEach(e => { const it = byId.get(e.id);
+      lines.push(`${it.kind === 'منتج' ? 'المنتج' : 'الخدمة'}: ${it.name} — ${it.price} ريال${it.bookable ? ' (حجز للتأكيد)' : ' (طلب غير معتمد نهائيًا؛ بانتظار مراجعة الموظفة)'}`);
+      if (e.employee.trim()) lines.push(`الموظفة المفضلة للخدمة: ${e.employee.trim()}`); });
+    const bc = bookableCount();
+    lines.push(`التاريخ: ${date.formatted}`, `اليوم: ${date.weekday}`, `الوقت: ${time}`, '',
+      `قيمة الخدمات والمنتجات في الطلب: ${servicesTotal()} ريال`,
+      `رسوم تأكيد الحجز للتساريح والمكياج فقط: ${bc * bookingFeePerService} ريال (${bc} خدمة × 20 ريال)`, '');
+    if (bc) lines.push('-لتأكيد الحجز رسوم 20 ريال للخدمة الواحدة.', '-قيمة الرسوم فقط للحجز ولا تخصم من سعر الفاتورة الأساسي.', '-الرسوم غير مستردة في حالة إلغاء الموعد.');
+    lines.push('-رسوم الحجز على التساريح والمكياج فقط؛ قص الشعر والاستشوار والويفي بلا رسوم حجز.', '-بقية الخدمات والمنتجات تُذكر في الطلب لكنها غير معتمدة نهائيًا حتى تراجعها الموظفة.', '-المعتمد في الحجز هو الوقت وليس اسم الكوافيرة في حال عدم توافرها.');
+    if (bc) lines.push('', 'رقم الحساب:', 'SA9805000068203296839000', 'بإسم:', 'فرع شركة زهرة شيفون للتزيس النسائى');
+    lines.push('', bc ? 'هذا طلب حجز، والموعد تؤكده موظفة الصالون بعد المراجعة.' : 'هذا طلب خدمات غير معتمد نهائيًا حتى تراجعه موظفة الصالون.');
+    return lines.join('\n');
+  }
+  function clearInvalid() { ['customer', 'mobile', 'day', 'time'].forEach(k => $(k).removeAttribute('aria-invalid')); }
+  $('go').addEventListener('click', () => openSheet());
+  $('send').addEventListener('click', () => {
+    clearInvalid(); $('err').textContent = '';
+    try { const url = `https://wa.me/${phone}?text=${encodeURIComponent(bookingText())}`; window.open(url, '_blank', 'noopener'); }
+    catch (e) { $('err').textContent = e.message; if (e.field) { $(e.field).setAttribute('aria-invalid', 'true'); $(e.field).focus({ preventScroll: false }); } }
+  });
 
-    function bookingText() {
-      const customer=$('customer').value.trim();
-      const mobile=$('mobile').value.replace(/[\s()-]/g,'').replace(/^\+966/,'0');
-      if (!cart.length) throw new Error('اختاري خدمة واحدة على الأقل.');
-      if (!customer) throw new Error('اكتبي اسم العميلة قبل الإرسال.');
-      if (!/^05\d{8}$/.test(mobile)) throw new Error('اكتبي رقم جوال سعودي صحيحًا يبدأ بـ 05 ويتكون من 10 أرقام.');
-      const date=requestedDate(); const time=requestedTime();
-      const lines=[`الاسم: ${customer}`,`الجوال: ${mobile}`];
-      cart.forEach(entry => {
-        lines.push(`${entry.item.kind === 'منتج' ? 'المنتج' : 'الخدمة'}: ${entry.item.name} — ${entry.item.price} ريال${entry.item.bookable ? ' (حجز للتأكيد)' : ' (طلب غير معتمد نهائيًا؛ بانتظار مراجعة الموظفة)'}`);
-        if (entry.employee.trim()) lines.push(`الموظفة المفضلة للخدمة: ${entry.employee.trim()}`);
-      });
-      const bookableCount=cart.filter(entry => entry.item.bookable).length;
-      lines.push(`التاريخ: ${date.formatted}`,`اليوم: ${date.weekday}`,`الوقت: ${time}`,'',
-        `قيمة الخدمات والمنتجات في الطلب: ${cart.reduce((sum,x) => sum+x.item.price,0)} ريال`,
-        `رسوم تأكيد الحجز للتساريح والمكياج فقط: ${bookableCount * bookingFeePerService} ريال (${bookableCount} خدمة × 20 ريال)`,'');
-      if (bookableCount) lines.push('-لتأكيد الحجز رسوم 20 ريال للخدمة الواحدة.',
-        '-قيمة الرسوم فقط للحجز ولا تخصم من سعر الفاتورة الأساسي.',
-        '-الرسوم غير مستردة في حالة إلغاء الموعد.');
-      lines.push('-رسوم الحجز على التساريح والمكياج فقط؛ قص الشعر والاستشوار والويفي بلا رسوم حجز.',
-        '-بقية الخدمات والمنتجات تُذكر في الطلب لكنها غير معتمدة نهائيًا حتى تراجعها الموظفة.',
-        '-المعتمد في الحجز هو الوقت وليس اسم الكوافيرة في حال عدم توافرها.');
-      if (bookableCount) lines.push('', 'رقم الحساب:',
-        'SA9805000068203296839000', 'بإسم:', 'فرع شركة زهرة شيفون للتزيس النسائى');
-      lines.push('',bookableCount ? 'هذا طلب حجز، والموعد تؤكده موظفة الصالون بعد المراجعة.' : 'هذا طلب خدمات غير معتمد نهائيًا حتى تراجعه موظفة الصالون.');
-      return lines.join('\n');
-    }
+  // ——— sheet physics: spring + drag with velocity handoff ———
+  const sheet = $('sheet');
+  let expanded = false, y = 0, travel = 0, anim = null;
+  function measure() { const peek = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek')); const full = Math.min(window.innerHeight * 0.88, 760); sheet.style.height = full + 'px'; travel = full - peek; if (!anim && !dragging) setY(expanded ? 0 : travel); }
+  function setY(v) { y = v; sheet.style.transform = `translateX(-50%) translateY(${v}px)`; const k = travel ? Math.min(1, Math.max(0, v / travel)) : 1; $('body').style.opacity = $('foot').style.opacity = String(1 - k); $('peekfoot').style.opacity = String(k); }
+  function spring(to, v0, bounce) {
+    if (anim) cancelAnimationFrame(anim.raf);
+    if (reduced) { setY(to); anim = null; return; }
+    // damping ratio 1.0 (or 0.85 after a flick), response 0.36s — Apple-style parameters
+    const zeta = bounce ? 0.85 : 1.0, response = 0.36, omega = 2 * Math.PI / response;
+    let x = y - to, v = -v0, last = performance.now();
+    const step = now => {
+      const dt = Math.min(0.032, (now - last) / 1000); last = now;
+      const a = -2 * zeta * omega * v - omega * omega * x; v += a * dt; x += v * dt;
+      setY(to + x);
+      if (Math.abs(x) < 0.3 && Math.abs(v) < 6) { setY(to); anim = null; return; }
+      anim.raf = requestAnimationFrame(step);
+    };
+    anim = { raf: requestAnimationFrame(step) };
+  }
+  function openSheet(v0, bounce) { expanded = true; $('toggle').setAttribute('aria-expanded', 'true'); $('toggle').textContent = 'إغلاق'; sheet.classList.add('open'); spring(0, v0 || 0, bounce); }
+  function closeSheet(v0, bounce) { expanded = false; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; spring(travel, v0 || 0, bounce); }
+  $('toggle').addEventListener('click', () => expanded ? closeSheet() : openSheet());
 
-    $('search').addEventListener('input',renderItems); $('category').addEventListener('change',renderItems);
-    $('day').addEventListener('change',() => { $('weekday').textContent=$('day').value ? `اليوم: ${requestedDate().weekday}` : 'اختاري التاريخ ليظهر اليوم.'; });
-    $('send').addEventListener('click', () => { try { $('error').textContent=''; const url=`https://wa.me/${phone}?text=${encodeURIComponent(bookingText())}`; window.open(url,'_blank','noopener'); } catch (error) { $('error').textContent=error.message; } });
-    renderItems(); renderCart();
-  </script>
+  // drag from the grabber and summary rows, 1:1, rubber-band past the ends, project momentum on release
+  let dragging = false, startY = 0, startT = 0, hist = [], moved = false;
+  const rubber = (over, dim = 300, c = 0.55) => (over * dim * c) / (dim + c * Math.abs(over));
+  const project = (v, rate = 0.998) => (v / 1000) * rate / (1 - rate);
+  function down(e) { if (e.button && e.button !== 0) return; dragging = true; moved = false; if (anim) { cancelAnimationFrame(anim.raf); anim = null; } startY = e.clientY - y; hist = [[e.clientY, performance.now()]]; e.currentTarget.setPointerCapture(e.pointerId); }
+  function move(e) { if (!dragging) return; let ny = e.clientY - startY; if (Math.abs(e.clientY - hist[0][0]) > 6) moved = true; if (ny < 0) ny = rubber(ny); else if (ny > travel) ny = travel + rubber(ny - travel); setY(ny); hist.push([e.clientY, performance.now()]); if (hist.length > 6) hist.shift(); }
+  function up(e) { if (!dragging) return; dragging = false;
+    if (!moved) { expanded ? closeSheet() : openSheet(); return; }
+    const [y0, t0] = hist[0], [y1, t1] = hist[hist.length - 1]; const dt = Math.max(1, t1 - t0); const v = (y1 - y0) / dt * 1000; // px/s, +down
+    const dest = y + project(v); const goOpen = Math.abs(v) > 250 ? v < 0 : dest < travel / 2;
+    goOpen ? openSheet(v, Math.abs(v) > 600) : closeSheet(v, Math.abs(v) > 600); }
+  for (const el of [$('grab'), $('sum')]) { el.addEventListener('pointerdown', down); el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); }
+  $('sum').querySelector('#toggle').addEventListener('pointerdown', e => e.stopPropagation());
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && expanded) closeSheet(); });
+
+  // ——— boot ———
+  $('search').addEventListener('input', e => { query = e.target.value; renderList(); });
+  renderChips(); renderList(); renderCart();
+  measure(); setY(travel); addEventListener('resize', measure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+})();
+</script>
 </body>
 </html>

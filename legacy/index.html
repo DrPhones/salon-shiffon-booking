@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>حجز خدمات | صالون شيفون</title>
+  <style>
+    :root { color-scheme: light; --ink:#302438; --muted:#6d6171; --plum:#604373; --plum-dark:#4b315f; --lilac:#eee6f2; --paper:#fffcfd; --line:#e8dfe9; --green:#176b55; }
+    * { box-sizing:border-box }
+    body { margin:0; font-family:Tahoma,Arial,sans-serif; color:var(--ink); background:linear-gradient(145deg,#f8f3f8,#fffaf7 65%); }
+    button,input { font:inherit }
+    button { cursor:pointer }
+    .wrap { max-width:1180px; margin:auto; padding:20px }
+    header { display:flex; gap:18px; align-items:center; justify-content:space-between; padding:18px 0 24px; border-bottom:1px solid var(--line) }
+    .brand { display:flex; gap:14px; align-items:center }
+    .mark { width:58px; height:58px; display:grid; place-items:center; border-radius:18px; background:var(--plum); color:white; font-size:29px; font-weight:bold }
+    h1,h2,h3,p { margin-top:0 }
+    h1 { font-size:24px; margin-bottom:4px }
+    .sub { color:var(--muted); line-height:1.7; margin:0 }
+    .toplink { color:var(--plum); font-weight:bold; text-decoration:none; border:1px solid var(--line); border-radius:13px; padding:11px 15px; background:white; white-space:nowrap }
+    .intro { margin:26px 0 18px; padding:24px; border-radius:22px; background:#f0e7f4; display:flex; justify-content:space-between; gap:22px; align-items:center }
+    .intro h2 { font-size:25px; margin-bottom:8px }
+    .intro p { max-width:660px; line-height:1.8; margin:0 }
+    .badge { color:var(--plum-dark); font-weight:bold; background:white; padding:10px 13px; border-radius:999px; white-space:nowrap }
+    .layout { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(320px,.8fr); gap:20px; align-items:start }
+    .panel { background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow:0 9px 30px #4b315f0a }
+    .panel h2 { font-size:19px; margin-bottom:16px }
+    .filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px }
+    .search { flex:1 1 230px; min-width:0; border:1px solid var(--line); border-radius:12px; padding:11px 13px; background:white; color:var(--ink) }
+    .select { flex:1 1 170px; min-width:0; border:1px solid var(--line); border-radius:12px; padding:11px 13px; background:white; color:var(--ink) }
+    .items { max-height:610px; overflow:auto; padding-left:3px }
+    .item { display:flex; align-items:center; justify-content:space-between; gap:15px; padding:13px 0; border-bottom:1px solid var(--line) }
+    .item:last-child { border:0 }
+    .itemname { font-weight:bold; line-height:1.5 }
+    .itemtype { display:block; color:var(--muted); font-weight:normal; font-size:12px; margin-top:3px }
+    .itemright { display:flex; align-items:center; gap:10px; white-space:nowrap }
+    .price { color:var(--plum-dark); font-weight:bold }
+    .add,.primary { border:0; background:var(--plum); color:white; border-radius:11px; padding:9px 12px; font-weight:bold }
+    .add:hover,.primary:hover { background:var(--plum-dark) }
+    .quantity { display:flex; align-items:center; gap:5px; direction:ltr; background:var(--lilac); border-radius:11px; padding:3px }
+    .quantity button { border:0; border-radius:8px; background:var(--plum); color:white; width:34px; height:34px; font-size:23px; line-height:1 }
+    .quantity output { min-width:25px; text-align:center; font-weight:bold; color:var(--plum-dark) }
+    .cartline { border:1px solid var(--line); border-radius:14px; padding:12px; margin-bottom:10px; background:white }
+    .carthead { display:flex; justify-content:space-between; gap:10px; align-items:start }
+    .carthead strong { line-height:1.5 }
+    .cartprice { white-space:nowrap; color:var(--plum-dark); font-weight:bold }
+    .remove { background:none; border:0; color:#9b3345; padding:5px 0; font-size:13px }
+    label { display:block; font-size:13px; font-weight:bold; margin:10px 0 6px }
+    .field { width:100%; border:1px solid var(--line); border-radius:11px; padding:10px 11px; background:white; color:var(--ink) }
+    .hint { font-size:12px; color:var(--muted); margin:5px 0 0; line-height:1.6 }
+    .total { display:flex; justify-content:space-between; font-size:18px; font-weight:bold; padding:14px 0; border-top:1px solid var(--line); margin-top:8px }
+    .primary { display:block; width:100%; padding:14px; margin-top:15px; font-size:15px }
+    .primary:disabled { opacity:.45; cursor:not-allowed }
+    .notice { color:var(--green); background:#eff8f4; border-radius:12px; padding:10px 12px; font-size:13px; line-height:1.7; margin-top:13px }
+    .empty { padding:18px; color:var(--muted); text-align:center; background:#faf7fa; border-radius:13px }
+    .error { color:#9b3345; font-size:13px; margin-top:8px; min-height:20px }
+    footer { text-align:center; color:var(--muted); font-size:12px; padding:28px 0; line-height:1.7 }
+    @media(max-width:850px){.layout{grid-template-columns:1fr}.intro{display:block}.badge{display:inline-block;margin-top:14px}.items{max-height:440px}}
+    @media(max-width:500px){.wrap{padding:13px}header{align-items:flex-start}.toplink{font-size:12px;padding:9px}.intro{padding:18px}.intro h2{font-size:21px}.panel{padding:15px}.itemright{gap:6px}.add{padding:8px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><div class="mark" aria-hidden="true">ش</div><div><h1>صالون شيفون</h1><p class="sub">اختاري خدماتك، والموعد تؤكده موظفة الصالون</p></div></div>
+      <a class="toplink" href="https://wa.me/966506628187?text=%D8%A3%D9%87%D9%84%D9%8B%D8%A7%D8%8C%20%D9%84%D8%AF%D9%8A%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" target="_blank" rel="noopener">عندي استفسار ↗</a>
+    </header>
+    <section class="intro"><div><h2>اختاري خدماتك في طلب واحد</h2><p>يمكنك اختيار عدة خدمات وكتابة الموظفة المفضلة لكل خدمة. رسوم الحجز 20 ريالًا لكل تسريحة أو خدمة مكياج فقط؛ قص الشعر والاستشوار والويفي وبقية الخدمات تُدرج في الطلب بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p></div><div class="badge">الأسعار بالريال السعودي</div></section>
+    <main class="layout">
+      <section class="panel" aria-labelledby="servicesTitle"><h2 id="servicesTitle">الخدمات والمنتجات</h2><div class="filters"><input id="search" class="search" type="search" placeholder="ابحثي عن خدمة..." aria-label="ابحثي عن خدمة"><select id="category" class="select" aria-label="اختيار القسم"></select></div><div id="items" class="items"></div><p class="hint">تظهر جميع الخدمات في الطلب. التساريح والمكياج فقط عليهما رسوم حجز؛ قص الشعر والاستشوار والويفي وبقية الخدمات بلا رسوم حجز.</p></section>
+      <section class="panel" aria-labelledby="cartTitle"><h2 id="cartTitle">طلبك <span id="count">(0)</span></h2><div id="cart"></div><div class="total"><span>قيمة الخدمات والمنتجات</span><span id="total">0 ر.س</span></div><div class="total"><span>رسوم الحجز (20 ر.س لكل تسريحة أو مكياج)</span><span id="bookingFee">0 ر.س</span></div><p class="hint">لا تُحسب رسوم على قص الشعر والاستشوار والويفي وبقية الخدمات والمنتجات؛ أسعارها المعروضة تخضع لمراجعة الطلب. رسوم الحجز مستقلة ولا تُخصم من قيمة الخدمات.</p><label for="customer">الاسم</label><input id="customer" class="field" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"><label for="mobile">الجوال</label><input id="mobile" class="field" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"><label for="day">التاريخ المطلوب</label><input id="day" class="field" type="date"><p id="weekday" class="hint" aria-live="polite">اختاري التاريخ ليظهر اليوم.</p><label for="time">الوقت المطلوب (بداية الساعة فقط)</label><select id="time" class="field" aria-label="الوقت المطلوب"></select><p class="hint">اختاري ساعة كاملة بين 10 صباحًا و9 مساءً؛ الموعد والموظفة المفضلة يخضعان للتوفر.</p><button id="send" class="primary" type="button">إرسال الطلب عبر واتساب</button><div id="error" class="error" role="alert" aria-live="polite"></div><p class="notice">رسوم الحجز 20 ريالًا لكل تسريحة أو خدمة مكياج فقط، ولا تُخصم من الفاتورة الأساسية وغير مستردة عند إلغاء الموعد. قص الشعر والاستشوار والويفي وبقية الخدمات والمنتجات بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p></section>
+    </main>
+    <footer>صالون شيفون · +966 50 662 8187 · تُراجع الأسعار والتوفر عند تأكيد الطلب.</footer>
+  </div>
+  <script>
+    const catalog = [{"id":1,"category":"قسم الشعر (قص)","name":"قص غرة تحديد","price":11,"kind":"خدمة","bookable":false},{"id":2,"category":"قسم الشعر (قص)","name":"قص غرة مدرج","price":34,"kind":"خدمة","bookable":false},{"id":3,"category":"قسم الشعر (قص)","name":"قص تحديد","price":34,"kind":"خدمة","bookable":false},{"id":4,"category":"قسم الشعر (قص)","name":"قص مدرج","price":69,"kind":"خدمة","bookable":false},{"id":5,"category":"قسم الشعر (قص)","name":"قص بوي","price":115,"kind":"خدمة","bookable":false},{"id":6,"category":"قسم الشعر (قص)","name":"قص زيادة ماكينة","price":69,"kind":"خدمة","bookable":false},{"id":7,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر قصير","price":138,"kind":"خدمة","bookable":true},{"id":8,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر متوسط","price":184,"kind":"خدمة","bookable":true},{"id":9,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر فوق المتوسط او طويل","price":253,"kind":"خدمة","bookable":true},{"id":10,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر طويل جدا","price":299,"kind":"خدمة","bookable":true},{"id":11,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال قصير","price":69,"kind":"خدمة","bookable":true},{"id":12,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال متوسط","price":92,"kind":"خدمة","bookable":true},{"id":13,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال طويل","price":138,"kind":"خدمة","bookable":true},{"id":14,"category":"قسم الشعر ( تساريح)","name":"تسريحة عروس خارجي","price":1500,"kind":"خدمة","bookable":true},{"id":15,"category":"قسم الشعر ( تساريح)","name":"تسريحة خارجي","price":575,"kind":"خدمة","bookable":true},{"id":16,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر قصير","price":46,"kind":"خدمة","bookable":false},{"id":17,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر متوسط","price":69,"kind":"خدمة","bookable":false},{"id":18,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر فوق للمتوسط","price":92,"kind":"خدمة","bookable":false},{"id":19,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر طويل","price":138,"kind":"خدمة","bookable":false},{"id":20,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي شعر قصير بالفرشة","price":69,"kind":"خدمة","bookable":false},{"id":21,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي شعر متوسط بالفرشة","price":92,"kind":"خدمة","bookable":false},{"id":22,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي طويل بالفرشة","price":138,"kind":"خدمة","bookable":false},{"id":23,"category":"قسم الشعر ( استشوارات","name":"زيادة ويفي","price":46,"kind":"خدمة","bookable":false},{"id":24,"category":"قسم الشعر ( استشوارات","name":"زيادة سيراميك","price":46,"kind":"خدمة","bookable":false},{"id":25,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر طويل جدا","price":161,"kind":"خدمة","bookable":false},{"id":26,"category":"جدائل","name":"جديلة واحدة","price":23,"kind":"خدمة","bookable":false},{"id":27,"category":"جدائل","name":"اكسسوار جدائل الحبة","price":10,"kind":"خدمة","bookable":false},{"id":28,"category":"معالجات باردة","name":"حمام زيت كريمي شعر قصير","price":69,"kind":"خدمة","bookable":false},{"id":29,"category":"معالجات باردة","name":"حمام زيت كريمي متوسط","price":92,"kind":"خدمة","bookable":false},{"id":30,"category":"معالجات باردة","name":"حمام زيت كريمي طويل","price":115,"kind":"خدمة","bookable":false},{"id":31,"category":"معالجات باردة","name":"تنظيف فروة راس","price":184,"kind":"خدمة","bookable":false},{"id":32,"category":"معالجات باردة","name":"جلسة الكافيار الباردة","price":184,"kind":"خدمة","bookable":false},{"id":33,"category":"معالجات باردة","name":"جلسة جهاز تقصف الشعر","price":184,"kind":"خدمة","bookable":false},{"id":34,"category":"معالجات حارة","name":"بروتين شعر قصير","price":345,"kind":"خدمة","bookable":false},{"id":35,"category":"معالجات حارة","name":"بروتين جذور","price":315,"kind":"خدمة","bookable":false},{"id":36,"category":"معالجات حارة","name":"اوميغا زيرو+ شامبو بلسم","price":600,"kind":"خدمة","bookable":false},{"id":37,"category":"معالجات حارة","name":"سيليكون شعر قصير","price":535,"kind":"خدمة","bookable":false},{"id":38,"category":"معالجات حارة","name":"سيليكون شعر متوسط","price":840,"kind":"خدمة","bookable":false},{"id":39,"category":"معالجات حارة","name":"سيليكون شعر طويل","price":1050,"kind":"خدمة","bookable":false},{"id":40,"category":"قسم سبا الاظافر","name":"تنظيف يدين رجول كلاسيك","price":120,"kind":"خدمة","bookable":false},{"id":41,"category":"قسم سبا الاظافر","name":"تنظيف يدين","price":40,"kind":"خدمة","bookable":false},{"id":42,"category":"قسم سبا الاظافر","name":"تنظيف ارجل","price":80,"kind":"خدمة","bookable":false},{"id":43,"category":"قسم سبا الاظافر","name":"برافين يدين رجول","price":46,"kind":"خدمة","bookable":false},{"id":44,"category":"قسم سبا الاظافر","name":"برافين يدين","price":23,"kind":"خدمة","bookable":false},{"id":45,"category":"قسم سبا الاظافر","name":"برافين ارجل","price":23,"kind":"خدمة","bookable":false},{"id":46,"category":"قسم سبا الاظافر","name":"لون عادي","price":17,"kind":"خدمة","bookable":false},{"id":47,"category":"قسم سبا الاظافر","name":"لون فرنسي","price":23,"kind":"خدمة","bookable":false},{"id":48,"category":"قسم سبا الاظافر","name":"لون امبري","price":120,"kind":"خدمة","bookable":false},{"id":49,"category":"قسم سبا الاظافر","name":"لون جل","price":369,"kind":"خدمة","bookable":false},{"id":50,"category":"قسم سبا الاظافر","name":"جل اكستنشن","price":345,"kind":"خدمة","bookable":false},{"id":51,"category":"قسم سبا الاظافر","name":"اكليريك","price":345,"kind":"خدمة","bookable":false},{"id":52,"category":"قسم سبا الاظافر","name":"بولي جل","price":369,"kind":"خدمة","bookable":false},{"id":53,"category":"قسم سبا الاظافر","name":"لون بياب","price":249,"kind":"خدمة","bookable":false},{"id":54,"category":"قسم سبا الاظافر","name":"بياب اكستنشن","price":249,"kind":"خدمة","bookable":false},{"id":55,"category":"قسم سبا الاظافر","name":"لون كات اي","price":120,"kind":"خدمة","bookable":false},{"id":56,"category":"قسم سبا الاظافر","name":"لون كروم","price":120,"kind":"خدمة","bookable":false},{"id":57,"category":"قسم سبا الاظافر","name":"نيل ارت اظفر واحد","price":11,"kind":"خدمة","bookable":false},{"id":58,"category":"قسم سبا الاظافر","name":"اكسسوار اظفر واحد","price":11,"kind":"خدمة","bookable":false},{"id":59,"category":"قسم سبا الاظافر","name":"إزالة بياب اكستنشن","price":31,"kind":"خدمة","bookable":false},{"id":60,"category":"قسم سبا الاظافر","name":"إزالة بولي جل","price":31,"kind":"خدمة","bookable":false},{"id":61,"category":"قسم سبا الاظافر","name":"إزالة جل اكستنشن","price":31,"kind":"خدمة","bookable":false},{"id":62,"category":"قسم سبا الاظافر","name":"تنظيف روسي","price":150,"kind":"خدمة","bookable":false},{"id":63,"category":"تنظيف البشرة","name":"فتلة وجه","price":46,"kind":"خدمة","bookable":false},{"id":64,"category":"تنظيف البشرة","name":"شمع وجه","price":46,"kind":"خدمة","bookable":false},{"id":65,"category":"تنظيف البشرة","name":"فتلة اوشمع شنب","price":23,"kind":"خدمة","bookable":false},{"id":66,"category":"تنظيف البشرة","name":"شمع او حلاوة يدين وارجل","price":138,"kind":"خدمة","bookable":false},{"id":67,"category":"تنظيف البشرة","name":"شمع اوحلاوة يدين اوارجل","price":69,"kind":"خدمة","bookable":false},{"id":68,"category":"تنظيف البشرة","name":"شمع او حلاوة ظهر اوبطن اوصدر","price":69,"kind":"خدمة","bookable":false},{"id":69,"category":"تنظيف البشرة","name":"شمع اوحلاوة ابط","price":23,"kind":"خدمة","bookable":false},{"id":70,"category":"تنظيف البشرة","name":"شمع رقبة","price":23,"kind":"خدمة","bookable":false},{"id":71,"category":"المكياج","name":"مكياج ناعم","price":184,"kind":"خدمة","bookable":true},{"id":72,"category":"المكياج","name":"مكياج كنتور","price":253,"kind":"خدمة","bookable":true},{"id":73,"category":"المكياج","name":"مكياج بناتي","price":138,"kind":"خدمة","bookable":true},{"id":74,"category":"المكياج","name":"مكياج خارجي","price":575,"kind":"خدمة","bookable":true},{"id":75,"category":"المكياج","name":"كحل عيون فقط","price":34,"kind":"خدمة","bookable":false},{"id":76,"category":"المكياج","name":"رموش حبات","price":115,"kind":"منتج","bookable":false},{"id":77,"category":"المكياج","name":"تركيب رموش كاملة","price":23,"kind":"خدمة","bookable":false},{"id":78,"category":"المكياج","name":"تركيب رموش حبات","price":69,"kind":"خدمة","bookable":false},{"id":79,"category":"المكياج","name":"رموش كاملة","price":57,"kind":"منتج","bookable":false},{"id":80,"category":"المكياج","name":"رسم حواجب","price":23,"kind":"خدمة","bookable":false},{"id":81,"category":"المكياج","name":"صبغة وتشقير","price":46,"kind":"خدمة","bookable":false},{"id":82,"category":"المكياج","name":"صبغة اوتشقير","price":23,"kind":"خدمة","bookable":false},{"id":83,"category":"الصبغات","name":"تست صبغات","price":11,"kind":"خدمة","bookable":false},{"id":84,"category":"الصبغات","name":"رينساج","price":168,"kind":"خدمة","bookable":false},{"id":85,"category":"الصبغات","name":"زيادة اوبلكس","price":63,"kind":"خدمة","bookable":false},{"id":86,"category":"الصبغات","name":"زيادة صبغة بدون امونيا","price":63,"kind":"خدمة","bookable":false},{"id":87,"category":"الصبغات","name":"صبغة اطراف","price":210,"kind":"خدمة","bookable":false},{"id":88,"category":"الصبغات","name":"سحب اطراف","price":105,"kind":"خدمة","bookable":false},{"id":89,"category":"الصبغات","name":"امبرى فقط","price":315,"kind":"خدمة","bookable":false},{"id":90,"category":"الصبغات","name":"خصل قصدير قصير+ متوسط + فوق المتوسط","price":231,"kind":"خدمة","bookable":false},{"id":91,"category":"الصبغات","name":"خصل قصدير طويل وطويل جدا","price":273,"kind":"خدمة","bookable":false},{"id":92,"category":"الصبغات","name":"خصل طاقية قصير + متوسط + فوق المتوسط","price":168,"kind":"خدمة","bookable":false},{"id":93,"category":"الصبغات","name":"خصل طاقية طويل وطويل جدا","price":231,"kind":"خدمة","bookable":false},{"id":94,"category":"الصبغات","name":"صبغة جذور","price":83,"kind":"خدمة","bookable":false},{"id":95,"category":"الصبغات","name":"صبغة جذور بدون امونيا","price":150,"kind":"خدمة","bookable":false},{"id":96,"category":"الصبغات","name":"خصل كنتور فقط","price":63,"kind":"خدمة","bookable":false},{"id":97,"category":"الصبغات","name":"كنتور كامل + لون","price":450,"kind":"خدمة","bookable":false},{"id":98,"category":"الصبغات","name":"خصلة واحدة","price":21,"kind":"خدمة","bookable":false},{"id":99,"category":"الصبغات","name":"صبغة لون قصير","price":210,"kind":"خدمة","bookable":false},{"id":100,"category":"الصبغات","name":"صبغة لون متوسط","price":273,"kind":"خدمة","bookable":false},{"id":101,"category":"الصبغات","name":"صبغة لون فوق المتوسط","price":378,"kind":"خدمة","bookable":false},{"id":102,"category":"الصبغات","name":"صبغة لون طويل","price":483,"kind":"خدمة","bookable":false},{"id":103,"category":"الصبغات","name":"صبغة لون طويل جدا","price":588,"kind":"خدمة","bookable":false}];
+    const phone = '966506628187';
+    const cart = [];
+    const quantityControls = new Map();
+    const bookingFeePerService = 20;
+    const $ = id => document.getElementById(id);
+    const money = n => new Intl.NumberFormat('ar-SA').format(n) + ' ر.س';
+    const categories = [...new Set(catalog.map(x => x.category))];
+    $('category').innerHTML = '<option value="">كل الأقسام</option>' + categories.map((name, i) => `<option value="${i}">${name}</option>`).join('');
+    $('time').innerHTML = '<option value="">اختاري الساعة</option>' +
+      Array.from({length:12},(_,i) => i+10).map(hour =>
+        `<option value="${String(hour).padStart(2,'0')}:00">${hour%12 || 12}:00 ${hour<12?'صباحًا':'مساءً'}</option>`).join('');
+
+    function renderItems() {
+      const query = $('search').value.trim().toLocaleLowerCase('ar');
+      const selected = $('category').value;
+      const shown = catalog.filter(x => (selected === '' || x.category === categories[Number(selected)]) && (x.name.toLocaleLowerCase('ar').includes(query) || x.category.toLocaleLowerCase('ar').includes(query)));
+      const host = $('items'); host.replaceChildren(); quantityControls.clear();
+      if (!shown.length) { const p = document.createElement('p'); p.className='empty'; p.textContent='لم نجد خدمة بهذا الاسم.'; host.append(p); return; }
+      for (const item of shown) {
+        const row = document.createElement('div'); row.className='item';
+        const info = document.createElement('div'); info.className='itemname'; info.textContent=item.name;
+        const type = document.createElement('small'); type.className='itemtype'; type.textContent=item.category + (item.bookable ? ' · حجز برسوم 20 ر.س' : ' · طلب يحتاج مراجعة'); info.append(type);
+        const right = document.createElement('div'); right.className='itemright';
+        const price = document.createElement('span'); price.className='price'; price.textContent=money(item.price);
+        const control = document.createElement('span');
+        quantityControls.set(item.id, () => {
+          const count = cart.filter(entry => entry.item.id === item.id).length;
+          control.replaceChildren();
+          if (!count) {
+            const add=document.createElement('button'); add.className='add'; add.type='button'; add.textContent='إضافة'; add.setAttribute('aria-label','إضافة '+item.name);
+            add.addEventListener('click',() => { cart.push({item,employee:''}); renderCart(); }); control.append(add); return;
+          }
+          const quantity=document.createElement('span'); quantity.className='quantity'; quantity.setAttribute('aria-label',`${item.name}: ${count} في الطلب`);
+          const plus=document.createElement('button'); plus.type='button'; plus.textContent='+'; plus.setAttribute('aria-label','زيادة '+item.name); plus.addEventListener('click',() => { cart.push({item,employee:''}); renderCart(); });
+          const number=document.createElement('output'); number.textContent=String(count);
+          const minus=document.createElement('button'); minus.type='button'; minus.textContent='−'; minus.setAttribute('aria-label','تقليل '+item.name); minus.addEventListener('click',() => { const index=cart.findLastIndex(entry => entry.item.id===item.id); if(index!==-1) cart.splice(index,1); renderCart(); });
+          quantity.append(plus,number,minus); control.append(quantity);
+        });
+        quantityControls.get(item.id)(); right.append(price,control); row.append(info,right); host.append(row);
+      }
+    }
+
+    function renderCart() {
+      const host = $('cart'); host.replaceChildren(); $('count').textContent='(' + cart.length + ')';
+      if (!cart.length) { const p=document.createElement('p'); p.className='empty'; p.textContent='اختاري خدمة أو أكثر لبدء الطلب.'; host.append(p); }
+      cart.forEach((entry, index) => {
+        const line=document.createElement('div'); line.className='cartline';
+        const head=document.createElement('div'); head.className='carthead';
+        const name=document.createElement('strong'); name.textContent=entry.item.name;
+        const price=document.createElement('span'); price.className='cartprice'; price.textContent=money(entry.item.price);
+        head.append(name,price); line.append(head);
+        const status=document.createElement('p'); status.className='hint'; status.textContent=entry.item.bookable ? 'تدخل في الحجز برسوم 20 ر.س.' : 'هذه الخدمة/المنتج غير معتمد في الحجز حتى تراجعه الموظفة؛ بلا رسوم حجز.'; line.append(status);
+        if (entry.item.kind !== 'منتج') {
+          const label=document.createElement('label'); label.textContent='الموظفة المفضلة لهذه الخدمة (اختياري)';
+          const input=document.createElement('input'); input.className='field'; input.placeholder='اتركيها فارغة إذا ما عندك تفضيل'; input.value=entry.employee;
+          input.addEventListener('input', event => { entry.employee=event.target.value; });
+          line.append(label,input);
+        }
+        const remove=document.createElement('button'); remove.className='remove'; remove.type='button'; remove.textContent='إزالة'; remove.addEventListener('click', () => { cart.splice(index,1); renderCart(); }); line.append(remove); host.append(line);
+      });
+      $('total').textContent=money(cart.reduce((sum,x) => sum+x.item.price,0));
+      $('bookingFee').textContent=money(cart.filter(x => x.item.bookable).length * bookingFeePerService);
+      quantityControls.forEach(update => update());
+    }
+
+    function requestedDate() {
+      const value=$('day').value;
+      if (!value) throw new Error('اختاري تاريخ الموعد قبل الإرسال.');
+      const [year,month,day]=value.split('-').map(Number);
+      const weekday=new Intl.DateTimeFormat('ar-SA',{weekday:'long',timeZone:'UTC'}).format(new Date(Date.UTC(year,month-1,day,12)));
+      return {formatted:`${month}/${day}/${year}`,weekday};
+    }
+
+    function requestedTime() {
+      const value=$('time').value;
+      if (!value) throw new Error('حددي الوقت المطلوب قبل الإرسال.');
+      const [hour,minute]=value.split(':').map(Number);
+      if (minute !== 0 || hour < 10 || hour > 21) throw new Error('اختاري بداية ساعة متاحة فقط.');
+      return `${hour%12 || 12}${minute ? ':'+String(minute).padStart(2,'0') : ''} ${hour<12?'صباحًا':'مساءً'}`;
+    }
+
+    function bookingText() {
+      const customer=$('customer').value.trim();
+      const mobile=$('mobile').value.replace(/[\s()-]/g,'').replace(/^\+966/,'0');
+      if (!cart.length) throw new Error('اختاري خدمة واحدة على الأقل.');
+      if (!customer) throw new Error('اكتبي اسم العميلة قبل الإرسال.');
+      if (!/^05\d{8}$/.test(mobile)) throw new Error('اكتبي رقم جوال سعودي صحيحًا يبدأ بـ 05 ويتكون من 10 أرقام.');
+      const date=requestedDate(); const time=requestedTime();
+      const lines=[`الاسم: ${customer}`,`الجوال: ${mobile}`];
+      cart.forEach(entry => {
+        lines.push(`${entry.item.kind === 'منتج' ? 'المنتج' : 'الخدمة'}: ${entry.item.name} — ${entry.item.price} ريال${entry.item.bookable ? ' (حجز للتأكيد)' : ' (طلب غير معتمد نهائيًا؛ بانتظار مراجعة الموظفة)'}`);
+        if (entry.employee.trim()) lines.push(`الموظفة المفضلة للخدمة: ${entry.employee.trim()}`);
+      });
+      const bookableCount=cart.filter(entry => entry.item.bookable).length;
+      lines.push(`التاريخ: ${date.formatted}`,`اليوم: ${date.weekday}`,`الوقت: ${time}`,'',
+        `قيمة الخدمات والمنتجات في الطلب: ${cart.reduce((sum,x) => sum+x.item.price,0)} ريال`,
+        `رسوم تأكيد الحجز للتساريح والمكياج فقط: ${bookableCount * bookingFeePerService} ريال (${bookableCount} خدمة × 20 ريال)`,'');
+      if (bookableCount) lines.push('-لتأكيد الحجز رسوم 20 ريال للخدمة الواحدة.',
+        '-قيمة الرسوم فقط للحجز ولا تخصم من سعر الفاتورة الأساسي.',
+        '-الرسوم غير مستردة في حالة إلغاء الموعد.');
+      lines.push('-رسوم الحجز على التساريح والمكياج فقط؛ قص الشعر والاستشوار والويفي بلا رسوم حجز.',
+        '-بقية الخدمات والمنتجات تُذكر في الطلب لكنها غير معتمدة نهائيًا حتى تراجعها الموظفة.',
+        '-المعتمد في الحجز هو الوقت وليس اسم الكوافيرة في حال عدم توافرها.');
+      if (bookableCount) lines.push('', 'رقم الحساب:',
+        'SA9805000068203296839000', 'بإسم:', 'فرع شركة زهرة شيفون للتزيس النسائى');
+      lines.push('',bookableCount ? 'هذا طلب حجز، والموعد تؤكده موظفة الصالون بعد المراجعة.' : 'هذا طلب خدمات غير معتمد نهائيًا حتى تراجعه موظفة الصالون.');
+      return lines.join('\n');
+    }
+
+    $('search').addEventListener('input',renderItems); $('category').addEventListener('change',renderItems);
+    $('day').addEventListener('change',() => { $('weekday').textContent=$('day').value ? `اليوم: ${requestedDate().weekday}` : 'اختاري التاريخ ليظهر اليوم.'; });
+    $('send').addEventListener('click', () => { try { $('error').textContent=''; const url=`https://wa.me/${phone}?text=${encodeURIComponent(bookingText())}`; window.open(url,'_blank','noopener'); } catch (error) { $('error').textContent=error.message; } });
+    renderItems(); renderCart();
+  </script>
+</body>
+</html>
