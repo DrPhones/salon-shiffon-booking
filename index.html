@@ -16,12 +16,13 @@
     --ink: #f0ebf7; --muted: #a99bb8; --accent: #b9a4d9; --accent-soft: rgba(185,164,217,0.16); --accent-strong: #d4c6ea; --on-accent: #171320;
     --danger: #f2a7b5; --ok: #8fd6bb; --sheet: rgba(30,24,42,0.86);
     --font: "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif;
-    --r-card: 18px; --r-ctl: 12px; --peek: 172px;
+    --r-card: 18px; --r-ctl: 12px; --peek: 172px; --sab: env(safe-area-inset-bottom, 0px);
     color-scheme: dark;
   }
   html, body { height: 100%; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   button, input, select { font: inherit; color: inherit; }
   button { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   button:active { transform: scale(0.97); }
@@ -29,96 +30,98 @@
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   .app { position: relative; max-width: 430px; margin: 0 auto; min-height: 100%; padding: 0 22px calc(var(--peek) + 28px + env(safe-area-inset-bottom, 0px)); }
-  .glow { position: fixed; top: -140px; right: calc(50% - 320px); width: 340px; height: 340px; border-radius: 50%; background: #3a2c55; filter: blur(80px); opacity: .85; pointer-events: none; z-index: 0; }
-  @media (max-width: 640px) { .glow { right: -80px; } }
   .app > * { position: relative; z-index: 1; }
 
-  .top { display: flex; align-items: center; justify-content: space-between; padding-top: calc(22px + env(safe-area-inset-top, 0px)); }
+  .top { position: sticky; top: 0; z-index: 3; margin: 0 -22px; padding: calc(14px + env(safe-area-inset-top, 0px)) 22px 12px; display: flex; align-items: center; justify-content: space-between; background: rgba(23,19,32,0.72); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); }
+  .top::after { content: ''; position: absolute; left: 0; right: 0; bottom: -16px; height: 16px; background: linear-gradient(rgba(23,19,32,0.72), rgba(23,19,32,0)); pointer-events: none; }
   .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--ink); }
   .brand svg { display: block; flex: 0 0 auto; }
   .wm { display: flex; flex-direction: column; gap: 1px; line-height: 1; }
-  .wm .ar { font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
-  .wm .en { font-size: 9.5px; font-weight: 600; letter-spacing: .22em; color: var(--accent); }
+  .wm .ar { font-size: 1.1875rem; font-weight: 700; }
+  .wm .en { font-size: 0.5938rem; font-weight: 600; letter-spacing: .22em; color: var(--accent); }
   .icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgba(240,235,247,0.08); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; color: var(--ink); }
 
   .hero { padding: 26px 0 16px; display: flex; flex-direction: column; gap: 8px; }
-  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .06em; color: var(--accent); }
-  h1 { margin: 0; font-size: 34px; line-height: 1.15; font-weight: 700; letter-spacing: -.02em; text-wrap: balance; }
-  .lead { margin: 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
-  .badge { align-self: flex-start; margin-top: 4px; height: 28px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); font-size: 12px; font-weight: 600; }
-  .listnote { margin: 14px 4px 0; font-size: 12px; line-height: 1.7; color: var(--muted); }
-  .foot-page { margin: 28px 0 0; text-align: center; font-size: 12px; line-height: 1.7; color: var(--muted); }
-  .notice { margin: 0; padding: 12px 14px; border-radius: 14px; background: rgba(143,214,187,0.1); color: var(--ok); font-size: 12.5px; line-height: 1.7; }
-  .sub { font-size: 12px; line-height: 1.6; color: var(--muted); font-weight: 400; }
+  .eyebrow { font-size: 0.75rem; font-weight: 600; color: var(--accent); }
+  h1 { margin: 0; font-size: 2.125rem; line-height: 1.15; font-weight: 700; text-wrap: balance; }
+  .lead { margin: 0; font-size: 0.875rem; line-height: 1.7; color: var(--muted); }
+  .badge { align-self: flex-start; margin-top: 4px; height: 28px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); font-size: 0.75rem; font-weight: 600; }
+  .listnote { margin: 14px 4px 0; font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
+  .foot-page { margin: 28px 0 0; text-align: center; font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
+  .notice { margin: 0; padding: 12px 14px; border-radius: 14px; background: rgba(143,214,187,0.1); color: var(--ok); font-size: 0.7812rem; line-height: 1.7; }
+  .toast { position: fixed; left: 50%; bottom: calc(var(--peek) + 12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 6; width: min(calc(100% - 44px), 386px); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: 14px; background: #2a2340; border: 1px solid var(--line-on); color: var(--ink); font-size: 0.8125rem; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+  .toast .lnk { padding: 4px 0; }
+  .sub { font-size: 0.75rem; line-height: 1.6; color: var(--muted); font-weight: 400; }
 
   .search { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 14px; border-radius: 14px; background: rgba(240,235,247,0.06); border: 1px solid var(--line); margin-bottom: 12px; }
-  .search input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font-size: 15px; }
+  .search input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font-size: 0.9375rem; }
   .search input::placeholder { color: var(--muted); }
 
   .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0 14px; margin: 0 -22px; padding-inline: 22px; scroll-snap-type: x proximity; }
   .chips::-webkit-scrollbar { display: none; }
-  .chip { flex: 0 0 auto; height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(240,235,247,0.08); color: var(--ink); font-size: 13px; font-weight: 500; white-space: nowrap; scroll-snap-align: start; }
+  .chip { flex: 0 0 auto; height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(240,235,247,0.08); color: var(--ink); font-size: 0.8125rem; font-weight: 500; white-space: nowrap; scroll-snap-align: start; }
   .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); font-weight: 600; }
 
   .list { display: flex; flex-direction: column; gap: 10px; }
-  .group { font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--muted); padding: 10px 4px 2px; }
+  .group { font-size: 0.75rem; font-weight: 600; color: var(--muted); padding: 10px 4px 2px; }
   .row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: var(--r-card); background: var(--card); border: 1px solid var(--line); }
   .row.on { background: var(--card-on); border-color: var(--line-on); }
   .row .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-  .row .name { font-size: 15px; font-weight: 600; line-height: 1.4; }
-  .row .meta { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .row .name { font-size: 0.9375rem; font-weight: 600; line-height: 1.4; }
+  .row .meta { font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
   .row.on .meta { color: var(--accent); }
-  .add { width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--accent-soft); color: var(--accent-strong); font-size: 22px; line-height: 1; flex: 0 0 auto; }
+  .add { width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--accent-soft); color: var(--accent-strong); font-size: 1.375rem; line-height: 1; flex: 0 0 auto; }
   .qty { display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(240,235,247,0.08); flex: 0 0 auto; direction: ltr; }
-  .qty button { width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); font-size: 19px; line-height: 1; }
+  .qty button { width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); font-size: 1.1875rem; line-height: 1; }
   .qty button.plus { background: var(--accent); color: var(--on-accent); }
-  .qty output { min-width: 22px; text-align: center; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; display: inline-block; transition: transform 160ms cubic-bezier(.2,.9,.3,1.4); }
+  .qty output { min-width: 22px; text-align: center; font-weight: 700; font-size: 0.875rem; font-variant-numeric: tabular-nums; display: inline-block; transition: transform 160ms cubic-bezier(.2,.9,.3,1.4); }
   .qty output.pop { transform: scale(1.25); }
-  .empty { padding: 26px 16px; text-align: center; color: var(--muted); font-size: 14px; border-radius: var(--r-card); background: var(--card); }
+  .empty { padding: 26px 16px; text-align: center; color: var(--muted); font-size: 0.875rem; border-radius: var(--r-card); background: var(--card); }
 
   /* ——— sheet ——— */
   .sheet { position: fixed; left: 50%; bottom: 0; width: min(100%, 430px); transform: translateX(-50%) translateY(0); z-index: 5; border-radius: 28px 28px 0 0; background: var(--sheet); backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%); border-top: 1px solid rgba(240,235,247,0.12); box-shadow: 0 -20px 60px rgba(0,0,0,.45); display: flex; flex-direction: column; will-change: transform; touch-action: none; }
   .sheet .grab { padding: 10px 22px 6px; cursor: grab; }
   .sheet .grab .bar { width: 36px; height: 5px; border-radius: 3px; background: rgba(240,235,247,0.28); margin: 0 auto; }
   .sum { display: flex; align-items: center; justify-content: space-between; padding: 4px 22px 12px; cursor: grab; }
-  .sum .lbl { font-size: 12px; color: var(--muted); }
-  .sum .amt { font-size: 24px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-  .lnk { border: 0; background: none; color: var(--accent); font-size: 13px; font-weight: 600; padding: 8px 0; }
+  .sum .lbl { font-size: 0.75rem; color: var(--muted); }
+  .sum .amt { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .lnk { border: 0; background: none; color: var(--accent); font-size: 0.8125rem; font-weight: 600; padding: 8px 0; }
   .peekfoot { position: absolute; left: 22px; right: 22px; top: 84px; }
   .sheet.open .peekfoot { pointer-events: none; }
   .sheet:not(.open) .body, .sheet:not(.open) .foot { pointer-events: none; }
   .body { flex: 1; will-change: opacity; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 22px 0; display: flex; flex-direction: column; gap: 14px; touch-action: pan-y; }
   .foot { padding: 12px 22px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px; }
-  .primary { height: 54px; border: 0; border-radius: 16px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 700; width: 100%; }
+  .primary { height: 54px; border: 0; border-radius: 16px; background: var(--accent); color: var(--on-accent); font-size: 1rem; font-weight: 700; width: 100%; }
   .primary[disabled] { opacity: .5; cursor: not-allowed; }
-  .err { min-height: 18px; font-size: 12.5px; line-height: 1.5; color: var(--danger); }
-  .note { font-size: 12px; line-height: 1.6; color: var(--muted); margin: 0; }
+  .err { min-height: 18px; font-size: 0.7812rem; line-height: 1.5; color: var(--danger); }
+  .note { font-size: 0.75rem; line-height: 1.6; color: var(--muted); margin: 0; }
 
   .line { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; background: rgba(240,235,247,0.05); border: 1px solid var(--line); }
   .line .h { display: flex; align-items: center; gap: 10px; }
-  .line .h .n { flex: 1; min-width: 0; font-size: 15px; font-weight: 600; }
-  .line .h .p { font-size: 14px; font-variant-numeric: tabular-nums; color: var(--accent-strong); }
-  .line .s { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .line .h .n { flex: 1; min-width: 0; font-size: 0.9375rem; font-weight: 600; }
+  .line .h .p { font-size: 0.875rem; font-variant-numeric: tabular-nums; color: var(--accent-strong); }
+  .line .s { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
   .line .s.fee { color: var(--ok); }
-  .field { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
-  .field input, .field select { height: 46px; padding: 0 12px; border-radius: var(--r-ctl); border: 1px solid rgba(240,235,247,0.12); background: rgba(240,235,247,0.06); font-size: 15px; font-weight: 400; color: var(--ink); width: 100%; }
+  .field { display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+  .field input, .field select { height: 46px; padding: 0 12px; border-radius: var(--r-ctl); border: 1px solid rgba(240,235,247,0.12); background: rgba(240,235,247,0.06); font-size: 0.9375rem; font-weight: 400; color: var(--ink); width: 100%; }
   .field input::placeholder { color: rgba(169,155,184,.8); }
   .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--danger); }
   .field input[dir="ltr"] { text-align: left; }
   .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .totals { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .totals { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.875rem; color: var(--muted); }
   .totals div { display: flex; justify-content: space-between; }
   .totals b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
-  .totals .big { font-size: 18px; font-weight: 700; color: var(--ink); padding-top: 4px; }
+  .totals .big { font-size: 1.125rem; font-weight: 700; color: var(--ink); padding-top: 4px; }
   .totals .big b { font-weight: 700; }
-  h2 { margin: 6px 0 0; font-size: 17px; font-weight: 700; }
-  .ok { font-size: 12px; color: var(--ok); }
+  h2 { margin: 6px 0 0; font-size: 1.0625rem; font-weight: 700; }
+  .ok { font-size: 0.75rem; color: var(--ok); }
 
   @media (prefers-reduced-motion: reduce) { *, .sheet { transition: none !important; } }
+  @media (prefers-reduced-transparency: reduce) { .sheet, .top { backdrop-filter: none; -webkit-backdrop-filter: none; background: #1e182a; } .top::after { display: none; } }
+  @media (prefers-contrast: more) { :root { --line: rgba(240,235,247,0.28); --muted: #c9bfd6; } .row, .line, .field input, .field select { border-color: var(--line); } }
 </style>
 </head>
 <body>
-<div class="glow" aria-hidden="true"></div>
 <div class="app">
   <header class="top">
     <a class="brand" href="#" aria-label="شيفون — الصفحة الرئيسية">
@@ -147,7 +150,7 @@
   <section class="hero">
     <div class="eyebrow">مخرج ٩ · الرياض</div>
     <h1>اختاري خدماتكِ في طلب واحد</h1>
-    <p class="lead">يمكنكِ اختيار عدة خدمات وكتابة الموظفة المفضلة لكل خدمة، والموعد تؤكده موظفة الصالون. رسوم الحجز 20 ريالًا لكل تسريحة أو خدمة مكياج فقط؛ قص الشعر والاستشوار والويفي وبقية الخدمات تُدرج في الطلب بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p>
+    <p class="lead">اختاري عدة خدمات في طلب واحد واكتبي الموظفة المفضلة لكل خدمة؛ الموعد تؤكده موظفة الصالون. رسوم الحجز 20 ريالًا للتساريح والمكياج فقط.</p>
     <div class="badge">الأسعار بالريال السعودي</div>
   </section>
 
@@ -162,6 +165,8 @@
   <p class="listnote">تظهر جميع الخدمات في الطلب. التساريح والمكياج فقط عليهما رسوم حجز؛ قص الشعر والاستشوار والويفي وبقية الخدمات بلا رسوم حجز وتحتاج إلى مراجعة الموظفة.</p>
   <footer class="foot-page">صالون شيفون · <span dir="ltr">+966 50 662 8187</span> · تُراجع الأسعار والتوفر عند تأكيد الطلب.</footer>
 </div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden><span id="toastMsg"></span><button type="button" class="lnk" id="undo">تراجع</button></div>
 
 <aside class="sheet" id="sheet" aria-label="طلبك">
   <div class="grab" id="grab"><div class="bar"></div></div>
@@ -194,6 +199,7 @@
   </div>
   <div class="foot" id="foot">
     <div class="err" id="err" role="alert" aria-live="polite"></div>
+    <div class="ok" id="status" aria-live="polite"></div>
     <button type="button" class="primary" id="send">إرسال الطلب عبر واتساب</button>
   </div>
 </aside>
@@ -267,8 +273,13 @@
       row.append(txt, ctl); host.append(row);
     }
   }
-  function addItem(id) { cart.push({ id, employee: '' }); renderCart(); controls.get(id)?.(); }
-  function removeOne(id) { const i = cart.findLastIndex(e => e.id === id); if (i !== -1) cart.splice(i, 1); renderCart(); controls.get(id)?.(); }
+  function addItem(id) { cart.push({ id, employee: '' }); renderCart(); controls.get(id)?.(); buzz(8); }
+  function removeOne(id) { const i = cart.findLastIndex(e => e.id === id); if (i !== -1) removeAt(i); }
+  let undoTimer = null, removed = null;
+  function removeAt(i) { removed = { index: i, entry: cart[i] }; const name = byId.get(cart[i].id).name; cart.splice(i, 1); renderCart(); controls.get(removed.entry.id)?.();
+    $('toastMsg').textContent = 'أُزيلت ' + name; $('toast').style.bottom = ((expanded ? $('foot').offsetHeight : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek'))) + 12) + 'px'; $('toast').hidden = false; clearTimeout(undoTimer); undoTimer = setTimeout(() => { $('toast').hidden = true; removed = null; }, 4500); }
+  $('undo').addEventListener('click', () => { if (!removed) return; cart.splice(Math.min(removed.index, cart.length), 0, removed.entry); const id = removed.entry.id; removed = null; $('toast').hidden = true; clearTimeout(undoTimer); renderCart(); controls.get(id)?.(); });
+  const buzz = ms => { try { if (!reduced && navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
 
   // ——— cart / sheet content ———
   const bookableCount = () => cart.filter(e => byId.get(e.id).bookable).length;
@@ -285,7 +296,7 @@
         const n = document.createElement('div'); n.className = 'n'; n.textContent = item.name;
         const p = document.createElement('div'); p.className = 'p'; p.textContent = money(item.price);
         const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'lnk'; rm.style.color = 'var(--danger)'; rm.style.padding = '4px 0'; rm.textContent = 'إزالة'; rm.setAttribute('aria-label', 'إزالة ' + item.name);
-        rm.addEventListener('click', () => { cart.splice(index, 1); renderCart(); controls.get(item.id)?.(); });
+        rm.addEventListener('click', () => removeAt(index));
         h.append(n, p, rm); line.append(h);
         const s = document.createElement('div'); s.className = 's' + (item.bookable ? ' fee' : ''); s.textContent = item.bookable ? 'تدخل في الحجز برسوم 20 ر.س.' : 'هذه الخدمة/المنتج غير معتمد في الحجز حتى تراجعه الموظفة؛ بلا رسوم حجز.'; line.append(s);
         if (item.kind !== 'منتج') {
@@ -345,24 +356,36 @@
     return lines.join('\n');
   }
   function clearInvalid() { ['customer', 'mobile', 'day', 'time'].forEach(k => $(k).removeAttribute('aria-invalid')); }
+  // inline validation on blur/change — the same rules bookingText() enforces on send
+  const checks = {
+    customer: () => $('customer').value.trim() ? '' : 'اكتبي اسمكِ الكامل.',
+    mobile: () => /^05\d{8}$/.test($('mobile').value.replace(/[\s()-]/g, '').replace(/^\+966/, '0')) ? '' : 'رقم الجوال يبدأ بـ 05 ويتكون من 10 أرقام.',
+    day: () => $('day').value ? '' : 'اختاري تاريخ الموعد.',
+    time: () => $('time').value ? '' : 'حددي بداية الساعة.'
+  };
+  Object.keys(checks).forEach(k => {
+    const el = $(k); const ev = el.tagName === 'SELECT' || el.type === 'date' ? 'change' : 'blur';
+    el.addEventListener(ev, () => { const msg = checks[k](); el.setAttribute('aria-invalid', msg ? 'true' : 'false'); if (!msg) el.removeAttribute('aria-invalid'); if (msg) { $('err').textContent = msg; } else if ($('err').textContent === (el.dataset.lastMsg || '')) { $('err').textContent = ''; } el.dataset.lastMsg = msg; });
+  });
   $('go').addEventListener('click', () => openSheet());
   $('send').addEventListener('click', () => {
     clearInvalid(); $('err').textContent = '';
-    try { const url = `https://wa.me/${phone}?text=${encodeURIComponent(bookingText())}`; window.open(url, '_blank', 'noopener'); }
+    $('status').textContent = '';
+    try { const url = `https://wa.me/${phone}?text=${encodeURIComponent(bookingText())}`; const w = window.open(url, '_blank'); if (w) { try { w.opener = null; } catch (e) {} } else { location.href = url; } $('status').textContent = 'جارٍ فتح واتساب مع نص الطلب… إن لم يُفتح تلقائيًا اضغطي الزر مرة أخرى.'; buzz(12); }
     catch (e) { $('err').textContent = e.message; if (e.field) { $(e.field).setAttribute('aria-invalid', 'true'); $(e.field).focus({ preventScroll: false }); } }
   });
 
   // ——— sheet physics: spring + drag with velocity handoff ———
   const sheet = $('sheet');
   let expanded = false, y = 0, travel = 0, anim = null;
-  function measure() { const peek = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek')); const full = Math.min(window.innerHeight * 0.88, 760); sheet.style.height = full + 'px'; travel = full - peek; if (!anim && !dragging) setY(expanded ? 0 : travel); }
+  function measure() { const sab = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sab')) || 0; const head = $('grab').offsetHeight + $('sum').offsetHeight; $('peekfoot').style.top = head + 'px'; const peek = head + $('peekfoot').offsetHeight + 18 + sab; document.documentElement.style.setProperty('--peek', peek + 'px'); const full = Math.min(window.innerHeight * 0.88, 760); sheet.style.height = full + 'px'; travel = full - peek; if (!anim && !dragging) setY(expanded ? 0 : travel); }
   function setY(v) { y = v; sheet.style.transform = `translateX(-50%) translateY(${v}px)`; const k = travel ? Math.min(1, Math.max(0, v / travel)) : 1; $('body').style.opacity = $('foot').style.opacity = String(1 - k); $('peekfoot').style.opacity = String(k); }
   function spring(to, v0, bounce) {
     if (anim) cancelAnimationFrame(anim.raf);
     if (reduced) { setY(to); anim = null; return; }
     // damping ratio 1.0 (or 0.85 after a flick), response 0.36s — Apple-style parameters
     const zeta = bounce ? 0.85 : 1.0, response = 0.36, omega = 2 * Math.PI / response;
-    let x = y - to, v = -v0, last = performance.now();
+    let x = y - to, v = v0, last = performance.now();
     const step = now => {
       const dt = Math.min(0.032, (now - last) / 1000); last = now;
       const a = -2 * zeta * omega * v - omega * omega * x; v += a * dt; x += v * dt;
@@ -370,10 +393,10 @@
       if (Math.abs(x) < 0.3 && Math.abs(v) < 6) { setY(to); anim = null; return; }
       anim.raf = requestAnimationFrame(step);
     };
-    anim = { raf: requestAnimationFrame(step) };
+    anim = { raf: requestAnimationFrame(step), velocity: () => v };
   }
-  function openSheet(v0, bounce) { expanded = true; $('toggle').setAttribute('aria-expanded', 'true'); $('toggle').textContent = 'إغلاق'; sheet.classList.add('open'); spring(0, v0 || 0, bounce); }
-  function closeSheet(v0, bounce) { expanded = false; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; spring(travel, v0 || 0, bounce); }
+  function openSheet(v0, bounce) { if (v0 == null && anim) v0 = anim.velocity(); expanded = true; $('body').inert = false; $('foot').inert = false; $('peekfoot').inert = true; $('toggle').setAttribute('aria-expanded', 'true'); $('toggle').textContent = 'إغلاق'; sheet.classList.add('open'); spring(0, v0 || 0, bounce); }
+  function closeSheet(v0, bounce) { if (v0 == null && anim) v0 = anim.velocity(); expanded = false; $('body').inert = true; $('foot').inert = true; $('peekfoot').inert = false; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; spring(travel, v0 || 0, bounce); }
   $('toggle').addEventListener('click', () => expanded ? closeSheet() : openSheet());
 
   // drag from the grabber and summary rows, 1:1, rubber-band past the ends, project momentum on release
@@ -394,7 +417,8 @@
   // ——— boot ———
   $('search').addEventListener('input', e => { query = e.target.value; renderList(); });
   renderChips(); renderList(); renderCart();
-  measure(); setY(travel); addEventListener('resize', measure);
+  $('body').inert = true; $('foot').inert = true;
+  measure(); setY(travel); addEventListener('resize', measure); if (window.visualViewport) visualViewport.addEventListener('resize', measure);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 })();
 </script>
