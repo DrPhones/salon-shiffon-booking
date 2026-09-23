@@ -188,7 +188,9 @@
     .app { max-width: 1180px; display: grid; grid-template-columns: minmax(0, 1fr) 400px; column-gap: 36px; padding: 0 32px 56px; align-items: start; }
     html.has-cart .app { padding-bottom: 56px; }
     .app > .top { grid-column: 1 / -1; margin: 0 -32px 8px; padding-inline: 32px; }
-    .hero, .search, .chips, .list, .listnote, .foot-page { grid-column: 1; }
+    .hero, .search, .chips, .forbar, .list, .listnote, .foot-page { grid-column: 1; }
+    .forbar { margin: 0 0 12px; padding-inline: 16px; border: 1px solid var(--line); border-radius: 16px; }
+    .fb-people { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
     .hero { padding-top: 34px; }
     .icon-btn { width: auto; padding: 0 16px 0 14px; gap: 8px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; }
     .icon-btn .lbl-desk { display: inline; }
@@ -240,6 +242,36 @@
   .lnk.rm { color: var(--danger); padding: 4px 0; }
   .note.gap { margin-top: 10px; }
   .privacy { margin: 8px 0 0; font-size: 0.75rem; color: var(--muted); text-align: center; }
+  /* ——— group booking ——— */
+  .forbar { position: sticky; top: var(--top-h, 70px); z-index: 2; margin: 0 -22px 12px; padding: 10px 22px 12px; display: flex; flex-direction: column; gap: 8px; background: rgba(23,19,32,0.9); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); border-bottom: 1px solid var(--line); }
+  .fb-lbl { font-size: 0.75rem; color: var(--muted); }
+  .fb-people { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 -22px; padding: 0 22px; }
+  .fb-people::-webkit-scrollbar { display: none; }
+  .pchip { flex: 0 0 auto; height: 36px; max-width: 180px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(240,235,247,0.06); color: var(--ink); font-size: 0.8125rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .pchip .nm { overflow: hidden; text-overflow: ellipsis; }
+  .pchip .ct { font-size: 0.7rem; font-variant-numeric: tabular-nums; opacity: .75; }
+  .pchip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: transparent; font-weight: 700; }
+  .pchip.plus { border-style: dashed; border-color: var(--line-on); color: var(--accent); background: transparent; }
+  .party { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 16px; border: 1px dashed var(--line-on); background: rgba(185,164,217,0.06); }
+  .party .t { font-size: 0.8125rem; font-weight: 600; }
+  .party .d { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+  .party .lnk { white-space: nowrap; }
+  .party.on { border-style: solid; border-color: var(--line); background: rgba(240,235,247,0.03); }
+  .person { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 18px; border: 1px solid var(--line); background: rgba(240,235,247,0.03); }
+  .person.active { border-color: var(--line-on); }
+  .ph { display: flex; align-items: center; gap: 10px; }
+  .pn { width: 26px; height: 26px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-strong); display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex: 0 0 auto; font-variant-numeric: tabular-nums; }
+  .pt { flex: 1; min-width: 0; font-size: 0.9375rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pt small { display: block; font-size: 0.7rem; font-weight: 400; color: var(--muted); }
+  .pname { flex: 1; min-width: 0; height: 40px; padding: 0 10px; border-radius: 10px; border: 1px solid rgba(240,235,247,0.12); background: rgba(240,235,247,0.06); font-size: 1rem; color: var(--ink); }
+  .pname::placeholder { color: rgba(169,155,184,.8); }
+  .psum { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .person .lnk.rm.armed { color: var(--danger); font-weight: 700; }
+  .person .empty-p { margin: 0; font-size: 0.75rem; color: var(--muted); }
+  .person .addfor { align-self: flex-start; padding: 2px 0; }
+  .move { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: var(--muted); }
+  .move select { height: 34px; padding: 0 8px; border-radius: 10px; border: 1px solid rgba(240,235,247,0.12); background: rgba(240,235,247,0.06); font-size: 0.8125rem; color: var(--ink); max-width: 60%; }
+  .move select option { background: #211b2d; color: #f0ebf7; }
   @media (min-width: 900px) {
     .hero { margin: 0; border-radius: 24px; padding: 340px 36px 30px; background:
       linear-gradient(90deg, rgba(19,15,26,0) 30%, rgba(19,15,26,0.55) 100%),
@@ -292,6 +324,10 @@
   </label>
 
   <div class="chips" id="chips" role="group" aria-label="الأقسام"></div>
+  <div class="forbar" id="forBar" hidden>
+    <span class="fb-lbl" id="fbLbl">تُضاف الخدمات إلى</span>
+    <div class="fb-people" id="fbPeople" role="group" aria-labelledby="fbLbl"></div>
+  </div>
 
   <main class="list" id="list"></main>
   <p id="resultCount" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></p>
@@ -308,6 +344,7 @@
   </div>
   <div class="peekfoot" id="peekfoot"><button type="button" class="primary" id="go">متابعة</button></div>
   <div class="body" id="body">
+    <div id="party"></div>
     <div id="lines"></div>
     <h2>بيانات الموعد</h2>
     <div class="grid2">
@@ -316,8 +353,9 @@
     </div>
     <p class="note" id="sameDay">الحجز متاح من الغد فصاعدًا. لخدمة اليوم تفضّلي بزيارة الصالون مباشرة والدخول فوري — <a href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic" target="_blank" rel="noopener noreferrer">موقع الصالون</a>.</p>
     <p class="note" id="weekday" hidden></p>
+    <p class="note" id="groupNote" hidden>للمجموعة: الوقت المختار هو وقت البدء، وترتّب موظفة الصالون أدوار الأشخاص حسب الموظفات المتاحات، وتؤكد لكِ الترتيب على واتساب.</p>
     <p class="note">مدة كل خدمة ساعة تقريبًا. الصالون يعمل من 10 صباحًا إلى 10 مساءً وآخر موعد يبدأ 9 مساءً، وقد تقترح الموظفة وقتًا أبكر عند اختيار أكثر من خدمة. اختيار الوقت لا يعني تأكيده تلقائيًا؛ يخضع للتوفر ومراجعة الصالون.</p>
-    <label class="field">الاسم<input id="customer" type="text" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"></label>
+    <label class="field"><span id="customerLbl">الاسم</span><input id="customer" type="text" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"></label>
     <label class="field">الجوال<input id="mobile" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"></label>
     <div class="totals">
       <div><span>قيمة الخدمات والمنتجات</span><b id="tServices">0 ر.س</b></div>
@@ -361,14 +399,23 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ——— state ———
-  let cart = [];            // [{ id, employee }]
+  let cart = [];            // [{ id, employee, person }] — person = index into people
+  // group booking: people[0] is the person booking (her name is the #customer field); up to 10 people, one start time
+  let people = [{ name: '' }];
+  let active = 0;           // who services picked from the list are added for
+  let draftLocked = false;  // after a successful send the draft stays deleted until the order is edited
+  const MAX_PEOPLE = 10, MAX_ITEMS = 40;
+  const isGroup = () => people.length > 1;
+  const personLabel = i => i === 0 ? ($('customer').value.trim() || 'صاحبة الحجز') : (people[i] && Array.from(people[i].name.trim()).length >= 2 ? people[i].name.trim() : `الشخص ${i + 1}`);
+  const peopleCount = n => n === 2 ? 'شخصان' : `${n} أشخاص`;
+  const servicesCount = n => n === 1 ? 'خدمة واحدة' : n === 2 ? 'خدمتان' : n + ' خدمات';
   let category = '';        // '' = all
   let query = '';
   const byId = new Map(catalog.map(x => [x.id, x]));
   const categories = [...new Set(catalog.map(x => x.category))];
   const shortCat = c => ({ 'قسم الشعر (قص)': 'قص الشعر', 'قسم الشعر ( تساريح)': 'التساريح', 'قسم الشعر ( استشوارات': 'الاستشوار', 'قسم سبا الاظافر': 'الأظافر', 'تنظيف البشرة': 'البشرة' })[c] || c.replace(/^قسم\s+/, '').replace(/[()]/g, ' ').replace(/\s+/g, ' ').trim();
 
-  function persist() { try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ v: 2, savedAt: Date.now(), cart, customer: $('customer').value, mobile: $('mobile').value, day: $('day').value, time: $('time').value })); } catch (e) {} }
+  function persist() { if (draftLocked) return; try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ v: 3, savedAt: Date.now(), cart, people, active, customer: $('customer').value, mobile: $('mobile').value, day: $('day').value, time: $('time').value })); } catch (e) {} }
 
   // ——— chips ———
   function renderChips() {
@@ -382,7 +429,9 @@
   }
 
   // ——— list ———
-  const count = id => cart.filter(e => e.id === id).length;
+  // in a group the list stepper counts and removes for the person services are being added for
+  const count = id => cart.filter(e => e.id === id && (!isGroup() || e.person === active)).length;
+  const countAll = id => cart.filter(e => e.id === id).length;
   const controls = new Map();
   const wideMQ = matchMedia('(min-width: 1180px)');
   wideMQ.addEventListener('change', () => renderList());
@@ -413,7 +462,10 @@
       const update = () => {
         const n = count(item.id);
         row.classList.toggle('on', n > 0);
-        st.textContent = n > 1 ? `العدد ${n} (لأكثر من عميلة)` : n ? 'في طلبك' : ''; meta.hidden = !(n || requiresFee(item) || item.kind === 'منتج');
+        const all = countAll(item.id);
+        st.textContent = isGroup() ? (n > 1 ? `العدد ${n} لـ ${personLabel(active)}` : n ? `لـ ${personLabel(active)}` : all ? `مختارة لغيرها في المجموعة (${all})` : '')
+          : n > 1 ? `العدد ${n} (لأكثر من عميلة)` : n ? 'في طلبك' : '';
+        meta.hidden = !(n || all || requiresFee(item) || item.kind === 'منتج');
         ctl.replaceChildren();
         if (!n) {
           const add = document.createElement('button'); add.type = 'button'; add.className = 'add'; add.textContent = '+'; add.setAttribute('aria-label', 'إضافة ' + item.name);
@@ -440,48 +492,170 @@
       host.replaceChildren(...cols.map(c => { const d = document.createElement('div'); d.className = 'col'; c.sort((a, b) => a.i - b.i).forEach(x => d.append(x.sec)); return d; }));
     }
   }
-  function addItem(id) { cart.push({ id, employee: '' }); renderCart(); controls.get(id)?.(); buzz(8); }
-  function removeOne(id) { const i = cart.findLastIndex(e => e.id === id); if (i !== -1) removeAt(i); }
+  function addItem(id) {
+    if (cart.length >= MAX_ITEMS) { flash(`الحد الأعلى ${MAX_ITEMS} خدمة في الطلب الواحد. للمجموعات الأكبر تواصلي مع الصالون على واتساب.`); return; }
+    cart.push({ id, employee: '', person: isGroup() ? active : 0 }); unsend(); renderCart(); controls.get(id)?.(); buzz(8);
+  }
+  function removeOne(id) { const i = cart.findLastIndex(e => e.id === id && (!isGroup() || e.person === active)); if (i !== -1) removeAt(i); }
+  // short message in the undo toast without an undo action
+  function flash(msg) { removed = null; $('toastMsg').textContent = msg; $('undo').hidden = true; $('toast').hidden = false; placeToast(); clearTimeout(undoTimer); undoTimer = setTimeout(() => { $('toast').hidden = true; $('undo').hidden = false; }, 4500); }
+  const refreshControls = () => controls.forEach(fn => fn());
+
+  // ——— people ———
+  function setActive(i) {
+    const hadFocus = $('fbPeople').contains(document.activeElement);
+    active = Math.max(0, Math.min(i, people.length - 1)); renderForBar(); refreshControls(); renderCart();
+    if (hadFocus) $('fbPeople').children[active]?.focus();
+  }
+  function addPerson() {
+    if (people.length >= MAX_PEOPLE) { flash(`الحجز الجماعي حتى ${MAX_PEOPLE} أشخاص. للمجموعات الأكبر تواصلي مع الصالون على واتساب.`); return false; }
+    people.push({ name: '' }); active = people.length - 1; unsend(); renderForBar(); refreshControls(); renderCart(); buzz(8); return true;
+  }
+  function removePerson(p) {
+    if (p <= 0 || p >= people.length) return;
+    const ids = new Set(cart.filter(e => e.person === p).map(e => e.id));
+    cart = cart.filter(e => e.person !== p).map(e => e.person > p ? { ...e, person: e.person - 1 } : e);
+    people.splice(p, 1);
+    if (removed && removed.entry.person === p) { removed = null; $('toast').hidden = true; }
+    else if (removed && removed.entry.person > p) removed.entry.person -= 1;
+    if (active >= p) active = Math.max(0, active - 1);
+    if (!isGroup()) active = 0;
+    unsend(); renderForBar(); refreshControls(); renderCart(); ids.forEach(id => controls.get(id)?.());
+  }
+  function renderForBar() {
+    const bar = $('forBar'); bar.hidden = !isGroup();
+    const host = $('fbPeople'); host.replaceChildren();
+    if (!isGroup()) return;
+    people.forEach((_, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'pchip'; b.setAttribute('aria-pressed', String(i === active));
+      const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = personLabel(i);
+      const ct = document.createElement('span'); ct.className = 'ct'; const n = cart.filter(e => e.person === i).length; ct.textContent = n ? String(n) : '';
+      b.setAttribute('aria-label', `${personLabel(i)}${n ? ` — ${servicesCount(n)}` : ''}`);
+      b.append(nm, ct); b.addEventListener('click', () => setActive(i)); host.append(b);
+    });
+    if (people.length < MAX_PEOPLE) { const add = document.createElement('button'); add.type = 'button'; add.className = 'pchip plus'; add.textContent = '+ شخص'; add.setAttribute('aria-label', 'إضافة شخص إلى المجموعة'); add.addEventListener('click', () => addPerson()); host.append(add); }
+  }
   let undoTimer = null, removed = null;
   // keep the undo toast clear of the sheet: above the peek footer while collapsed, above the send footer while open, near the bottom when the sheet is away
   function placeToast() { if ($('toast').hidden || desk) return; $('toast').style.bottom = ((!visible ? 8 : expanded ? $('foot').offsetHeight : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek'))) + 12) + 'px'; }
-  function removeAt(i) { removed = { index: i, entry: cart[i] }; const name = byId.get(cart[i].id).name; cart.splice(i, 1); renderCart(); controls.get(removed.entry.id)?.();
+  function removeAt(i) { removed = { index: i, entry: cart[i] }; const name = byId.get(cart[i].id).name; cart.splice(i, 1); $('undo').hidden = false; unsend(); renderCart(); controls.get(removed.entry.id)?.();
     $('toastMsg').textContent = 'أُزيلت ' + name; $('toast').hidden = false; placeToast(); clearTimeout(undoTimer); undoTimer = setTimeout(() => { $('toast').hidden = true; removed = null; }, 4500); }
-  $('undo').addEventListener('click', () => { if (!removed) return; cart.splice(Math.min(removed.index, cart.length), 0, removed.entry); const id = removed.entry.id; removed = null; $('toast').hidden = true; clearTimeout(undoTimer); renderCart(); controls.get(id)?.(); });
+  $('undo').addEventListener('click', () => { if (!removed) return; if (cart.length >= MAX_ITEMS) { flash(`الحد الأعلى ${MAX_ITEMS} خدمة في الطلب الواحد.`); return; } if (removed.entry.person >= people.length) removed.entry.person = 0; cart.splice(Math.min(removed.index, cart.length), 0, removed.entry); const id = removed.entry.id; removed = null; $('toast').hidden = true; clearTimeout(undoTimer); renderCart(); controls.get(id)?.(); });
   const buzz = ms => { try { if (!reduced && navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
 
   // ——— cart / sheet content ———
   const feeCount = () => cart.filter(e => requiresFee(byId.get(e.id))).length;
   const servicesTotal = () => cart.reduce((s, e) => s + byId.get(e.id).price, 0);
+  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+  function renderParty() {
+    const host = $('party'); host.replaceChildren();
+    $('groupNote').hidden = !isGroup();
+    $('customerLbl').textContent = isGroup() ? 'اسم صاحبة الحجز' : 'الاسم';
+    if (!cart.length && !isGroup()) return;
+    const box = el('div', 'party' + (isGroup() ? ' on' : ''));
+    const txt = el('div');
+    if (isGroup()) txt.append(el('div', 't', `حجز جماعي · ${peopleCount(people.length)}`), el('div', 'd', `وقت بدء واحد للمجموعة · حتى ${MAX_PEOPLE} أشخاص`));
+    else txt.append(el('div', 't', 'تحجزين لأكثر من شخص؟'), el('div', 'd', `أضيفي حتى ${MAX_PEOPLE} أشخاص في طلب واحد، ولكل شخص خدماتها.`));
+    box.append(txt);
+    if (people.length < MAX_PEOPLE) {
+      const b = el('button', 'lnk', '+ إضافة شخص'); b.type = 'button';
+      b.addEventListener('click', () => { if (addPerson()) setTimeout(() => $('pname-' + (people.length - 1))?.focus(), 0); });
+      box.append(b);
+    }
+    host.append(box);
+  }
+  // one order line; in a group it can be moved to another person
+  function lineEl(entry, index) {
+    const item = byId.get(entry.id);
+    const line = document.createElement('div'); line.className = 'line';
+    const h = document.createElement('div'); h.className = 'h';
+    const n = document.createElement('div'); n.className = 'n'; n.textContent = item.name;
+    const p = document.createElement('div'); p.className = 'p'; p.textContent = money(item.price);
+    const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'lnk rm'; rm.textContent = 'إزالة'; rm.setAttribute('aria-label', 'إزالة ' + item.name);
+    rm.addEventListener('click', () => removeAt(index));
+    h.append(n, p, rm); line.append(h);
+    const s = document.createElement('div'); s.className = 's' + (requiresFee(item) ? ' fee' : ''); s.textContent = requiresFee(item) ? 'رسوم تأكيد الحجز 20 ر.س' : item.kind === 'منتج' ? 'منتج ضمن الطلب — يؤكد التوفر عبر واتساب' : 'بدون رسوم تأكيد — يخضع التوفر لمراجعة الصالون'; line.append(s);
+    if (isGroup()) {
+      const mv = el('label', 'move', 'لمن؟'); const sel = document.createElement('select'); sel.setAttribute('aria-label', 'لمن هذه الخدمة: ' + item.name);
+      people.forEach((_, i) => { const o = document.createElement('option'); o.value = String(i); o.textContent = personLabel(i); o.dataset.p = String(i); sel.append(o); });
+      sel.value = String(entry.person);
+      sel.id = 'mv-' + index;
+      sel.addEventListener('change', () => { entry.person = Number(sel.value); unsend(); renderForBar(); refreshControls(); renderCart(); $('mv-' + index)?.focus(); });
+      mv.append(sel); line.append(mv);
+    }
+    if (item.kind !== 'منتج') {
+      const f = document.createElement('label'); f.className = 'field'; f.textContent = 'الموظفة المفضلة لهذه الخدمة (اختياري)';
+      const inp = document.createElement('input'); inp.type = 'text'; inp.placeholder = 'اسم الموظفة'; inp.value = entry.employee; inp.id = 'emp-' + index;
+      inp.addEventListener('input', ev => { entry.employee = ev.target.value; persist(); });
+      f.append(inp);
+      // folded until asked for; a saved name keeps it open
+      if (entry.employee) line.append(f);
+      else { const eb = document.createElement('button'); eb.type = 'button'; eb.className = 'lnk emp'; eb.textContent = '+ اختيار موظفة مفضلة (اختياري)'; eb.addEventListener('click', () => { eb.replaceWith(f); inp.focus(); }); line.append(eb); }
+    }
+    return line;
+  }
+  // a person's name changes labels in the list bar and "لمن؟" menus without re-rendering (keeps the caret)
+  function refreshLabels(p) {
+    renderForBar(); if (p === active) refreshControls();
+    document.querySelectorAll('.person[data-p]').forEach(n => { n.setAttribute('aria-label', personLabel(Number(n.dataset.p))); });
+    document.querySelectorAll('.person .ph .rm[data-p]').forEach(b => { if (!b.classList.contains('armed')) b.setAttribute('aria-label', `حذف ${personLabel(Number(b.dataset.p))} من المجموعة`); });
+    document.querySelectorAll('.move option[data-p]').forEach(o => { o.textContent = personLabel(Number(o.dataset.p)); });
+    document.querySelectorAll('.addfor[data-p]').forEach(b => { b.textContent = `+ إضافة خدمات لـ ${personLabel(Number(b.dataset.p))}`; });
+    const t = document.querySelector('#pt-0'); if (t) t.firstChild.textContent = personLabel(0);
+    const sub = document.querySelector('#pt-0-sub'); if (sub) sub.textContent = $('customer').value.trim() ? 'صاحبة الحجز' : 'اكتبي اسمكِ في بيانات الموعد أدناه';
+  }
+  function goPick(p) {
+    setActive(p);
+    if (desk) { $('search').focus({ preventScroll: false }); return; }
+    closeSheet(); $('forBar').scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' });
+  }
+  function renderPeople(host) {
+    people.forEach((person, p) => {
+      const sec = el('section', 'person' + (p === active ? ' active' : '')); sec.setAttribute('aria-label', personLabel(p)); sec.dataset.p = String(p);
+      const ph = el('div', 'ph'); ph.append(el('span', 'pn', String(p + 1)));
+      if (p === 0) { const t = el('div', 'pt', personLabel(0)); t.id = 'pt-0'; const sm = el('small', null, ''); sm.id = 'pt-0-sub'; t.append(sm); ph.append(t); }
+      else {
+        const inp = document.createElement('input'); inp.type = 'text'; inp.className = 'pname'; inp.id = 'pname-' + p; inp.maxLength = 40; inp.autocomplete = 'off';
+        inp.placeholder = `اسم الشخص ${p + 1} (اختياري)`; inp.value = person.name; inp.setAttribute('aria-label', `اسم الشخص ${p + 1} (اختياري)`);
+        inp.addEventListener('input', () => { person.name = inp.value; persist(); refreshLabels(p); });
+        ph.append(inp);
+      }
+      const mine = cart.map((e, i) => [e, i]).filter(([e]) => e.person === p);
+      ph.append(el('span', 'psum', mine.length ? `${servicesCount(mine.length)} · ${money(mine.reduce((s, [e]) => s + byId.get(e.id).price, 0))}` : 'بلا خدمات'));
+      if (p > 0) {
+        const rm = el('button', 'lnk rm', 'حذف'); rm.type = 'button'; rm.dataset.p = String(p); rm.setAttribute('aria-label', `حذف ${personLabel(p)} من المجموعة`);
+        let armedT = null;
+        rm.addEventListener('click', () => {
+          // a person with services needs a second tap: removing her removes her services too
+          if (mine.length && !rm.classList.contains('armed')) { rm.classList.add('armed'); rm.textContent = 'تأكيد الحذف'; clearTimeout(armedT); armedT = setTimeout(() => { rm.classList.remove('armed'); rm.textContent = 'حذف'; }, 4000); return; }
+          removePerson(p);
+        });
+        ph.append(rm);
+      }
+      sec.append(ph);
+      if (!mine.length) sec.append(el('p', 'empty-p', 'لم تُضف خدمات لهذا الشخص بعد.'));
+      mine.forEach(([e, i]) => sec.append(lineEl(e, i)));
+      const add = el('button', 'lnk addfor', `+ إضافة خدمات لـ ${personLabel(p)}`); add.type = 'button'; add.dataset.p = String(p);
+      add.addEventListener('click', () => goPick(p)); sec.append(add);
+      host.append(sec);
+    });
+  }
   function renderCart() {
+    renderParty();
     const host = $('lines'); host.replaceChildren();
-    if (!cart.length) { const p = document.createElement('div'); p.className = 'empty'; p.innerHTML = '<strong>طلبكِ فارغ</strong>اختاري خدمة أو أكثر من القائمة، ثم يظهر هنا ملخص الطلب وبيانات الموعد.'; host.append(p); }
+    if (isGroup()) {
+      const wrap = document.createElement('div'); wrap.className = 'lines'; renderPeople(wrap); host.append(wrap);
+      $('pt-0-sub').textContent = $('customer').value.trim() ? 'صاحبة الحجز' : 'اكتبي اسمكِ في بيانات الموعد أدناه';
+    }
+    else if (!cart.length) { const p = document.createElement('div'); p.className = 'empty'; p.innerHTML = '<strong>طلبكِ فارغ</strong>اختاري خدمة أو أكثر من القائمة، ثم يظهر هنا ملخص الطلب وبيانات الموعد.'; host.append(p); }
     else {
       const wrap = document.createElement('div'); wrap.className = 'lines';
-      cart.forEach((entry, index) => {
-        const item = byId.get(entry.id);
-        const line = document.createElement('div'); line.className = 'line';
-        const h = document.createElement('div'); h.className = 'h';
-        const n = document.createElement('div'); n.className = 'n'; n.textContent = item.name;
-        const p = document.createElement('div'); p.className = 'p'; p.textContent = money(item.price);
-        const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'lnk rm'; rm.textContent = 'إزالة'; rm.setAttribute('aria-label', 'إزالة ' + item.name);
-        rm.addEventListener('click', () => removeAt(index));
-        h.append(n, p, rm); line.append(h);
-        const s = document.createElement('div'); s.className = 's' + (requiresFee(item) ? ' fee' : ''); s.textContent = requiresFee(item) ? 'رسوم تأكيد الحجز 20 ر.س' : item.kind === 'منتج' ? 'منتج ضمن الطلب — يؤكد التوفر عبر واتساب' : 'بدون رسوم تأكيد — يخضع التوفر لمراجعة الصالون'; line.append(s);
-        if (item.kind !== 'منتج') {
-          const f = document.createElement('label'); f.className = 'field'; f.textContent = 'الموظفة المفضلة لهذه الخدمة (اختياري)';
-          const inp = document.createElement('input'); inp.type = 'text'; inp.placeholder = 'اسم الموظفة'; inp.value = entry.employee; inp.id = 'emp-' + index;
-          inp.addEventListener('input', ev => { entry.employee = ev.target.value; persist(); });
-          f.append(inp);
-          // folded until asked for; a saved name keeps it open
-          if (entry.employee) line.append(f);
-          else { const eb = document.createElement('button'); eb.type = 'button'; eb.className = 'lnk emp'; eb.textContent = '+ اختيار موظفة مفضلة (اختياري)'; eb.addEventListener('click', () => { eb.replaceWith(f); inp.focus(); }); line.append(eb); }
-        }
-        wrap.append(line);
-      });
+      cart.forEach((entry, index) => { wrap.append(lineEl(entry, index)); });
       host.append(wrap);
+    }
+    if (cart.length) {
       if (cart.some(e => byId.get(e.id).kind !== 'منتج')) { const av = document.createElement('p'); av.className = 'note gap'; av.textContent = 'الموظفة المفضلة اختيارية. الوقت والموظفة المفضلة يخضعان للتوفر، ويتم اعتماد الموعد بعد مراجعة الصالون.'; host.append(av); }
-      if (new Set(cart.map(e => e.id)).size < cart.length) { const dup = document.createElement('p'); dup.className = 'note'; dup.textContent = 'تكرار الخدمة يعني أكثر من عميلة؛ تُحسب رسوم التأكيد لكل عميلة.'; host.append(dup); }
+      if (!isGroup() && new Set(cart.map(e => e.id)).size < cart.length) { const dup = document.createElement('p'); dup.className = 'note'; dup.textContent = 'تكرار الخدمة يعني أكثر من عميلة؛ تُحسب رسوم التأكيد لكل عميلة. لترتيب أوضح استخدمي «إضافة شخص» ليظهر لكل شخص خدماته.'; host.append(dup); }
     }
     const fee = feeCount() * bookingFeePerService, svc = servicesTotal();
     $('tServices').textContent = money(svc); $('tLater').textContent = money(svc);
@@ -493,9 +667,9 @@
       nb.append(st, `بعد تأكيد التوفر يتم تحويل رسوم التأكيد (${money(fee)})، وبعد استلامها يُعتمد الحجز. رسوم التأكيد لا تُخصم من قيمة الخدمات وغير مستردة عند إلغائكِ بعد تأكيد الموعد، وإذا تعذر اعتماد الوقت المطلوب تتواصل معكِ الموظفة لترتيب الخيار المناسب.`);
     } else nb.append('لا يوجد مبلغ مطلوب للتحويل. يؤكد الصالون توفر الموعد عبر واتساب.');
     $('sumAmt').textContent = money(svc);
-    sheet.classList.toggle('is-empty', cart.length === 0);
-    $('sumLbl').textContent = cart.length ? `${cart.length === 1 ? 'خدمة واحدة' : cart.length === 2 ? 'خدمتان' : cart.length + ' خدمات'} · ${fee ? 'رسوم التأكيد ' + money(fee) : 'بدون رسوم تأكيد'}` : 'لم تختاري خدمة بعد';
-    persist(); setVisible(cart.length > 0); measure(); placeToast();
+    sheet.classList.toggle('is-empty', cart.length === 0 && !isGroup());
+    $('sumLbl').textContent = cart.length ? `${isGroup() ? peopleCount(people.length) + ' · ' : ''}${servicesCount(cart.length)} · ${fee ? 'رسوم التأكيد ' + money(fee) : 'بدون رسوم تأكيد'}` : isGroup() ? `${peopleCount(people.length)} · لم تختاري خدمة بعد` : 'لم تختاري خدمة بعد';
+    renderForBar(); persist(); setVisible(cart.length > 0 || isGroup()); measure(); placeToast();
   }
 
   // ——— time options / date ———
@@ -512,7 +686,12 @@
   try {
     const saved = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
     if (saved && Array.isArray(saved.cart) && !(saved.savedAt && Date.now() - saved.savedAt > DRAFT_TTL)) {
-      cart = saved.cart.filter(e => e && byId.has(e.id)).map(e => ({ id: e.id, employee: typeof e.employee === 'string' ? e.employee : '' }));
+      // v2 drafts have no people: everything belongs to the person booking
+      if (Array.isArray(saved.people) && saved.people.length >= 1 && saved.people.length <= MAX_PEOPLE)
+        people = saved.people.map(x => ({ name: x && typeof x.name === 'string' ? x.name.slice(0, 40) : '' }));
+      cart = saved.cart.filter(e => e && byId.has(e.id)).slice(0, MAX_ITEMS).map(e => ({ id: e.id, employee: typeof e.employee === 'string' ? e.employee : '',
+        person: Number.isInteger(e.person) && e.person >= 0 && e.person < people.length ? e.person : 0 }));
+      active = Number.isInteger(saved.active) && saved.active >= 0 && saved.active < people.length ? saved.active : 0;
       ['customer', 'mobile'].forEach(k => { if (typeof saved[k] === 'string') $(k).value = saved[k]; });
       let restoredDay = false;
       if (typeof saved.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(saved.day) && saved.day >= firstBookableISO()) { $('day').value = saved.day; restoredDay = $('day').value === saved.day; }
@@ -550,6 +729,7 @@
   $('day').addEventListener('click', () => { try { $('day').showPicker(); } catch (e) {} });
   $('day').addEventListener('change', () => { renderDayFace(); syncHours(); try { $('weekday').textContent = $('day').value ? `اليوم: ${requestedDate().weekday}` : 'اختاري التاريخ ليظهر اليوم.'; } catch (e) {} persist(); });
   ['customer', 'mobile', 'time'].forEach(k => $(k).addEventListener('input', persist));
+  $('customer').addEventListener('input', () => { if (isGroup()) refreshLabels(0); });
 
   function bookingText() {
     const customer = $('customer').value.trim();
@@ -557,15 +737,23 @@
     if (!cart.length) throw Object.assign(new Error('اختاري خدمة واحدة على الأقل.'), { field: null });
     if (!customer) throw Object.assign(new Error('اكتبي اسم العميلة قبل الإرسال.'), { field: 'customer' });
     if (!mobile) throw Object.assign(new Error('اكتبي رقم جوال سعودي صحيحًا، مثل 05XXXXXXXX.'), { field: 'mobile' });
+    // every person in a group needs at least one service
+    const emptyP = people.findIndex((_, i) => !cart.some(e => e.person === i));
+    if (isGroup() && emptyP !== -1) throw Object.assign(new Error(`لا توجد خدمات لـ «${personLabel(emptyP)}». أضيفي لها خدمة أو احذفيها من المجموعة.`), { field: null });
     const date = requestedDate(); const time = requestedTime();
     // same service more than once = more than one client; grouped as "× n" with each client's preferred employee
-    const groups = [];
-    cart.forEach(e => { let g = groups.find(x => x.id === e.id); if (!g) { g = { id: e.id, n: 0, emps: [] }; groups.push(g); } g.n++; if (e.employee.trim()) g.emps.push(e.employee.trim()); });
+    const itemLines = entries => { const groups = [], out = [];
+      entries.forEach(e => { let g = groups.find(x => x.id === e.id); if (!g) { g = { id: e.id, n: 0, emps: [] }; groups.push(g); } g.n++; if (e.employee.trim()) g.emps.push(e.employee.trim()); });
+      groups.forEach((g, i) => { const it = byId.get(g.id);
+        out.push(`${i + 1}. ${it.name}${g.n > 1 ? ` × ${g.n}` : ''} — ${it.price} ريال${g.n > 1 ? ' للواحدة' : ''}${it.kind === 'منتج' ? ' (منتج)' : requiresFee(it) ? ' (رسوم تأكيد)' : ''}`);
+        if (g.emps.length) out.push(`   الموظفة المفضلة: ${g.emps.join('، ')}`); });
+      return out; };
     const fee = feeCount() * bookingFeePerService, svc = servicesTotal();
-    const lines = ['طلب حجز — صالون شيفون', '', `الاسم: ${customer}`, `الجوال: ${mobile}`, `التاريخ: ${date.label}`, `الوقت المطلوب: ${time}`, '', 'الخدمات:'];
-    groups.forEach((g, i) => { const it = byId.get(g.id);
-      lines.push(`${i + 1}. ${it.name}${g.n > 1 ? ` × ${g.n}` : ''} — ${it.price} ريال${g.n > 1 ? ' للواحدة' : ''}${it.kind === 'منتج' ? ' (منتج)' : requiresFee(it) ? ' (رسوم تأكيد)' : ''}`);
-      if (g.emps.length) lines.push(`   الموظفة المفضلة: ${g.emps.join('، ')}`); });
+    const lines = ['طلب حجز — صالون شيفون', '', `الاسم: ${customer}`, `الجوال: ${mobile}`, `التاريخ: ${date.label}`, `الوقت المطلوب: ${time}${isGroup() ? ' (وقت بدء المجموعة)' : ''}`, ''];
+    if (isGroup()) {
+      lines.push(`حجز جماعي — الأشخاص والخدمات (${peopleCount(people.length)}):`);
+      people.forEach((_, p) => { lines.push('', `${p + 1}) ${personLabel(p)}`, ...itemLines(cart.filter(e => e.person === p)).map(l => `   ${l.replace(/^\d+\. /, '• ')}`)); });
+    } else lines.push('الخدمات:', ...itemLines(cart));
     lines.push('', `قيمة الخدمات: ${svc} ريال (تُدفع عند تقديم الخدمة)`, fee ? `رسوم التأكيد بعد اعتماد الوقت: ${fee} ريال` : 'رسوم التأكيد: 0 ريال', '', 'مدة كل خدمة: ساعة تقريبًا.', 'الوقت والموظفة يخضعان للتوفر ومراجعة الصالون.', '');
     if (fee) lines.push('مهم:', 'لا تحولي رسوم التأكيد الآن.', 'انتظري أولًا تأكيد موظفة الصالون بأن الوقت المطلوب متوفر.', `بعد تأكيد التوفر من الموظفة يتم تحويل رسوم التأكيد (${fee} ريال) لاعتماد الحجز.`, '',
       'بيانات التحويل — تُستخدم فقط بعد تأكيد الموظفة توفر الوقت:', `البنك: ${BANK.name}`, `اسم الحساب: ${BANK.account}`, 'الآيبان:', BANK.iban, '',
@@ -590,7 +778,7 @@
   function trackBooking(eventName) {
     const items = cart.map(e => byId.get(e.id)), isProduct = i => i.kind === 'منتج';
     const payload = { event: eventName, items_count: items.length, services_count: items.filter(i => !isProduct(i)).length, products_count: items.filter(isProduct).length,
-      fee_services_count: feeCount(), items_value: servicesTotal(), confirmation_fee: feeCount() * bookingFeePerService, currency: 'SAR',
+      fee_services_count: feeCount(), items_value: servicesTotal(), party_size: people.length, confirmation_fee: feeCount() * bookingFeePerService, currency: 'SAR',
       has_hair_styling_fee_service: items.some(i => i.category === 'قسم الشعر ( تساريح)' && requiresFee(i)), has_makeup_fee_service: items.some(i => i.category === 'المكياج' && requiresFee(i)) };
     try { (window.dataLayer = window.dataLayer || []).push(payload); } catch (e) {}
     try { if (typeof window.gtag === 'function') { const { event, ...params } = payload; window.gtag('event', event, params); } } catch (e) {}
@@ -601,7 +789,7 @@
     const b = $('reset'), dirty = cart.length || ['customer', 'mobile', 'day', 'time'].some(k => $(k).value);
     if (dirty && !b.classList.contains('armed')) { b.classList.add('armed'); b.textContent = 'اضغطي مرة أخرى لمسح الطلب'; clearTimeout(resetTimer); resetTimer = setTimeout(() => { b.classList.remove('armed'); b.textContent = 'بدء طلب جديد'; }, 4000); return; }
     clearTimeout(resetTimer); b.classList.remove('armed'); b.textContent = 'بدء طلب جديد';
-    const ids = new Set(cart.map(e => e.id)); cart = []; removed = null; $('toast').hidden = true;
+    const ids = new Set(cart.map(e => e.id)); cart = []; people = [{ name: '' }]; active = 0; removed = null; $('toast').hidden = true; renderForBar();
     ['customer', 'mobile', 'day', 'time'].forEach(k => { $(k).value = ''; $(k).removeAttribute('aria-invalid'); });
     $('err').textContent = ''; $('status').textContent = '';
     renderDayFace(); syncHours(); renderCart(); ids.forEach(id => controls.get(id)?.());
@@ -637,7 +825,8 @@
       if (!token) throw fallback('no_token');
       submitKey = submitKey || crypto.randomUUID(); // kept until success so a retry cannot create a duplicate
       const payload = { idempotencyKey: submitKey, turnstileToken: token, customerName: $('customer').value.trim(), mobile, day: $('day').value,
-        hour: Number($('time').value.slice(0, 2)), items: cart.map(e => ({ id: e.id, employee: e.employee.trim() })) };
+        hour: Number($('time').value.slice(0, 2)), items: cart.map(e => ({ id: e.id, employee: e.employee.trim(), person: isGroup() ? e.person : 0 })),
+        ...(isGroup() ? { people: people.map((x, i) => ({ name: i === 0 ? $('customer').value.trim() : x.name.trim() })) } : {}) };
       let res;
       try { res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: AbortSignal.timeout(15000) }); }
       catch (e) { throw fallback('network'); }
@@ -646,7 +835,7 @@
       if (res.ok) {
         trackBooking('booking_request_submitted');
         // the order stays on screen as a receipt; any later edit starts a new request
-        submitKey = null; sent = true; $('send').textContent = 'تم إرسال الطلب';
+        submitKey = null; sent = true; draftLocked = true; $('send').textContent = 'تم إرسال الطلب';
         try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
         $('status').textContent = `وصل طلبكِ (رقم ${data.ref}). ستراجع موظفة الصالون الموعد وترسل لكِ التأكيد على واتساب على الرقم ${mobile}.`;
         buzz(12); return;
@@ -659,8 +848,8 @@
       sendViaWhatsApp(text);
     } finally { sending = false; $('send').disabled = sent; resetTs(); } // Turnstile tokens are single-use
   });
-  function unsend() { if (!sent) return; sent = false; $('send').disabled = false; $('send').textContent = 'إرسال طلب الحجز'; $('status').textContent = ''; }
-  const sheetEl = $('sheet'); sheetEl.addEventListener('input', unsend); sheetEl.addEventListener('change', unsend); sheetEl.addEventListener('click', e => { if (e.target.closest('button') && e.target.closest('button') !== $('send')) unsend(); });
+  function unsend() { if (!sent) return; sent = false; draftLocked = false; $('send').disabled = false; $('send').textContent = 'إرسال طلب الحجز'; $('status').textContent = ''; }
+  const sheetEl = $('sheet'); sheetEl.addEventListener('input', unsend); sheetEl.addEventListener('change', unsend); sheetEl.addEventListener('click', e => { const b = e.target.closest('button'); if (b && !['send', 'toggle', 'go'].includes(b.id)) unsend(); }); // opening/closing the sheet is not an edit
 
   // ——— sheet physics: spring + drag with velocity handoff ———
   const sheet = $('sheet');
@@ -726,7 +915,8 @@
 
   // ——— boot ———
   $('search').addEventListener('input', e => { query = e.target.value; renderList(true); });
-  renderChips(); renderList(); renderCart(); syncHours(); renderDayFace();
+  const topH = () => document.documentElement.style.setProperty('--top-h', document.querySelector('.top').offsetHeight + 'px');
+  renderChips(); renderList(); renderForBar(); renderCart(); syncHours(); renderDayFace(); topH(); addEventListener('resize', topH);
   $('time').addEventListener('focus', syncHours); $('time').addEventListener('pointerdown', syncHours);
   applyMode(); booted = true; addEventListener('resize', measure); if (window.visualViewport) visualViewport.addEventListener('resize', measure);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
