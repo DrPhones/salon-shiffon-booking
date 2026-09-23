@@ -87,7 +87,7 @@
   .row:first-child { border-top: 0; }
   .row.on { background: var(--card-on); }
   .row .price { font-size: 0.9375rem; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
-  .tag { font-size: 0.75rem; font-weight: 500; color: var(--accent); }
+  .tag { font-size: 0.75rem; font-weight: 500; color: var(--accent); white-space: nowrap; }
   .tag.muted { color: var(--muted); }
   p, .lead, .note, .sub, .listnote, .foot-page, .empty { text-wrap: pretty; }
   .row .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
@@ -166,14 +166,10 @@
     .toast { bottom: 24px !important; left: auto; right: 32px; transform: none; }
   }
   @media (min-width: 1180px) {
-    /* two balanced columns: sections flow like a menu and the columns end at the same height */
-    .list { display: block; columns: 2; column-gap: 20px; }
-    .list > section { margin-bottom: 18px; }
-    /* long categories may continue in the next column; the heading never sits alone and each part keeps its rounded box */
-    .list .group { break-after: avoid; }
-    .list .row { break-inside: avoid; }
-    .list .box { overflow: visible; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-    .list .row:first-child { border-radius: var(--r-card) var(--r-card) 0 0; } .list .row:last-child { border-radius: 0 0 var(--r-card) var(--r-card); } .list .row:only-child { border-radius: var(--r-card); }
+    /* two columns of whole categories (split by renderList so both columns end near the same height) */
+    .list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; align-items: start; }
+    .list > .col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+    .list .empty { grid-column: 1 / -1; }
     .list .empty { column-span: all; }
   }
   @media (prefers-reduced-motion: reduce) { *, .sheet { transition: none !important; } }
@@ -298,24 +294,26 @@
   // ——— list ———
   const count = id => cart.filter(e => e.id === id).length;
   const controls = new Map();
+  const wideMQ = matchMedia('(min-width: 1180px)');
+  wideMQ.addEventListener('change', () => renderList());
   function renderList() {
     const host = $('list'); host.replaceChildren(); controls.clear();
     const q = query.trim().toLocaleLowerCase('ar');
     const shown = catalog.filter(x => (!category || x.category === category) && (!q || x.name.toLocaleLowerCase('ar').includes(q) || x.category.toLocaleLowerCase('ar').includes(q)));
     if (!shown.length) { const p = document.createElement('div'); p.className = 'empty'; p.textContent = 'لم نجد خدمة بهذا الاسم.'; host.append(p); return; }
-    const sections = new Map();
+    const sections = new Map(), secs = [];
     for (const item of shown) { const key = q ? 'نتائج البحث' : shortCat(item.category); if (!sections.has(key)) sections.set(key, []); sections.get(key).push(item); }
     for (const [title, items] of sections) {
       const sec = document.createElement('section');
       const g = document.createElement('div'); g.className = 'group'; g.textContent = title;
       const n = document.createElement('small'); n.textContent = items.length === 1 ? 'خدمة واحدة' : items.length === 2 ? 'خدمتان' : items.length + ' خدمات'; g.append(n);
-      const box = document.createElement('div'); box.className = 'box'; sec.append(g, box); host.append(sec);
+      const box = document.createElement('div'); box.className = 'box'; sec.append(g, box); host.append(sec); secs.push({ sec, w: items.length + 1.6, i: secs.length });
       for (const item of items) {
       const row = document.createElement('div'); row.className = 'row';
       const txt = document.createElement('div'); txt.className = 'txt';
       const name = document.createElement('div'); name.className = 'name'; name.textContent = item.name;
       const meta = document.createElement('div'); meta.className = 'meta';
-      if (item.bookable) { const tg = document.createElement('span'); tg.className = 'tag'; tg.textContent = 'حجز مؤكد · رسوم الحجز 20 ر.س'; meta.append(tg); }
+      if (item.bookable) { const tg = document.createElement('span'); tg.className = 'tag'; tg.textContent = 'حجز مؤكد · رسوم 20 ر.س'; meta.append(tg); }
       else if (item.kind === 'منتج') { const tg = document.createElement('span'); tg.className = 'tag muted'; tg.textContent = 'منتج'; meta.append(tg); }
       const st = document.createElement('span'); meta.append(st);
       txt.append(name, meta); if (!item.bookable && item.kind !== 'منتج') meta.hidden = true;
@@ -340,6 +338,13 @@
       controls.set(item.id, update); update();
       row.append(txt, price, ctl); box.append(row);
       }
+    }
+    // wide screens: two columns of whole categories, heaviest first into the shorter column, then each column keeps the menu order
+    if (wideMQ.matches && secs.length > 1) {
+      const cols = [[], []], load = [0, 0];
+      [...secs].sort((a, b) => b.w - a.w).forEach(x => { const k = load[0] <= load[1] ? 0 : 1; cols[k].push(x); load[k] += x.w; });
+      if (!cols[0].some(x => x.i === 0)) cols.reverse(); // the column holding the first category opens the menu
+      host.replaceChildren(...cols.map(c => { const d = document.createElement('div'); d.className = 'col'; c.sort((a, b) => a.i - b.i).forEach(x => d.append(x.sec)); return d; }));
     }
   }
   function addItem(id) { cart.push({ id, employee: '' }); renderCart(); controls.get(id)?.(); buzz(8); }
