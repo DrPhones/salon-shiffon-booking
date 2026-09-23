@@ -131,6 +131,13 @@
   .field input, .field select { height: 46px; padding: 0 12px; border-radius: var(--r-ctl); border: 1px solid rgba(240,235,247,0.12); background: rgba(240,235,247,0.06); font-size: 1rem; font-weight: 400; color: var(--ink); width: 100%; }
   .field select option { background: #211b2d; color: #f0ebf7; }
   .field select option:disabled { color: #6f6579; }
+  /* date: the native field keeps the picker and validation, but its own text (browser-locale segments that break in RTL, e.g. "yyyy/رهش/موي") is hidden and replaced by a clear Arabic label */
+  .datebox { position: relative; display: block; }
+  .datebox input { width: 100%; cursor: pointer; color: transparent; }
+  .datebox input::-webkit-datetime-edit, .datebox input::-webkit-date-and-time-value { opacity: 0; }
+  .datebox input::-webkit-calendar-picker-indicator { filter: invert(0.85); cursor: pointer; }
+  .dateface { position: absolute; inset: 0 12px; display: flex; align-items: center; pointer-events: none; font-size: 1rem; font-weight: 400; color: var(--ink); white-space: nowrap; overflow: hidden; }
+  .dateface.empty { color: rgba(169,155,184,.8); }
   .field input::placeholder { color: rgba(169,155,184,.8); }
   .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--danger); }
   .field input[dir="ltr"] { text-align: left; }
@@ -268,10 +275,10 @@
     <div id="lines"></div>
     <h2>بيانات الموعد</h2>
     <div class="grid2">
-      <label class="field">التاريخ<input id="day" type="date"></label>
+      <label class="field">التاريخ<span class="datebox"><input id="day" type="date" aria-describedby="dayFace"><span class="dateface empty" id="dayFace">اختاري اليوم والشهر</span></span></label>
       <label class="field">الوقت<select id="time"></select></label>
     </div>
-    <p class="note" id="weekday">اختاري التاريخ ليظهر اليوم.</p>
+    <p class="note" id="weekday" hidden></p>
     <p class="note">الصالون يعمل من 10 صباحًا إلى 10 مساءً، وآخر موعد يبدأ 9 مساءً. الموعد والموظفة المفضلة يخضعان للتوفر.</p>
     <label class="field">الاسم<input id="customer" type="text" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"></label>
     <label class="field">الجوال<input id="mobile" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"></label>
@@ -453,7 +460,17 @@
     if ($('day').value === todayISO() && h <= new Date().getHours()) throw Object.assign(new Error('هذه الساعة مضت اليوم؛ اختاري ساعة لاحقة أو يومًا آخر.'), { field: 'time' });
     return `${h % 12 || 12} ${h < 12 ? 'صباحًا' : 'مساءً'}`;
   }
-  $('day').addEventListener('change', () => { syncHours(); try { $('weekday').textContent = $('day').value ? `اليوم: ${requestedDate().weekday}` : 'اختاري التاريخ ليظهر اليوم.'; } catch (e) {} persist(); });
+  // shows the chosen date as "الخميس، 24 سبتمبر" (Gregorian, Western digits); year only when it is not this year
+  function renderDayFace() {
+    const v = $('day').value, face = $('dayFace');
+    if (!v) { face.textContent = 'اختاري اليوم والشهر'; face.classList.add('empty'); return; }
+    const [y, m, d] = v.split('-').map(Number);
+    const opts = { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }; if (y !== new Date().getFullYear()) opts.year = 'numeric';
+    face.textContent = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', opts).format(new Date(Date.UTC(y, m - 1, d, 12)));
+    face.classList.remove('empty');
+  }
+  $('day').addEventListener('click', () => { try { $('day').showPicker(); } catch (e) {} });
+  $('day').addEventListener('change', () => { renderDayFace(); syncHours(); try { $('weekday').textContent = $('day').value ? `اليوم: ${requestedDate().weekday}` : 'اختاري التاريخ ليظهر اليوم.'; } catch (e) {} persist(); });
   ['customer', 'mobile', 'time'].forEach(k => $(k).addEventListener('input', persist));
 
   function bookingText() {
@@ -561,7 +578,7 @@
 
   // ——— boot ———
   $('search').addEventListener('input', e => { query = e.target.value; renderList(true); });
-  renderChips(); renderList(); renderCart(); syncHours();
+  renderChips(); renderList(); renderCart(); syncHours(); renderDayFace();
   $('time').addEventListener('focus', syncHours); $('time').addEventListener('pointerdown', syncHours);
   applyMode(); booted = true; addEventListener('resize', measure); if (window.visualViewport) visualViewport.addEventListener('resize', measure);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
