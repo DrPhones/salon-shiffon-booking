@@ -11,6 +11,7 @@
     { "pattern": "chiffon9.com", "custom_domain": true },
     { "pattern": "www.chiffon9.com", "custom_domain": true }
   ],
-  // No preview URLs: only master is deployed.
+  // Serve only on chiffon9.com: no workers.dev URL, no preview URLs.
+  "workers_dev": false,
   "preview_urls": false
 }

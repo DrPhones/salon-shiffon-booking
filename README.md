@@ -2,7 +2,8 @@
 
 الصفحة **طلب حجز ذكي عبر واتساب (Smart Booking Request)**، وليست نظام حجز لحظي: لا يوجد backend ولا جدول موظفات ولا تحقق آلي من التوفر. التأكيد النهائي تقوم به موظفة الصالون عبر واتساب.
 
-- الإنتاج: https://drphones.github.io/salon-shiffon-booking/
+- الإنتاج: https://chiffon9.com/ (Cloudflare Workers static assets، يُنشر تلقائيًا من فرع `master` عبر Workers Builds؛ الإعداد في `wrangler.jsonc`).
+- الرابط القديم https://drphones.github.io/salon-shiffon-booking/ يُحوَّل إلى الدومين الجديد من فرع `gh-pages-redirect`.
 - `index.html` — الصفحة الحالية (ملف واحد: HTML + CSS + JS + الكتالوج).
 - `legacy/index.html` — نسخة مؤرشفة من التصميم السابق، غير قابلة للفهرسة (`noindex,nofollow`) وتحمل تنبيهًا يوجّه للصفحة الحالية.
 - ملفات مساندة: `hero-salon.jpg`، `og-image.jpg`، `favicon.ico`، `favicon.svg`، `apple-touch-icon.png`.
