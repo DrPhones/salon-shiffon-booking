@@ -35,7 +35,6 @@
     "sameAs": ["https://www.tiktok.com/@chiffon.9"],
     "address": { "@type": "PostalAddress", "addressLocality": "الرياض", "addressCountry": "SA" },
     "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "10:00", "closes": "22:00" }],
-    "priceRange": "SAR",
     "currenciesAccepted": "SAR"
   }
   </script>
@@ -160,6 +159,7 @@
   .totals .now { color: var(--ink); font-weight: 700; }
   .totals .now b { color: var(--accent-strong); font-weight: 700; }
   .totals .zero { font-size: 0.75rem; color: var(--muted); }
+  .notice strong { display: block; margin-bottom: 4px; }
   .reset { align-self: flex-start; font-size: 0.8125rem; color: var(--muted); padding: 6px 0; }
   .reset.armed { color: var(--danger); }
   .datebox { position: relative; display: block; }
@@ -279,7 +279,7 @@
     <p class="meta-line">مخرج ٩ · الرياض · يوميًا 10ص – 10م · الأسعار بالريال السعودي</p>
     <p class="links">
       <a href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic" target="_blank" rel="noopener noreferrer" aria-label="موقع صالون شيفون على خرائط Google (يفتح في نافذة جديدة)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>الموقع على خرائط Google</a>
-      <a href="https://www.tiktok.com/@chiffon.9?_r=1&amp;_t=ZS-99xu4IibsrF" target="_blank" rel="noopener noreferrer" aria-label="شاهدي أعمال صالون شيفون على TikTok (يفتح في نافذة جديدة)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.8 2.4 4.6 5 5"/></svg>شاهدي أعمالنا على TikTok</a>
+      <a href="https://www.tiktok.com/@chiffon.9" target="_blank" rel="noopener noreferrer" aria-label="شاهدي أعمال صالون شيفون على TikTok (يفتح في نافذة جديدة)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.8 2.4 4.6 5 5"/></svg>شاهدي أعمالنا على TikTok</a>
     </p>
   </section>
 
@@ -317,8 +317,8 @@
     <label class="field">الجوال<input id="mobile" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"></label>
     <div class="totals">
       <div><span>قيمة الخدمات والمنتجات</span><b id="tServices">0 ر.س</b></div>
-      <div class="now"><span id="tFeeLbl">المطلوب الآن لتأكيد الحجز</span><b id="tFee">0 ر.س</b></div>
-      <div class="zero" id="tFeeZero" hidden><span>لا يوجد مبلغ مطلوب للتحويل الآن.</span></div>
+      <div class="now"><span id="tFeeLbl">رسوم التأكيد بعد اعتماد الوقت</span><b id="tFee">0 ر.س</b></div>
+      <div class="zero" id="tFeeZero" hidden><span>لا يوجد مبلغ مطلوب للتحويل.</span></div>
       <div><span>قيمة الخدمات تُدفع عند تقديم الخدمة</span><b id="tLater">0 ر.س</b></div>
     </div>
     <p class="notice" id="notice"></p>
@@ -480,10 +480,13 @@
     }
     const fee = feeCount() * bookingFeePerService, svc = servicesTotal();
     $('tServices').textContent = money(svc); $('tLater').textContent = money(svc);
-    $('tFeeLbl').textContent = fee ? 'المطلوب الآن لتأكيد الحجز' : 'رسوم التأكيد'; $('tFee').textContent = money(fee); $('tFeeZero').hidden = fee > 0;
-    $('notice').textContent = fee
-      ? `ملاحظة: هذا طلب مبدئي. يُعتمد الموعد بعد مراجعة الصالون واستلام رسوم التأكيد (${money(fee)})، وتصلكِ بيانات التحويل في رسالة واتساب. رسوم التأكيد لا تُخصم من قيمة الخدمات وغير مستردة عند إلغائكِ للموعد، وإذا تعذر اعتماد الوقت المطلوب تتواصل معكِ الموظفة لترتيب الخيار المناسب.`
-      : 'ملاحظة: هذا طلب مبدئي، ولا يوجد مبلغ مطلوب للتحويل الآن. يؤكد الصالون التوفر والموعد عبر واتساب.';
+    $('tFeeLbl').textContent = fee ? 'رسوم التأكيد بعد اعتماد الوقت' : 'رسوم التأكيد'; $('tFee').textContent = money(fee); $('tFeeZero').hidden = fee > 0;
+    // the order is a request: no transfer until a salon employee confirms the requested time is available
+    const nb = $('notice'); nb.replaceChildren();
+    if (fee) {
+      const st = document.createElement('strong'); st.textContent = 'لا تحولي رسوم التأكيد قبل أن تؤكد موظفة الصالون توفر الوقت المطلوب.';
+      nb.append(st, `بعد تأكيد التوفر يتم تحويل رسوم التأكيد (${money(fee)})، وبعد استلامها يُعتمد الحجز. رسوم التأكيد لا تُخصم من قيمة الخدمات وغير مستردة عند إلغائكِ بعد تأكيد الموعد، وإذا تعذر اعتماد الوقت المطلوب تتواصل معكِ الموظفة لترتيب الخيار المناسب.`);
+    } else nb.append('لا يوجد مبلغ مطلوب للتحويل. يؤكد الصالون توفر الموعد عبر واتساب.');
     $('sumAmt').textContent = money(svc);
     sheet.classList.toggle('is-empty', cart.length === 0);
     $('sumLbl').textContent = cart.length ? `${cart.length === 1 ? 'خدمة واحدة' : cart.length === 2 ? 'خدمتان' : cart.length + ' خدمات'} · ${fee ? 'رسوم التأكيد ' + money(fee) : 'بدون رسوم تأكيد'}` : 'لم تختاري خدمة بعد';
@@ -501,8 +504,11 @@
     if (saved && Array.isArray(saved.cart) && !(saved.savedAt && Date.now() - saved.savedAt > DRAFT_TTL)) {
       cart = saved.cart.filter(e => e && byId.has(e.id)).map(e => ({ id: e.id, employee: typeof e.employee === 'string' ? e.employee : '' }));
       ['customer', 'mobile'].forEach(k => { if (typeof saved[k] === 'string') $(k).value = saved[k]; });
-      if (typeof saved.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(saved.day) && saved.day >= todayISO()) $('day').value = saved.day;
-      if (typeof saved.time === 'string' && [...$('time').options].some(o => o.value && o.value === saved.time)) $('time').value = saved.time;
+      let restoredDay = false;
+      if (typeof saved.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(saved.day) && saved.day >= todayISO()) { $('day').value = saved.day; restoredDay = $('day').value === saved.day; }
+      // a time is only meaningful with its day; syncHours() below drops it if that hour has already started today
+      if (restoredDay && typeof saved.time === 'string' && [...$('time').options].some(o => o.value && o.value === saved.time)) $('time').value = saved.time;
+      syncHours();
     } else if (saved) localStorage.removeItem(DRAFT_KEY);
   } catch (e) {}
   // on today's date, hours that have started are not bookable
@@ -550,9 +556,11 @@
     groups.forEach((g, i) => { const it = byId.get(g.id);
       lines.push(`${i + 1}. ${it.name}${g.n > 1 ? ` × ${g.n}` : ''} — ${it.price} ريال${g.n > 1 ? ' للواحدة' : ''}${it.kind === 'منتج' ? ' (منتج)' : requiresFee(it) ? ' (رسوم تأكيد)' : ''}`);
       if (g.emps.length) lines.push(`   الموظفة المفضلة: ${g.emps.join('، ')}`); });
-    lines.push('', `قيمة الخدمات: ${svc} ريال (تُدفع عند تقديم الخدمة)`, `رسوم تأكيد الحجز: ${fee} ريال`, '', 'مدة كل خدمة: ساعة تقريبًا.', 'الوقت والموظفة يخضعان للتوفر ومراجعة الصالون.', '');
-    if (fee) lines.push(`المطلوب الآن لتأكيد الحجز: ${fee} ريال`, '', `البنك: ${BANK.name}`, `اسم الحساب: ${BANK.account}`, 'الآيبان:', BANK.iban, '', 'بعد التحويل يتم اعتماد الموعد بعد مراجعة الصالون.', 'رسوم التأكيد لا تُخصم من قيمة الخدمات وغير مستردة عند إلغاء الموعد.');
-    else lines.push('لا توجد رسوم تأكيد على الخدمات المختارة.', 'يؤكد الصالون التوفر عبر واتساب.');
+    lines.push('', `قيمة الخدمات: ${svc} ريال (تُدفع عند تقديم الخدمة)`, fee ? `رسوم التأكيد بعد اعتماد الوقت: ${fee} ريال` : 'رسوم التأكيد: 0 ريال', '', 'مدة كل خدمة: ساعة تقريبًا.', 'الوقت والموظفة يخضعان للتوفر ومراجعة الصالون.', '');
+    if (fee) lines.push('مهم:', 'لا تحولي رسوم التأكيد الآن.', 'انتظري أولًا تأكيد موظفة الصالون بأن الوقت المطلوب متوفر.', `بعد تأكيد التوفر من الموظفة يتم تحويل رسوم التأكيد (${fee} ريال) لاعتماد الحجز.`, '',
+      'بيانات التحويل — تُستخدم فقط بعد تأكيد الموظفة توفر الوقت:', `البنك: ${BANK.name}`, `اسم الحساب: ${BANK.account}`, 'الآيبان:', BANK.iban, '',
+      'بعد تأكيد التوفر واستلام رسوم التأكيد يتم اعتماد الحجز.', 'رسوم التأكيد لا تُخصم من قيمة الخدمات وغير مستردة عند إلغاء الموعد بعد تأكيده.');
+    else lines.push('لا يوجد مبلغ مطلوب للتحويل.', 'يؤكد الصالون توفر الموعد عبر واتساب.');
     return lines.join('\n');
   }
   function clearInvalid() { ['customer', 'mobile', 'day', 'time'].forEach(k => $(k).removeAttribute('aria-invalid')); }
@@ -570,9 +578,10 @@
   $('mobile').addEventListener('blur', () => { const m = normalizeMobile($('mobile').value); if (m && m !== $('mobile').value) { $('mobile').value = m; persist(); } });
   // conversion hook — no name, phone, IBAN or any personal data; pushes to dataLayer / gtag only if the page has them
   function trackBookingWhatsAppClick() {
-    const items = cart.map(e => byId.get(e.id));
-    const payload = { event: 'booking_whatsapp_click', services_count: items.length, fee_services_count: feeCount(), services_value: servicesTotal(), confirmation_fee: feeCount() * bookingFeePerService, currency: 'SAR',
-      has_hair_styling: items.some(i => i.category === 'قسم الشعر ( تساريح)'), has_makeup: items.some(i => i.category === 'المكياج') };
+    const items = cart.map(e => byId.get(e.id)), isProduct = i => i.kind === 'منتج';
+    const payload = { event: 'booking_whatsapp_click', items_count: items.length, services_count: items.filter(i => !isProduct(i)).length, products_count: items.filter(isProduct).length,
+      fee_services_count: feeCount(), items_value: servicesTotal(), confirmation_fee: feeCount() * bookingFeePerService, currency: 'SAR',
+      has_hair_styling_fee_service: items.some(i => i.category === 'قسم الشعر ( تساريح)' && requiresFee(i)), has_makeup_fee_service: items.some(i => i.category === 'المكياج' && requiresFee(i)) };
     try { (window.dataLayer = window.dataLayer || []).push(payload); } catch (e) {}
     try { if (typeof window.gtag === 'function') { const { event, ...params } = payload; window.gtag('event', event, params); } } catch (e) {}
   }
