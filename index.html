@@ -180,6 +180,8 @@
   .totals .big b { font-weight: 700; }
   h2 { margin: 6px 0 0; font-size: 1.0625rem; font-weight: 700; }
   .ok { font-size: 0.75rem; color: var(--ok); }
+  .ts:empty { display: none; }
+  .primary:disabled { opacity: .6; }
 
   /* ——— wide screens: the order panel becomes a sticky side column, the catalog fills the rest ——— */
   @media (min-width: 900px) {
@@ -276,7 +278,7 @@
 
   <section class="hero">
     <h1>اختاري خدماتكِ في طلب واحد</h1>
-    <p class="lead">اختاري خدماتكِ والوقت المناسب وأرسلي طلب الحجز عبر واتساب، ويؤكد الصالون موعدكِ بعد المراجعة.</p>
+    <p class="lead">اختاري خدماتكِ والوقت المناسب وأرسلي طلب الحجز، ويؤكد الصالون موعدكِ على واتساب بعد المراجعة.</p>
     <p class="meta-line">مخرج ٩ · الرياض · يوميًا 10ص – 10م · الأسعار بالريال السعودي</p>
     <p class="links">
       <a href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic" target="_blank" rel="noopener noreferrer" aria-label="موقع صالون شيفون على خرائط Google (يفتح في نافذة جديدة)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>الموقع على خرائط Google</a>
@@ -294,7 +296,7 @@
   <main class="list" id="list"></main>
   <p id="resultCount" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></p>
   <footer class="foot-page">صالون شيفون · مخرج ٩، الرياض · <span dir="ltr">+966 50 662 8187</span></footer>
-  <p class="privacy">بياناتكِ تُحفظ على جهازكِ فقط لإكمال الطلب، ولا تصل للصالون إلا عند إرسالها عبر واتساب.</p>
+  <p class="privacy">يُستخدم اسمكِ ورقم جوالكِ لإدارة طلب الحجز والتواصل معكِ بخصوصه فقط، وتُحذف الطلبات تلقائيًا بعد 90 يومًا.</p>
 <aside class="sheet" id="sheet" aria-label="طلبك">
   <div class="grab" id="grab"><div class="bar"></div></div>
   <div class="sum" id="sum">
@@ -327,9 +329,10 @@
     <button type="button" class="lnk reset" id="reset">بدء طلب جديد</button>
   </div>
   <div class="foot" id="foot">
+    <div class="ts" id="ts"></div>
     <div class="err" id="err" role="alert" aria-live="polite"></div>
     <div class="ok" id="status" aria-live="polite"></div>
-    <button type="button" class="primary" id="send">إرسال الطلب عبر واتساب</button>
+    <button type="button" class="primary" id="send">إرسال طلب الحجز</button>
   </div>
 </aside>
 </div>
@@ -584,9 +587,9 @@
   });
   $('mobile').addEventListener('blur', () => { const m = normalizeMobile($('mobile').value); if (m && m !== $('mobile').value) { $('mobile').value = m; persist(); } });
   // conversion hook — no name, phone, IBAN or any personal data; pushes to dataLayer / gtag only if the page has them
-  function trackBookingWhatsAppClick() {
+  function trackBooking(eventName) {
     const items = cart.map(e => byId.get(e.id)), isProduct = i => i.kind === 'منتج';
-    const payload = { event: 'booking_whatsapp_click', items_count: items.length, services_count: items.filter(i => !isProduct(i)).length, products_count: items.filter(isProduct).length,
+    const payload = { event: eventName, items_count: items.length, services_count: items.filter(i => !isProduct(i)).length, products_count: items.filter(isProduct).length,
       fee_services_count: feeCount(), items_value: servicesTotal(), confirmation_fee: feeCount() * bookingFeePerService, currency: 'SAR',
       has_hair_styling_fee_service: items.some(i => i.category === 'قسم الشعر ( تساريح)' && requiresFee(i)), has_makeup_fee_service: items.some(i => i.category === 'المكياج' && requiresFee(i)) };
     try { (window.dataLayer = window.dataLayer || []).push(payload); } catch (e) {}
@@ -605,12 +608,59 @@
     try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} // renderCart re-persists, so the draft is removed last
   });
   $('go').addEventListener('click', () => { if (visible) openSheet(); });
-  $('send').addEventListener('click', () => {
-    clearInvalid(); $('err').textContent = '';
-    $('status').textContent = '';
-    try { const url = `https://wa.me/${phone}?text=${encodeURIComponent(bookingText())}`; trackBookingWhatsAppClick(); const w = window.open(url, '_blank'); if (w) { try { w.opener = null; } catch (e) {} } else { location.href = url; } $('status').textContent = 'جارٍ فتح واتساب مع نص الطلب… إن لم يُفتح تلقائيًا اضغطي الزر مرة أخرى.'; buzz(12); }
-    catch (e) { $('err').textContent = e.message; if (e.field) { $(e.field).setAttribute('aria-invalid', 'true'); $(e.field).focus({ preventScroll: false }); } }
+  // ——— send: the request goes to the booking API; WhatsApp is only the fallback when the API is unreachable ———
+  const API_URL = 'https://api.chiffon9.com/v1/requests';
+  const TURNSTILE_SITE_KEY = '0x4AAAAAAFBOCjkdToSFdJJf';
+  let tsWidget = null, tsToken = '', tsFailed = false, submitKey = null, sending = false, sent = false;
+  window.onTurnstileLoad = () => {
+    try {
+      tsWidget = window.turnstile.render('#ts', { sitekey: TURNSTILE_SITE_KEY, action: 'booking', appearance: 'interaction-only', language: 'ar',
+        callback: t => { tsToken = t; }, 'expired-callback': () => { tsToken = ''; }, 'error-callback': () => { tsToken = ''; tsFailed = true; } });
+    } catch (e) { tsFailed = true; }
+  };
+  const resetTs = () => { tsToken = ''; tsFailed = false; try { if (tsWidget !== null) window.turnstile.reset(tsWidget); } catch (e) {} };
+  const waitToken = ms => new Promise(done => { const t0 = Date.now(); (function tick() { if (tsToken) return done(tsToken); if (tsFailed || Date.now() - t0 > ms) return done(''); setTimeout(tick, 150); })(); });
+  function showErr(e) { $('err').textContent = e.message; if (e.field && $(e.field)) { $(e.field).setAttribute('aria-invalid', 'true'); $(e.field).focus({ preventScroll: false }); } }
+  function sendViaWhatsApp(text) {
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`; trackBooking('booking_whatsapp_click');
+    const w = window.open(url, '_blank'); if (w) { try { w.opener = null; } catch (e) {} } else { location.href = url; }
+  }
+  $('send').addEventListener('click', async () => {
+    if (sending) return;
+    clearInvalid(); $('err').textContent = ''; $('status').textContent = '';
+    let text; try { text = bookingText(); } catch (e) { showErr(e); return; } // same checks as before, on the page
+    const mobile = normalizeMobile($('mobile').value);
+    sending = true; $('send').disabled = true; $('status').textContent = 'جارٍ إرسال الطلب…';
+    const fallback = why => Object.assign(new Error(why), { fallback: true });
+    try {
+      const token = await waitToken(12000);
+      if (!token) throw fallback('no_token');
+      submitKey = submitKey || crypto.randomUUID(); // kept until success so a retry cannot create a duplicate
+      const payload = { idempotencyKey: submitKey, turnstileToken: token, customerName: $('customer').value.trim(), mobile, day: $('day').value,
+        hour: Number($('time').value.slice(0, 2)), items: cart.map(e => ({ id: e.id, employee: e.employee.trim() })) };
+      let res;
+      try { res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: AbortSignal.timeout(15000) }); }
+      catch (e) { throw fallback('network'); }
+      if (res.status >= 500) throw fallback('server');
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        trackBooking('booking_request_submitted');
+        // the order stays on screen as a receipt; any later edit starts a new request
+        submitKey = null; sent = true; $('send').textContent = 'تم إرسال الطلب';
+        try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+        $('status').textContent = `وصل طلبكِ (رقم ${data.ref}). ستراجع موظفة الصالون الموعد وترسل لكِ التأكيد على واتساب على الرقم ${mobile}.`;
+        buzz(12); return;
+      }
+      $('status').textContent = '';
+      showErr(Object.assign(new Error((data.error && data.error.message) || 'تعذّر إرسال الطلب. حاولي مرة أخرى.'), { field: data.error && data.error.field }));
+    } catch (e) {
+      if (!e.fallback) { $('status').textContent = ''; showErr(new Error('تعذّر إرسال الطلب. حاولي مرة أخرى.')); return; }
+      $('status').textContent = 'تعذّر إرسال الطلب إلكترونيًا، فتحنا لكِ واتساب لإرساله مباشرة.';
+      sendViaWhatsApp(text);
+    } finally { sending = false; $('send').disabled = sent; resetTs(); } // Turnstile tokens are single-use
   });
+  function unsend() { if (!sent) return; sent = false; $('send').disabled = false; $('send').textContent = 'إرسال طلب الحجز'; $('status').textContent = ''; }
+  const sheetEl = $('sheet'); sheetEl.addEventListener('input', unsend); sheetEl.addEventListener('change', unsend); sheetEl.addEventListener('click', e => { if (e.target.closest('button') && e.target.closest('button') !== $('send')) unsend(); });
 
   // ——— sheet physics: spring + drag with velocity handoff ———
   const sheet = $('sheet');
@@ -682,5 +732,6 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 })();
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" async defer></script>
 </body>
 </html>
