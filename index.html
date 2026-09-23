@@ -138,6 +138,7 @@
   .primary[disabled] { opacity: .5; cursor: not-allowed; }
   .err { min-height: 18px; font-size: 0.7812rem; line-height: 1.5; color: var(--danger); }
   .note { font-size: 0.75rem; line-height: 1.6; color: var(--muted); margin: 0; }
+  .note a { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
 
   .line { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; background: rgba(240,235,247,0.05); border: 1px solid var(--line); }
   .line .h { display: flex; align-items: center; gap: 10px; }
@@ -311,6 +312,7 @@
       <label class="field">التاريخ<span class="datebox"><input id="day" type="date" aria-describedby="dayFace"><span class="dateface empty" id="dayFace">اختاري اليوم والشهر</span></span></label>
       <label class="field">الوقت المطلوب<select id="time"></select></label>
     </div>
+    <p class="note" id="sameDay">الحجز متاح من الغد فصاعدًا. لخدمة اليوم تفضّلي بزيارة الصالون مباشرة والدخول فوري — <a href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic" target="_blank" rel="noopener noreferrer">موقع الصالون</a>.</p>
     <p class="note" id="weekday" hidden></p>
     <p class="note">مدة كل خدمة ساعة تقريبًا. الصالون يعمل من 10 صباحًا إلى 10 مساءً وآخر موعد يبدأ 9 مساءً، وقد تقترح الموظفة وقتًا أبكر عند اختيار أكثر من خدمة. اختيار الوقت لا يعني تأكيده تلقائيًا؛ يخضع للتوفر ومراجعة الصالون.</p>
     <label class="field">الاسم<input id="customer" type="text" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"></label>
@@ -495,9 +497,14 @@
 
   // ——— time options / date ———
   $('time').innerHTML = '<option value="">اختاري الساعة</option>' + Array.from({ length: 12 }, (_, i) => i + 10).map(h => `<option value="${String(h).padStart(2, '0')}:00">${h % 12 || 12}:00 ${h < 12 ? 'صباحًا' : 'مساءً'}</option>`).join('');
-  const pad = n => String(n).padStart(2, '0');
-  const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; };
-  $('day').min = todayISO();
+  // dates follow the salon's clock (Riyadh), not the device's time zone
+  const riyadhISO = (plusDays = 0) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Riyadh', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(Date.now() + plusDays * 864e5));
+  const todayISO = () => riyadhISO(0);
+  // no same-day bookings: same-day clients walk in; the first bookable day is tomorrow
+  const firstBookableISO = () => riyadhISO(1);
+  const SAME_DAY_MSG = 'الحجز لنفس اليوم غير متاح. لخدمة اليوم توجّهي للصالون مباشرة والدخول فوري، أو اختاري تاريخًا من الغد لحجز موعد.';
+  const dayError = v => !v ? '' : v === todayISO() ? SAME_DAY_MSG : v < todayISO() ? 'هذا التاريخ مضى؛ اختاري تاريخًا من الغد فصاعدًا.' : '';
+  $('day').min = firstBookableISO();
   // restore the draft only now that the hour options exist; stale (24h+) drafts, past days and elapsed hours are dropped
   try {
     const saved = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
@@ -505,17 +512,17 @@
       cart = saved.cart.filter(e => e && byId.has(e.id)).map(e => ({ id: e.id, employee: typeof e.employee === 'string' ? e.employee : '' }));
       ['customer', 'mobile'].forEach(k => { if (typeof saved[k] === 'string') $(k).value = saved[k]; });
       let restoredDay = false;
-      if (typeof saved.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(saved.day) && saved.day >= todayISO()) { $('day').value = saved.day; restoredDay = $('day').value === saved.day; }
+      if (typeof saved.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(saved.day) && saved.day >= firstBookableISO()) { $('day').value = saved.day; restoredDay = $('day').value === saved.day; }
       // a time is only meaningful with its day; syncHours() below drops it if that hour has already started today
       if (restoredDay && typeof saved.time === 'string' && [...$('time').options].some(o => o.value && o.value === saved.time)) $('time').value = saved.time;
       syncHours();
     } else if (saved) localStorage.removeItem(DRAFT_KEY);
   } catch (e) {}
   // on today's date, hours that have started are not bookable
-  function syncHours() { $('day').min = todayISO(); const today = $('day').value === todayISO(), now = new Date().getHours(); [...$('time').options].forEach(o => { if (o.value) o.disabled = today && Number(o.value.slice(0, 2)) <= now; }); if ($('time').selectedOptions[0]?.disabled) $('time').value = ''; }
+  function syncHours() { $('day').min = firstBookableISO(); const today = $('day').value === todayISO(), now = new Date().getHours(); [...$('time').options].forEach(o => { if (o.value) o.disabled = today && Number(o.value.slice(0, 2)) <= now; }); if ($('time').selectedOptions[0]?.disabled) $('time').value = ''; }
   function requestedDate() {
     const v = $('day').value; if (!v) throw Object.assign(new Error('اختاري تاريخ الموعد قبل الإرسال.'), { field: 'day' });
-    if (v < todayISO()) throw Object.assign(new Error('هذا التاريخ مضى؛ اختاري تاريخًا من اليوم فصاعدًا.'), { field: 'day' });
+    if (dayError(v)) throw Object.assign(new Error(dayError(v)), { field: 'day' });
     const [y, m, d] = v.split('-').map(Number);
     const weekday = new Intl.DateTimeFormat('ar-SA', { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d, 12)));
     const label = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d, 12)));
@@ -568,7 +575,7 @@
   const checks = {
     customer: () => $('customer').value.trim() ? '' : 'اكتبي اسمكِ الكامل.',
     mobile: () => normalizeMobile($('mobile').value) ? '' : 'اكتبي رقم جوال سعودي صحيحًا، مثل 05XXXXXXXX.',
-    day: () => !$('day').value ? 'اختاري تاريخ الموعد.' : $('day').value < todayISO() ? 'هذا التاريخ مضى؛ اختاري تاريخًا من اليوم فصاعدًا.' : '',
+    day: () => !$('day').value ? 'اختاري تاريخ الموعد.' : dayError($('day').value),
     time: () => $('time').value ? '' : 'حددي الوقت المطلوب.'
   };
   Object.keys(checks).forEach(k => {
