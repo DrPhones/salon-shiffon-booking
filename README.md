@@ -4,7 +4,11 @@
 
 - الإنتاج: https://chiffon9.com/ (Cloudflare Workers static assets، يُنشر تلقائيًا من فرع `master` عبر Workers Builds؛ الإعداد في `wrangler.jsonc`).
 - الرابط القديم https://drphones.github.io/salon-shiffon-booking/ يُحوَّل إلى الدومين الجديد من فرع `gh-pages-redirect`.
-- `index.html` — الصفحة الحالية (ملف واحد: HTML + CSS + JS + الكتالوج).
+- `index.html` — هيكل الصفحة: مقدمة بعرض الشاشة، الكتالوج، ونموذج طلب الحجز.
+- `assets/site.css` — التصميم العاجي الجديد والخطوط المحلية والاستجابة للهاتف.
+- `assets/booking.js` — الكتالوج وقواعد طلب الحجز وحفظ المسودة والقياس.
+- `assets/hero-3d.js` — مشهد الشيفون المجسّم باستخدام Three.js وWebGL2.
+- `assets/experience.js` — التنقل وتهيئة المشهد دون تعطيل الحجز.
 - `legacy/index.html` — نسخة مؤرشفة من التصميم السابق، غير قابلة للفهرسة (`noindex,nofollow`) وتحمل تنبيهًا يوجّه للصفحة الحالية.
 - ملفات مساندة: `hero-salon.jpg`، `og-image.jpg`، `favicon.ico`، `favicon.svg`، `apple-touch-icon.png`.
 
@@ -56,3 +60,33 @@ git commit -m "Revert to legacy booking design"
 ```
 
 عند الاسترجاع احذف سطر `noindex` وتنبيه الأرشيف من أعلى الصفحة.
+
+
+## التطوير والفحص
+
+يبقى الموقع ثابتًا، دون خادم خلفي أو خطوة بناء أو اعتماد على CDN أثناء التشغيل. Three.js والخطوط والأيقونات محفوظة محليًا مع تراخيصها.
+
+```bash
+python3 -m http.server 4173 --directory .
+```
+
+للفحص من طرفية أخرى:
+
+```bash
+python3 -m pip install -r tests/requirements.txt
+python3 -m playwright install chromium
+python3 tests/browser_smoke.py
+python3 tests/hero_smoke.py
+```
+
+يمكن تغيير العنوان بمتغير `SMOKE_BASE_URL`. يستخدم الفحص Chromium المثبت في `/usr/bin/chromium` إن توفر، وإلا نسخة Playwright. يمكن تشغيل فحص الحجز على WebKit باستخدام `SMOKE_BROWSER=webkit python3 tests/browser_smoke.py` بعد `python3 -m playwright install webkit`. لا ترسل هذه الفحوص رسائل واتساب؛ تتحقق من الرابط والنص محليًا.
+
+### سفاري والحركة
+
+- المشهد يعتمد على WebGL2، مع سقف لدقة الرسم ومعدل تحديث 30 إطارًا للأجهزة ذات اللمس. يتوقف الرسم عندما يغيب المشهد أو تصبح الصفحة مخفية، ويمكن إيقاف الحركة من الزر الظاهر.
+- عند تفضيل تقليل الحركة أو توفير البيانات لا يُحمّل المشهد. تبقى صورة WebP محلية بديلة، وتظل الصفحة ونموذج الحجز قابلين للاستخدام أيضًا عند فشل WebGL أو تحميل وحدته.
+- فقدان سياق WebGL يعيد الصورة البديلة؛ يستأنف المشهد عند استعادة السياق.
+- لوحة الطلب تراعي `visualViewport` عند ظهور لوحة مفاتيح الآيفون، ومساحات الشاشة الآمنة. لا تُعترض حركات اللمس والتمرير من أجل المؤثر.
+- فحص WebKit على Linux يثبت سلوك المحرك في بيئة الاختبار، ولا يغني عن معاينة إصدار سفاري المطلوب على جهاز آيفون حقيقي، خصوصًا لوحة المفاتيح وأداء GPU.
+
+إصدارات الأصول ومصادرها في `THIRD_PARTY.md`. `design-qa.md` يسجل المراجعة البصرية ونتائج الفحص قبل النشر.

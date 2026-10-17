@@ -1,686 +1,395 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#130f1a">
-  <title>صالون شيفون | حجز المواعيد والخدمات</title>
-  <meta name="description" content="اطلبي حجز خدمات صالون شيفون النسائي — مخرج 9، الرياض. تساريح ومكياج وقص واستشوار وعناية بالأظافر والبشرة، واحجزي موعدكِ عبر واتساب.">
-  <link rel="canonical" href="https://chiffon9.com/">
-  <link rel="icon" href="favicon.ico" sizes="32x32">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="ar_SA">
-  <meta property="og:site_name" content="صالون شيفون">
-  <meta property="og:title" content="صالون شيفون | حجز المواعيد والخدمات — مخرج 9، الرياض">
-  <meta property="og:description" content="اختاري خدماتكِ والوقت المناسب وأرسلي طلب الحجز عبر واتساب، ويؤكد الصالون موعدكِ بعد المراجعة.">
-  <meta property="og:url" content="https://chiffon9.com/">
-  <meta property="og:image" content="https://chiffon9.com/og-image.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="شعار صالون شيفون — حجز الخدمات، مخرج 9، الرياض">
-  <meta name="twitter:card" content="summary_large_image">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BeautySalon",
-    "name": "صالون شيفون",
-    "alternateName": "Chiffon Beauty Salon",
-    "url": "https://chiffon9.com/",
-    "image": "https://chiffon9.com/og-image.jpg",
-    "telephone": "+966506628187",
-    "hasMap": "https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic",
-    "sameAs": ["https://www.tiktok.com/@chiffon.9"],
-    "address": { "@type": "PostalAddress", "addressLocality": "الرياض", "addressCountry": "SA" },
-    "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "10:00", "closes": "22:00" }],
-    "currenciesAccepted": "SAR"
-  }
-  </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #130f1a; --card: #211b2d; --card-on: #2b2342; --line: rgba(240,235,247,0.08); --line-on: rgba(185,164,217,0.38);
-    --ink: #f0ebf7; --muted: #a99bb8; --accent: #b9a4d9; --accent-soft: rgba(185,164,217,0.16); --accent-strong: #d4c6ea; --on-accent: #171320;
-    --danger: #f2a7b5; --ok: #8fd6bb; --sheet: rgba(30,24,42,0.86);
-    --font: "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif;
-    --r-card: 18px; --r-ctl: 12px; --peek: 172px; --sab: env(safe-area-inset-bottom, 0px);
-    color-scheme: dark;
-  }
-  html { direction: rtl; }
-  html, body { height: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
-  * { box-sizing: border-box; }
-  [hidden] { display: none !important; }
-  button, input, select { font: inherit; color: inherit; }
-  button { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-  button:active { transform: scale(0.97); }
-  button, .row, .sheet, .chip { transition: transform 120ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-  .app { position: relative; max-width: 430px; margin: 0 auto; min-height: 100%; padding: 0 22px calc(28px + env(safe-area-inset-bottom, 0px)); transition: padding-bottom 200ms ease-out; }
-  html.has-cart .app { padding-bottom: calc(var(--peek) + 28px + env(safe-area-inset-bottom, 0px)); }
-  .app > * { position: relative; z-index: 1; }
-  .app > .sheet { position: fixed; z-index: 5; }
-
-  .top { position: sticky; top: 0; z-index: 3; margin: 0 -22px; padding: calc(14px + env(safe-area-inset-top, 0px)) 22px 12px; display: flex; align-items: center; justify-content: space-between; background: rgba(23,19,32,0.72); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); }
-  .top::after { content: ''; position: absolute; left: 0; right: 0; bottom: -16px; height: 16px; background: linear-gradient(rgba(23,19,32,0.72), rgba(23,19,32,0)); pointer-events: none; }
-  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--ink); }
-  .brand svg { display: block; flex: 0 0 auto; }
-  .wm { display: flex; flex-direction: column; gap: 1px; line-height: 1; }
-  .wm .ar { font-size: 1.1875rem; font-weight: 700; }
-  .wm .en { font-size: 0.5938rem; font-weight: 600; letter-spacing: .22em; color: var(--accent); }
-  .icon-btn .lbl-desk { display: none; }
-  .icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgba(240,235,247,0.08); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; color: var(--ink); }
-
-  .hero { padding: 22px 0 14px; display: flex; flex-direction: column; gap: 8px; }
-  .meta-line { margin: 2px 0 0; font-size: 0.75rem; color: var(--muted); }
-  .eyebrow { font-size: 0.75rem; font-weight: 600; color: var(--accent); }
-  h1 { margin: 0; font-size: 1.75rem; line-height: 1.2; font-weight: 700; text-wrap: balance; }
-  .lead { margin: 0; font-size: 0.875rem; line-height: 1.7; color: var(--muted); }
-  .badge { align-self: flex-start; margin-top: 4px; height: 28px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); font-size: 0.75rem; font-weight: 600; }
-  .listnote { margin: 14px 4px 0; font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
-  .foot-page { margin: 28px 0 0; text-align: center; font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
-  .notice { margin: 0; padding: 12px 14px; border-radius: 14px; background: rgba(143,214,187,0.1); color: var(--ok); font-size: 0.7812rem; line-height: 1.7; }
-  .toast { position: fixed; left: 50%; bottom: calc(var(--peek) + 12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 6; width: min(calc(100% - 44px), 386px); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: 14px; background: #2a2340; border: 1px solid var(--line-on); color: var(--ink); font-size: 0.8125rem; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
-  .toast .lnk { padding: 4px 0; }
-  .sub { font-size: 0.75rem; line-height: 1.6; color: var(--muted); font-weight: 400; }
-
-  .search { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 14px; border-radius: 14px; background: rgba(240,235,247,0.06); border: 1px solid var(--line); margin-bottom: 12px; }
-  .search input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font-size: 1rem; }
-  .search input::placeholder { color: var(--muted); }
-
-  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0 14px; margin: 0 -22px; padding-inline: 22px; scroll-snap-type: x proximity; scroll-padding-inline: 22px; }
-  .chips::-webkit-scrollbar { display: none; }
-  .chip { flex: 0 0 auto; height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(240,235,247,0.08); color: var(--ink); font-size: 0.8125rem; font-weight: 500; white-space: nowrap; scroll-snap-align: start; }
-  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); font-weight: 600; }
-
-  .list { display: flex; flex-direction: column; gap: 18px; }
-  .group { font-size: 0.8125rem; font-weight: 600; color: var(--ink); padding: 0 6px 8px; display: flex; justify-content: space-between; align-items: baseline; }
-  .group small { font-weight: 400; color: var(--muted); font-size: 0.75rem; }
-  .box { border-radius: var(--r-card); background: var(--card); border: 1px solid var(--line); overflow: hidden; }
-  .row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-top: 1px solid var(--line); }
-  .row:first-child { border-top: 0; }
-  .row.on { background: var(--card-on); }
-  .row .price { font-size: 0.9375rem; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
-  .tag { font-size: 0.75rem; font-weight: 500; color: var(--accent); white-space: nowrap; }
-  .tag.muted { color: var(--muted); }
-  p, .lead, .note, .sub, .listnote, .foot-page, .empty { text-wrap: pretty; }
-  .row .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-  .row .name { font-size: 0.9375rem; font-weight: 600; line-height: 1.4; }
-  .row .meta { font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .row.on .meta { color: var(--accent); }
-  .add { width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--accent-soft); color: var(--accent-strong); font-size: 1.375rem; line-height: 1; flex: 0 0 auto; }
-  .qty { display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(240,235,247,0.08); flex: 0 0 auto; direction: ltr; }
-  .qty button { width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); font-size: 1.1875rem; line-height: 1; }
-  .qty button.plus { background: var(--accent); color: var(--on-accent); }
-  .qty output { min-width: 22px; text-align: center; font-weight: 700; font-size: 0.875rem; font-variant-numeric: tabular-nums; display: inline-block; transition: transform 160ms cubic-bezier(.2,.9,.3,1.4); }
-  .qty output.pop { transform: scale(1.25); }
-  .empty { padding: 26px 16px; text-align: center; color: var(--muted); font-size: 0.875rem; border-radius: var(--r-card); background: var(--card); }
-
-  /* ——— sheet ——— */
-  .sheet { position: fixed; left: 50%; bottom: 0; width: min(100%, 430px); transform: translateX(-50%) translateY(0); z-index: 5; border-radius: 28px 28px 0 0; background: var(--sheet); backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%); border-top: 1px solid rgba(240,235,247,0.12); box-shadow: 0 -20px 60px rgba(0,0,0,.45); display: flex; flex-direction: column; will-change: transform; touch-action: none; }
-  .sheet .grab { padding: 10px 22px 6px; cursor: grab; }
-  .sheet .grab .bar { width: 36px; height: 5px; border-radius: 3px; background: rgba(240,235,247,0.28); margin: 0 auto; }
-  .sum { display: flex; align-items: center; justify-content: space-between; padding: 4px 22px 12px; cursor: grab; }
-  .sum .lbl { font-size: 0.75rem; color: var(--muted); }
-  .sum .amt { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .lnk { border: 0; background: none; color: var(--accent); font-size: 0.8125rem; font-weight: 600; padding: 8px 0; }
-  .peekfoot { position: absolute; left: 22px; right: 22px; top: 84px; }
-  .sheet.open .peekfoot { pointer-events: none; }
-  .sheet:not(.open) .body, .sheet:not(.open) .foot { pointer-events: none; }
-  .body { flex: 1; will-change: opacity; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 22px 0; display: flex; flex-direction: column; gap: 14px; touch-action: pan-y; }
-  .foot { padding: 12px 22px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px; }
-  .primary { height: 54px; border: 0; border-radius: 16px; background: var(--accent); color: var(--on-accent); font-size: 1rem; font-weight: 700; width: 100%; }
-  .primary[disabled] { opacity: .5; cursor: not-allowed; }
-  .err { min-height: 18px; font-size: 0.7812rem; line-height: 1.5; color: var(--danger); }
-  .note { font-size: 0.75rem; line-height: 1.6; color: var(--muted); margin: 0; }
-  .note a { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
-
-  .line { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; background: rgba(240,235,247,0.05); border: 1px solid var(--line); }
-  .line .h { display: flex; align-items: center; gap: 10px; }
-  .line .h .n { flex: 1; min-width: 0; font-size: 0.9375rem; font-weight: 600; }
-  .line .h .p { font-size: 0.875rem; font-variant-numeric: tabular-nums; color: var(--accent-strong); }
-  .line .s { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
-  .line .s.fee { color: var(--ok); }
-  .line .emp { align-self: flex-start; padding: 2px 0; }
-  .field { display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; font-weight: 600; color: var(--muted); }
-  .field input, .field select { height: 46px; padding: 0 12px; border-radius: var(--r-ctl); border: 1px solid rgba(240,235,247,0.12); background: rgba(240,235,247,0.06); font-size: 1rem; font-weight: 400; color: var(--ink); width: 100%; }
-  .field select option { background: #211b2d; color: #f0ebf7; }
-  .field select option:disabled { color: #6f6579; }
-  /* date: the native field keeps the picker and validation, but its own text (browser-locale segments that break in RTL, e.g. "yyyy/رهش/موي") is hidden and replaced by a clear Arabic label */
-  .links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 2px 0 0; }
-  .links a { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; font-size: 0.8125rem; font-weight: 600; color: var(--accent); text-decoration: none; }
-  .links a:hover { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 3px; }
-  .links svg { flex: 0 0 auto; }
-  .row .thumb { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; background: var(--card-on); }
-  .totals .now { color: var(--ink); font-weight: 700; }
-  .totals .now b { color: var(--accent-strong); font-weight: 700; }
-  .totals .zero { font-size: 0.75rem; color: var(--muted); }
-  .notice strong { display: block; margin-bottom: 4px; }
-  .reset { align-self: flex-start; font-size: 0.8125rem; color: var(--muted); padding: 6px 0; }
-  .reset.armed { color: var(--danger); }
-  .datebox { position: relative; display: block; }
-  .datebox input { width: 100%; cursor: pointer; color: transparent; }
-  .datebox input::-webkit-datetime-edit, .datebox input::-webkit-date-and-time-value { opacity: 0; }
-  .datebox input::-webkit-calendar-picker-indicator { filter: invert(0.85); cursor: pointer; }
-  .dateface { position: absolute; inset: 0 12px; display: flex; align-items: center; pointer-events: none; font-size: 1rem; font-weight: 400; color: var(--ink); white-space: nowrap; overflow: hidden; }
-  .dateface.empty { color: rgba(169,155,184,.8); }
-  .field input::placeholder { color: rgba(169,155,184,.8); }
-  .field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--danger); }
-  .field input[dir="ltr"] { text-align: left; }
-  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .totals { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.875rem; color: var(--muted); }
-  .totals div { display: flex; justify-content: space-between; }
-  .totals b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
-  .totals .big { font-size: 1.125rem; font-weight: 700; color: var(--ink); padding-top: 4px; }
-  .totals .big b { font-weight: 700; }
-  h2 { margin: 6px 0 0; font-size: 1.0625rem; font-weight: 700; }
-  .ok { font-size: 0.75rem; color: var(--ok); }
-
-  /* ——— wide screens: the order panel becomes a sticky side column, the catalog fills the rest ——— */
-  @media (min-width: 900px) {
-    .app { max-width: 1180px; display: grid; grid-template-columns: minmax(0, 1fr) 400px; column-gap: 36px; padding: 0 32px 56px; align-items: start; }
-    html.has-cart .app { padding-bottom: 56px; }
-    .app > .top { grid-column: 1 / -1; margin: 0 -32px 8px; padding-inline: 32px; }
-    .hero, .search, .chips, .list, .listnote, .foot-page { grid-column: 1; }
-    .hero { padding-top: 34px; }
-    .icon-btn { width: auto; padding: 0 16px 0 14px; gap: 8px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; }
-    .icon-btn .lbl-desk { display: inline; }
-    h1 { font-size: 2.375rem; }
-    .lead { font-size: 1rem; max-width: 60ch; }
-    .chips { flex-wrap: wrap; overflow: visible; margin: 0; padding-inline: 0; }
-    .app > .sheet { position: sticky; top: 92px; grid-column: 2; grid-row: 2 / span 6; left: auto; bottom: auto; width: auto; transform: none !important; height: auto !important; max-height: calc(100vh - 116px); border-radius: 24px; border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0,0,0,.35); touch-action: auto; }
-    .sheet .grab, .peekfoot, #toggle { display: none; }
-    .sheet.is-empty .body > :not(#lines), .sheet.is-empty .foot { display: none; }
-    .sheet.is-empty .sum { display: none; }
-    .sheet.is-empty .body { padding-top: 18px; padding-bottom: 18px; }
-    .sum { cursor: default; padding-top: 18px; }
-    .body, .foot { opacity: 1 !important; pointer-events: auto !important; }
-    .foot { padding-bottom: 18px; }
-    .toast { bottom: 24px !important; left: auto; right: 32px; transform: none; }
-  }
-  @media (min-width: 1180px) {
-    /* two columns of whole categories (split by renderList so both columns end near the same height) */
-    .list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; align-items: start; }
-    .list > .col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
-    .list .empty { grid-column: 1 / -1; }
-    .list .empty { column-span: all; }
-  }
-  @media (prefers-reduced-motion: reduce) { *, .sheet { transition: none !important; } }
-  @media (prefers-reduced-transparency: reduce) { .sheet, .top { backdrop-filter: none; -webkit-backdrop-filter: none; background: #1e182a; } .top::after { display: none; } }
-  @media (prefers-contrast: more) { :root { --line: rgba(240,235,247,0.28); --muted: #c9bfd6; } .row, .line, .field input, .field select { border-color: var(--line); } }
-  /* salon reception photo behind the hero, colour-graded to the brand night palette; the sign sits in the upper part, the headline below it */
-  .hero { margin: 0 -22px; padding: 236px 22px 18px; background:
-      linear-gradient(180deg, rgba(19,15,26,0.35) 0%, rgba(19,15,26,0) 16%, rgba(19,15,26,0) 46%, rgba(19,15,26,0.85) 62%, #130f1a 80%),
-      url("hero-salon.jpg") 36% 0 / auto 340px no-repeat, #130f1a; }
-  .hero .lead, .hero .meta-line { color: #cfc4dc; }
-  /* grain: fixed, non-interactive noise layer over the whole page */
-  body::after { content: ''; position: fixed; inset: 0; z-index: 7; pointer-events: none; opacity: .07; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-  /* hover feedback on pointer devices only */
-  @media (hover: hover) {
-    .row:hover { background: rgba(240,235,247,0.035); } .row.on:hover { background: var(--card-on); }
-    .add:hover { background: rgba(185,164,217,0.28); }
-    .chip:hover { background: rgba(240,235,247,0.14); } .chip[aria-pressed="true"]:hover { background: var(--ink); }
-    .primary:hover { background: var(--accent-strong); }
-    .icon-btn:hover { background: rgba(240,235,247,0.14); }
-    .lnk:hover { color: var(--accent-strong); }
-  }
-  /* one accent: booking-fee info uses the brand accent, green stays for success messages only */
-  .line .s.fee { color: var(--accent); }
-  .notice { background: var(--accent-soft) !important; color: var(--accent-strong) !important; }
-  /* inline styles moved into classes */
-  .empty strong { display: block; color: var(--ink); margin-bottom: 6px; }
-  .lines { display: flex; flex-direction: column; gap: 10px; }
-  .lnk.rm { color: var(--danger); padding: 4px 0; }
-  .note.gap { margin-top: 10px; }
-  .privacy { margin: 8px 0 0; font-size: 0.75rem; color: var(--muted); text-align: center; }
-  @media (min-width: 900px) {
-    .hero { margin: 0; border-radius: 24px; padding: 340px 36px 30px; background:
-      linear-gradient(90deg, rgba(19,15,26,0) 30%, rgba(19,15,26,0.55) 100%),
-      linear-gradient(180deg, rgba(19,15,26,0.2) 0%, rgba(19,15,26,0) 30%, rgba(19,15,26,0) 48%, rgba(19,15,26,0.88) 66%, #130f1a 86%),
-      url("hero-salon.jpg") 30% 22% / cover no-repeat, #130f1a; }
-    .privacy { grid-column: 1; }
-  }
-</style>
-</head>
-<body>
-<div class="app" dir="rtl" lang="ar">
-  <header class="top">
-    <a class="brand" href="./" aria-label="شيفون — الصفحة الرئيسية">
-      <svg viewBox="0 0 64 64" width="42" height="42" aria-hidden="true" focusable="false">
-        <rect width="64" height="64" rx="18" fill="#2a2340"/>
-        <rect x="0.5" y="0.5" width="63" height="63" rx="17.5" fill="none" stroke="#b9a4d9" stroke-opacity="0.35"/>
-        <g fill="#d4c6ea" transform="translate(-2 -5)">
-          <path d="M17 20 H29 C35.5 20 38 24 38 28.5 C38 33 35.5 37 29 37 H17 C12 37 9 33.5 9 28.5 C9 23.5 12 20 17 20 Z"/>
-          <path d="M37 23.5 L48 20.5 V36.5 L37 33.5 Z"/>
-          <path d="M20.5 36.5 L16.4 51.8 C15.8 54 18.9 55 19.8 52.8 L26 36.5 Z"/>
-          <path d="M17.4 53.6 C17 56 18.6 57 20.2 56.2" fill="none" stroke="#d4c6ea" stroke-width="1.4" stroke-linecap="round"/>
-        </g>
-        <g fill="none" stroke="#b9a4d9" stroke-width="2" stroke-linecap="round" transform="translate(-2 -5)">
-          <path d="M52 22 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0"/>
-          <path d="M52 28.5 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0"/>
-          <path d="M52 35 c1.5 -1.6 3 -1.6 4.5 0 s3 1.6 4.5 0"/>
-        </g>
-      </svg>
-      <span class="wm"><span class="ar">شيفون</span><span class="en">CHIFFON</span></span>
-    </a>
-    <a class="icon-btn" href="https://wa.me/966506628187?text=%D8%A3%D9%87%D9%84%D9%8B%D8%A7%D8%8C%20%D9%84%D8%AF%D9%8A%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" target="_blank" rel="noopener" aria-label="استفسار عبر واتساب">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-5.1A8 8 0 1 1 21 12z"></path></svg>
-      <span class="lbl-desk">عندي استفسار</span>
-    </a>
-  </header>
-
-  <section class="hero">
-    <h1>اختاري خدماتكِ في طلب واحد</h1>
-    <p class="lead">اختاري خدماتكِ والوقت المناسب وأرسلي طلب الحجز عبر واتساب، ويؤكد الصالون موعدكِ بعد المراجعة.</p>
-    <p class="meta-line">مخرج ٩ · الرياض · يوميًا 10ص – 10م · الأسعار بالريال السعودي</p>
-    <p class="links">
-      <a href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic" target="_blank" rel="noopener noreferrer" aria-label="موقع صالون شيفون على خرائط Google (يفتح في نافذة جديدة)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>الموقع على خرائط Google</a>
-      <a href="https://www.tiktok.com/@chiffon.9" target="_blank" rel="noopener noreferrer" aria-label="شاهدي أعمال صالون شيفون على TikTok (يفتح في نافذة جديدة)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.8 2.4 4.6 5 5"/></svg>شاهدي أعمالنا على TikTok</a>
-    </p>
-  </section>
-
-  <label class="search">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a99bb8" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-    <input id="search" type="search" placeholder="ابحثي عن خدمة أو منتج" aria-label="ابحثي عن خدمة أو منتج" autocomplete="off">
-  </label>
-
-  <div class="chips" id="chips" role="group" aria-label="الأقسام"></div>
-
-  <main class="list" id="list"></main>
-  <p id="resultCount" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></p>
-  <footer class="foot-page">صالون شيفون · مخرج ٩، الرياض · <span dir="ltr">+966 50 662 8187</span></footer>
-  <p class="privacy">بياناتكِ تُحفظ على جهازكِ فقط لإكمال الطلب، ولا تصل للصالون إلا عند إرسالها عبر واتساب.</p>
-<aside class="sheet" id="sheet" aria-label="طلبك">
-  <div class="grab" id="grab"><div class="bar"></div></div>
-  <div class="sum" id="sum">
-    <div>
-      <div class="lbl" id="sumLbl">لم تختاري خدمة بعد</div>
-      <div class="amt" id="sumAmt">0 ر.س</div>
-    </div>
-    <button type="button" class="lnk" id="toggle" aria-expanded="false">تفاصيل</button>
-  </div>
-  <div class="peekfoot" id="peekfoot"><button type="button" class="primary" id="go">متابعة</button></div>
-  <div class="body" id="body">
-    <div id="lines"></div>
-    <h2>بيانات الموعد</h2>
-    <div class="grid2">
-      <label class="field">التاريخ<span class="datebox"><input id="day" type="date" aria-describedby="dayFace"><span class="dateface empty" id="dayFace">اختاري اليوم والشهر</span></span></label>
-      <label class="field">الوقت المطلوب<select id="time"></select></label>
-    </div>
-    <p class="note" id="sameDay">الحجز متاح من الغد فصاعدًا. لخدمة اليوم تفضّلي بزيارة الصالون مباشرة والدخول فوري — <a href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic" target="_blank" rel="noopener noreferrer">موقع الصالون</a>.</p>
-    <p class="note" id="weekday" hidden></p>
-    <p class="note">مدة كل خدمة ساعة تقريبًا. الصالون يعمل من 10 صباحًا إلى 10 مساءً وآخر موعد يبدأ 9 مساءً، وقد تقترح الموظفة وقتًا أبكر عند اختيار أكثر من خدمة. اختيار الوقت لا يعني تأكيده تلقائيًا؛ يخضع للتوفر ومراجعة الصالون.</p>
-    <label class="field">الاسم<input id="customer" type="text" autocomplete="name" placeholder="اكتبي اسمكِ الكامل"></label>
-    <label class="field">الجوال<input id="mobile" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05XXXXXXXX"></label>
-    <div class="totals">
-      <div><span>قيمة الخدمات والمنتجات</span><b id="tServices">0 ر.س</b></div>
-      <div class="now"><span id="tFeeLbl">رسوم التأكيد بعد اعتماد الوقت</span><b id="tFee">0 ر.س</b></div>
-      <div class="zero" id="tFeeZero" hidden><span>لا يوجد مبلغ مطلوب للتحويل.</span></div>
-      <div><span>قيمة الخدمات تُدفع عند تقديم الخدمة</span><b id="tLater">0 ر.س</b></div>
-    </div>
-    <p class="notice" id="notice"></p>
-    <button type="button" class="lnk reset" id="reset">بدء طلب جديد</button>
-  </div>
-  <div class="foot" id="foot">
-    <div class="err" id="err" role="alert" aria-live="polite"></div>
-    <div class="ok" id="status" aria-live="polite"></div>
-    <button type="button" class="primary" id="send">إرسال الطلب عبر واتساب</button>
-  </div>
-</aside>
-</div>
-
-<div class="toast" id="toast" dir="rtl" lang="ar" role="status" aria-live="polite" hidden><span id="toastMsg"></span><button type="button" class="lnk" id="undo">تراجع</button></div>
-
-<script>
-(function () {
-  'use strict';
-  const catalog = [{"id":1,"category":"قسم الشعر (قص)","name":"قص غرة تحديد","price":11,"kind":"خدمة","bookable":false},{"id":2,"category":"قسم الشعر (قص)","name":"قص غرة مدرج","price":34,"kind":"خدمة","bookable":false},{"id":3,"category":"قسم الشعر (قص)","name":"قص تحديد","price":34,"kind":"خدمة","bookable":false},{"id":4,"category":"قسم الشعر (قص)","name":"قص مدرج","price":69,"kind":"خدمة","bookable":false},{"id":5,"category":"قسم الشعر (قص)","name":"قص بوي","price":115,"kind":"خدمة","bookable":false},{"id":6,"category":"قسم الشعر (قص)","name":"قص زيادة ماكينة","price":69,"kind":"خدمة","bookable":false},{"id":7,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر قصير","price":138,"kind":"خدمة","bookable":true},{"id":8,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر متوسط","price":184,"kind":"خدمة","bookable":true},{"id":9,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر فوق المتوسط او طويل","price":253,"kind":"خدمة","bookable":true},{"id":10,"category":"قسم الشعر ( تساريح)","name":"تسريحة شعر طويل جدا","price":299,"kind":"خدمة","bookable":true},{"id":11,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال قصير","price":69,"kind":"خدمة","bookable":true},{"id":12,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال متوسط","price":92,"kind":"خدمة","bookable":true},{"id":13,"category":"قسم الشعر ( تساريح)","name":"تسريحة أطفال طويل","price":138,"kind":"خدمة","bookable":true},{"id":14,"category":"قسم الشعر ( تساريح)","name":"تسريحة عروس خارجي","price":1500,"kind":"خدمة","bookable":true},{"id":15,"category":"قسم الشعر ( تساريح)","name":"تسريحة خارجي","price":575,"kind":"خدمة","bookable":true},{"id":16,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر قصير","price":46,"kind":"خدمة","bookable":false},{"id":17,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر متوسط","price":69,"kind":"خدمة","bookable":false},{"id":18,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر فوق للمتوسط","price":92,"kind":"خدمة","bookable":false},{"id":19,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر طويل","price":138,"kind":"خدمة","bookable":false},{"id":20,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي شعر قصير بالفرشة","price":69,"kind":"خدمة","bookable":false},{"id":21,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي شعر متوسط بالفرشة","price":92,"kind":"خدمة","bookable":false},{"id":22,"category":"قسم الشعر ( استشوارات","name":"استشوار ويفي طويل بالفرشة","price":138,"kind":"خدمة","bookable":false},{"id":23,"category":"قسم الشعر ( استشوارات","name":"زيادة ويفي","price":46,"kind":"خدمة","bookable":false},{"id":24,"category":"قسم الشعر ( استشوارات","name":"زيادة سيراميك","price":46,"kind":"خدمة","bookable":false},{"id":25,"category":"قسم الشعر ( استشوارات","name":"استشوار شعر طويل جدا","price":161,"kind":"خدمة","bookable":false},{"id":26,"category":"جدائل","name":"جديلة واحدة","price":23,"kind":"خدمة","bookable":false},{"id":27,"category":"جدائل","name":"اكسسوار جدائل الحبة","price":10,"kind":"خدمة","bookable":false},{"id":28,"category":"معالجات باردة","name":"حمام زيت كريمي شعر قصير","price":69,"kind":"خدمة","bookable":false},{"id":29,"category":"معالجات باردة","name":"حمام زيت كريمي متوسط","price":92,"kind":"خدمة","bookable":false},{"id":30,"category":"معالجات باردة","name":"حمام زيت كريمي طويل","price":115,"kind":"خدمة","bookable":false},{"id":31,"category":"معالجات باردة","name":"تنظيف فروة راس","price":184,"kind":"خدمة","bookable":false},{"id":32,"category":"معالجات باردة","name":"جلسة الكافيار الباردة","price":184,"kind":"خدمة","bookable":false},{"id":33,"category":"معالجات باردة","name":"جلسة جهاز تقصف الشعر","price":184,"kind":"خدمة","bookable":false},{"id":34,"category":"معالجات حارة","name":"بروتين شعر قصير","price":345,"kind":"خدمة","bookable":false},{"id":35,"category":"معالجات حارة","name":"بروتين جذور","price":315,"kind":"خدمة","bookable":false},{"id":36,"category":"معالجات حارة","name":"اوميغا زيرو+ شامبو بلسم","price":600,"kind":"خدمة","bookable":false},{"id":37,"category":"معالجات حارة","name":"سيليكون شعر قصير","price":535,"kind":"خدمة","bookable":false},{"id":38,"category":"معالجات حارة","name":"سيليكون شعر متوسط","price":840,"kind":"خدمة","bookable":false},{"id":39,"category":"معالجات حارة","name":"سيليكون شعر طويل","price":1050,"kind":"خدمة","bookable":false},{"id":40,"category":"قسم سبا الاظافر","name":"تنظيف يدين رجول كلاسيك","price":120,"kind":"خدمة","bookable":false},{"id":41,"category":"قسم سبا الاظافر","name":"تنظيف يدين","price":40,"kind":"خدمة","bookable":false},{"id":42,"category":"قسم سبا الاظافر","name":"تنظيف ارجل","price":80,"kind":"خدمة","bookable":false},{"id":43,"category":"قسم سبا الاظافر","name":"برافين يدين رجول","price":46,"kind":"خدمة","bookable":false},{"id":44,"category":"قسم سبا الاظافر","name":"برافين يدين","price":23,"kind":"خدمة","bookable":false},{"id":45,"category":"قسم سبا الاظافر","name":"برافين ارجل","price":23,"kind":"خدمة","bookable":false},{"id":46,"category":"قسم سبا الاظافر","name":"لون عادي","price":17,"kind":"خدمة","bookable":false},{"id":47,"category":"قسم سبا الاظافر","name":"لون فرنسي","price":23,"kind":"خدمة","bookable":false},{"id":48,"category":"قسم سبا الاظافر","name":"لون امبري","price":120,"kind":"خدمة","bookable":false},{"id":49,"category":"قسم سبا الاظافر","name":"لون جل","price":369,"kind":"خدمة","bookable":false},{"id":50,"category":"قسم سبا الاظافر","name":"جل اكستنشن","price":345,"kind":"خدمة","bookable":false},{"id":51,"category":"قسم سبا الاظافر","name":"اكليريك","price":345,"kind":"خدمة","bookable":false},{"id":52,"category":"قسم سبا الاظافر","name":"بولي جل","price":369,"kind":"خدمة","bookable":false},{"id":53,"category":"قسم سبا الاظافر","name":"لون بياب","price":249,"kind":"خدمة","bookable":false},{"id":54,"category":"قسم سبا الاظافر","name":"بياب اكستنشن","price":249,"kind":"خدمة","bookable":false},{"id":55,"category":"قسم سبا الاظافر","name":"لون كات اي","price":120,"kind":"خدمة","bookable":false},{"id":56,"category":"قسم سبا الاظافر","name":"لون كروم","price":120,"kind":"خدمة","bookable":false},{"id":57,"category":"قسم سبا الاظافر","name":"نيل ارت اظفر واحد","price":11,"kind":"خدمة","bookable":false},{"id":58,"category":"قسم سبا الاظافر","name":"اكسسوار اظفر واحد","price":11,"kind":"خدمة","bookable":false},{"id":59,"category":"قسم سبا الاظافر","name":"إزالة بياب اكستنشن","price":31,"kind":"خدمة","bookable":false},{"id":60,"category":"قسم سبا الاظافر","name":"إزالة بولي جل","price":31,"kind":"خدمة","bookable":false},{"id":61,"category":"قسم سبا الاظافر","name":"إزالة جل اكستنشن","price":31,"kind":"خدمة","bookable":false},{"id":62,"category":"قسم سبا الاظافر","name":"تنظيف روسي","price":150,"kind":"خدمة","bookable":false},{"id":63,"category":"تنظيف البشرة","name":"فتلة وجه","price":46,"kind":"خدمة","bookable":false},{"id":64,"category":"تنظيف البشرة","name":"شمع وجه","price":46,"kind":"خدمة","bookable":false},{"id":65,"category":"تنظيف البشرة","name":"فتلة اوشمع شنب","price":23,"kind":"خدمة","bookable":false},{"id":66,"category":"تنظيف البشرة","name":"شمع او حلاوة يدين وارجل","price":138,"kind":"خدمة","bookable":false},{"id":67,"category":"تنظيف البشرة","name":"شمع اوحلاوة يدين اوارجل","price":69,"kind":"خدمة","bookable":false},{"id":68,"category":"تنظيف البشرة","name":"شمع او حلاوة ظهر اوبطن اوصدر","price":69,"kind":"خدمة","bookable":false},{"id":69,"category":"تنظيف البشرة","name":"شمع اوحلاوة ابط","price":23,"kind":"خدمة","bookable":false},{"id":70,"category":"تنظيف البشرة","name":"شمع رقبة","price":23,"kind":"خدمة","bookable":false},{"id":71,"category":"المكياج","name":"مكياج ناعم","price":184,"kind":"خدمة","bookable":true},{"id":72,"category":"المكياج","name":"مكياج كنتور","price":253,"kind":"خدمة","bookable":true},{"id":73,"category":"المكياج","name":"مكياج بناتي","price":138,"kind":"خدمة","bookable":true},{"id":74,"category":"المكياج","name":"مكياج خارجي","price":575,"kind":"خدمة","bookable":true},{"id":75,"category":"المكياج","name":"كحل عيون فقط","price":34,"kind":"خدمة","bookable":false},{"id":76,"category":"المكياج","name":"رموش حبات","price":115,"kind":"منتج","bookable":false},{"id":77,"category":"المكياج","name":"تركيب رموش كاملة","price":23,"kind":"خدمة","bookable":false},{"id":78,"category":"المكياج","name":"تركيب رموش حبات","price":69,"kind":"خدمة","bookable":false},{"id":79,"category":"المكياج","name":"رموش كاملة","price":57,"kind":"منتج","bookable":false},{"id":80,"category":"المكياج","name":"رسم حواجب","price":23,"kind":"خدمة","bookable":false},{"id":81,"category":"المكياج","name":"صبغة وتشقير","price":46,"kind":"خدمة","bookable":false},{"id":82,"category":"المكياج","name":"صبغة اوتشقير","price":23,"kind":"خدمة","bookable":false},{"id":83,"category":"الصبغات","name":"تست صبغات","price":11,"kind":"خدمة","bookable":false},{"id":84,"category":"الصبغات","name":"رينساج","price":168,"kind":"خدمة","bookable":false},{"id":85,"category":"الصبغات","name":"زيادة اوبلكس","price":63,"kind":"خدمة","bookable":false},{"id":86,"category":"الصبغات","name":"زيادة صبغة بدون امونيا","price":63,"kind":"خدمة","bookable":false},{"id":87,"category":"الصبغات","name":"صبغة اطراف","price":210,"kind":"خدمة","bookable":false},{"id":88,"category":"الصبغات","name":"سحب اطراف","price":105,"kind":"خدمة","bookable":false},{"id":89,"category":"الصبغات","name":"امبرى فقط","price":315,"kind":"خدمة","bookable":false},{"id":90,"category":"الصبغات","name":"خصل قصدير قصير+ متوسط + فوق المتوسط","price":231,"kind":"خدمة","bookable":false},{"id":91,"category":"الصبغات","name":"خصل قصدير طويل وطويل جدا","price":273,"kind":"خدمة","bookable":false},{"id":92,"category":"الصبغات","name":"خصل طاقية قصير + متوسط + فوق المتوسط","price":168,"kind":"خدمة","bookable":false},{"id":93,"category":"الصبغات","name":"خصل طاقية طويل وطويل جدا","price":231,"kind":"خدمة","bookable":false},{"id":94,"category":"الصبغات","name":"صبغة جذور","price":83,"kind":"خدمة","bookable":false},{"id":95,"category":"الصبغات","name":"صبغة جذور بدون امونيا","price":150,"kind":"خدمة","bookable":false},{"id":96,"category":"الصبغات","name":"خصل كنتور فقط","price":63,"kind":"خدمة","bookable":false},{"id":97,"category":"الصبغات","name":"كنتور كامل + لون","price":450,"kind":"خدمة","bookable":false},{"id":98,"category":"الصبغات","name":"خصلة واحدة","price":21,"kind":"خدمة","bookable":false},{"id":99,"category":"الصبغات","name":"صبغة لون قصير","price":210,"kind":"خدمة","bookable":false},{"id":100,"category":"الصبغات","name":"صبغة لون متوسط","price":273,"kind":"خدمة","bookable":false},{"id":101,"category":"الصبغات","name":"صبغة لون فوق المتوسط","price":378,"kind":"خدمة","bookable":false},{"id":102,"category":"الصبغات","name":"صبغة لون طويل","price":483,"kind":"خدمة","bookable":false},{"id":103,"category":"الصبغات","name":"صبغة لون طويل جدا","price":588,"kind":"خدمة","bookable":false}];
-  const phone = '966506628187';
-  const bookingFeePerService = 20;
-  // catalog field `bookable` = the service needs the 20 ر.س confirmation fee; every other item can still be requested
-  const requiresFee = item => item.bookable === true;
-  const BANK = { name: 'مصرف الإنماء', account: 'فرع شركة زهرة شيفون للتزيين النسائي', iban: 'SA9805000068203296839000' };
-  const DRAFT_KEY = 'shiffon-draft', DRAFT_TTL = 24 * 60 * 60 * 1000;
-  // Arabic-Indic / Persian digits → 0-9, then +966 / 00966 / 966 / 5XXXXXXXX → 05XXXXXXXX; null when not a Saudi mobile
-  function normalizeMobile(raw) {
-    let d = String(raw || '').replace(/[\u0660-\u0669]/g, c => c.charCodeAt(0) - 0x0660).replace(/[\u06F0-\u06F9]/g, c => c.charCodeAt(0) - 0x06F0).replace(/[\s().\-\u200e\u200f]/g, '');
-    if (d.startsWith('+')) d = d.slice(1);
-    if (d.startsWith('00966')) d = '0' + d.slice(5); else if (d.startsWith('966')) d = '0' + d.slice(3); else if (/^5\d{8}$/.test(d)) d = '0' + d;
-    return /^05\d{8}$/.test(d) ? d : null;
-  }
-  const $ = id => document.getElementById(id);
-  const money = n => new Intl.NumberFormat('en-US').format(n) + ' ر.س';
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // ——— state ———
-  let cart = [];            // [{ id, employee }]
-  let category = '';        // '' = all
-  let query = '';
-  const byId = new Map(catalog.map(x => [x.id, x]));
-  const categories = [...new Set(catalog.map(x => x.category))];
-  const shortCat = c => ({ 'قسم الشعر (قص)': 'قص الشعر', 'قسم الشعر ( تساريح)': 'التساريح', 'قسم الشعر ( استشوارات': 'الاستشوار', 'قسم سبا الاظافر': 'الأظافر', 'تنظيف البشرة': 'البشرة' })[c] || c.replace(/^قسم\s+/, '').replace(/[()]/g, ' ').replace(/\s+/g, ' ').trim();
-
-  function persist() { try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ v: 2, savedAt: Date.now(), cart, customer: $('customer').value, mobile: $('mobile').value, day: $('day').value, time: $('time').value })); } catch (e) {} }
-
-  // ——— chips ———
-  function renderChips() {
-    const host = $('chips'); host.replaceChildren();
-    [['', 'الكل'], ...categories.map(c => [c, shortCat(c)])].forEach(([val, label]) => {
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = label;
-      b.setAttribute('aria-pressed', String(val === category));
-      b.addEventListener('click', () => { category = val; renderChips(); renderList(true); b.scrollIntoView({ inline: 'center', block: 'nearest', behavior: reduced ? 'auto' : 'smooth' }); });
-      host.append(b);
-    });
-  }
-
-  // ——— list ———
-  const count = id => cart.filter(e => e.id === id).length;
-  const controls = new Map();
-  const wideMQ = matchMedia('(min-width: 1180px)');
-  wideMQ.addEventListener('change', () => renderList());
-  function renderList(announce) {
-    const host = $('list'); host.replaceChildren(); controls.clear();
-    const q = query.trim().toLocaleLowerCase('ar');
-    const shown = catalog.filter(x => (!category || x.category === category) && (!q || x.name.toLocaleLowerCase('ar').includes(q) || x.category.toLocaleLowerCase('ar').includes(q)));
-    if (announce) $('resultCount').textContent = shown.length ? `${shown.length} نتيجة` : 'لا توجد نتائج';
-    if (!shown.length) { const p = document.createElement('div'); p.className = 'empty'; p.textContent = 'لم نجد خدمة بهذا الاسم.'; host.append(p); return; }
-    const sections = new Map(), secs = [];
-    for (const item of shown) { const key = q ? 'نتائج البحث' : shortCat(item.category); if (!sections.has(key)) sections.set(key, []); sections.get(key).push(item); }
-    for (const [title, items] of sections) {
-      const sec = document.createElement('section');
-      const g = document.createElement('div'); g.className = 'group'; g.textContent = title;
-      const n = document.createElement('small'); n.textContent = items.length === 1 ? 'خدمة واحدة' : items.length === 2 ? 'خدمتان' : items.length + ' خدمات'; g.append(n);
-      const box = document.createElement('div'); box.className = 'box'; sec.append(g, box); host.append(sec); secs.push({ sec, w: items.length + 1.6, i: secs.length });
-      for (const item of items) {
-      const row = document.createElement('div'); row.className = 'row';
-      const txt = document.createElement('div'); txt.className = 'txt';
-      const name = document.createElement('div'); name.className = 'name'; name.textContent = item.name;
-      const meta = document.createElement('div'); meta.className = 'meta';
-      if (requiresFee(item)) { const tg = document.createElement('span'); tg.className = 'tag'; tg.textContent = 'رسوم تأكيد الحجز 20 ر.س'; meta.append(tg); }
-      else if (item.kind === 'منتج') { const tg = document.createElement('span'); tg.className = 'tag muted'; tg.textContent = 'منتج'; meta.append(tg); }
-      const st = document.createElement('span'); meta.append(st);
-      txt.append(name, meta); if (!requiresFee(item) && item.kind !== 'منتج') meta.hidden = true;
-      const price = document.createElement('div'); price.className = 'price'; price.textContent = money(item.price);
-      const ctl = document.createElement('span');
-      const update = () => {
-        const n = count(item.id);
-        row.classList.toggle('on', n > 0);
-        st.textContent = n > 1 ? `العدد ${n} (لأكثر من عميلة)` : n ? 'في طلبك' : ''; meta.hidden = !(n || requiresFee(item) || item.kind === 'منتج');
-        ctl.replaceChildren();
-        if (!n) {
-          const add = document.createElement('button'); add.type = 'button'; add.className = 'add'; add.textContent = '+'; add.setAttribute('aria-label', 'إضافة ' + item.name);
-          add.addEventListener('click', () => addItem(item.id)); ctl.append(add); return;
-        }
-        const q = document.createElement('span'); q.className = 'qty'; q.setAttribute('role', 'group'); q.setAttribute('aria-label', `العدد: ${n} — ${item.name}`);
-        const minus = document.createElement('button'); minus.type = 'button'; minus.textContent = '−'; minus.setAttribute('aria-label', 'تقليل ' + item.name); minus.addEventListener('click', () => removeOne(item.id));
-        const out = document.createElement('output'); out.textContent = String(n);
-        const plus = document.createElement('button'); plus.type = 'button'; plus.className = 'plus'; plus.textContent = '+'; plus.setAttribute('aria-label', 'زيادة ' + item.name); plus.addEventListener('click', () => { addItem(item.id); });
-        q.append(minus, out, plus); ctl.append(q);
-        if (!reduced) { out.classList.add('pop'); setTimeout(() => out.classList.remove('pop'), 170); }
-      };
-      controls.set(item.id, update); update();
-      // optional service photo: only rendered when the catalog item carries an `image` path
-      if (typeof item.image === 'string' && item.image) { const im = document.createElement('img'); im.className = 'thumb'; im.src = item.image; im.alt = ''; im.width = 40; im.height = 40; im.loading = 'lazy'; im.decoding = 'async'; row.append(im); }
-      row.append(txt, price, ctl); box.append(row);
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f4f0e9" />
+    <title>صالون شيفون | حجز المواعيد والخدمات</title>
+    <meta
+      name="description"
+      content="اطلبي حجز خدمات صالون شيفون النسائي — مخرج 9، الرياض. تساريح ومكياج وقص واستشوار وعناية بالأظافر والبشرة، واحجزي موعدكِ عبر واتساب."
+    />
+    <link rel="canonical" href="https://chiffon9.com/" />
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_SA" />
+    <meta property="og:site_name" content="صالون شيفون" />
+    <meta
+      property="og:title"
+      content="صالون شيفون | حجز المواعيد والخدمات — مخرج 9، الرياض"
+    />
+    <meta
+      property="og:description"
+      content="اختاري خدماتكِ والوقت المناسب وأرسلي طلب الحجز عبر واتساب، ويؤكد الصالون موعدكِ بعد المراجعة."
+    />
+    <meta property="og:url" content="https://chiffon9.com/" />
+    <meta property="og:image" content="https://chiffon9.com/og-image.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="شعار صالون شيفون — حجز الخدمات، مخرج 9، الرياض"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BeautySalon",
+        "name": "صالون شيفون",
+        "alternateName": "Chiffon Beauty Salon",
+        "url": "https://chiffon9.com/",
+        "image": "https://chiffon9.com/og-image.jpg",
+        "telephone": "+966506628187",
+        "hasMap": "https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic",
+        "sameAs": ["https://www.tiktok.com/@chiffon.9"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "الرياض",
+          "addressCountry": "SA"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "10:00",
+            "closes": "22:00"
+          }
+        ],
+        "currenciesAccepted": "SAR"
       }
-    }
-    // wide screens: two columns of whole categories, heaviest first into the shorter column, then each column keeps the menu order
-    if (wideMQ.matches && secs.length > 1) {
-      const cols = [[], []], load = [0, 0];
-      [...secs].sort((a, b) => b.w - a.w).forEach(x => { const k = load[0] <= load[1] ? 0 : 1; cols[k].push(x); load[k] += x.w; });
-      if (!cols[0].some(x => x.i === 0)) cols.reverse(); // the column holding the first category opens the menu
-      host.replaceChildren(...cols.map(c => { const d = document.createElement('div'); d.className = 'col'; c.sort((a, b) => a.i - b.i).forEach(x => d.append(x.sec)); return d; }));
-    }
-  }
-  function addItem(id) { cart.push({ id, employee: '' }); renderCart(); controls.get(id)?.(); buzz(8); }
-  function removeOne(id) { const i = cart.findLastIndex(e => e.id === id); if (i !== -1) removeAt(i); }
-  let undoTimer = null, removed = null;
-  // keep the undo toast clear of the sheet: above the peek footer while collapsed, above the send footer while open, near the bottom when the sheet is away
-  function placeToast() { if ($('toast').hidden || desk) return; $('toast').style.bottom = ((!visible ? 8 : expanded ? $('foot').offsetHeight : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--peek'))) + 12) + 'px'; }
-  function removeAt(i) { removed = { index: i, entry: cart[i] }; const name = byId.get(cart[i].id).name; cart.splice(i, 1); renderCart(); controls.get(removed.entry.id)?.();
-    $('toastMsg').textContent = 'أُزيلت ' + name; $('toast').hidden = false; placeToast(); clearTimeout(undoTimer); undoTimer = setTimeout(() => { $('toast').hidden = true; removed = null; }, 4500); }
-  $('undo').addEventListener('click', () => { if (!removed) return; cart.splice(Math.min(removed.index, cart.length), 0, removed.entry); const id = removed.entry.id; removed = null; $('toast').hidden = true; clearTimeout(undoTimer); renderCart(); controls.get(id)?.(); });
-  const buzz = ms => { try { if (!reduced && navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
-
-  // ——— cart / sheet content ———
-  const feeCount = () => cart.filter(e => requiresFee(byId.get(e.id))).length;
-  const servicesTotal = () => cart.reduce((s, e) => s + byId.get(e.id).price, 0);
-  function renderCart() {
-    const host = $('lines'); host.replaceChildren();
-    if (!cart.length) { const p = document.createElement('div'); p.className = 'empty'; p.innerHTML = '<strong>طلبكِ فارغ</strong>اختاري خدمة أو أكثر من القائمة، ثم يظهر هنا ملخص الطلب وبيانات الموعد.'; host.append(p); }
-    else {
-      const wrap = document.createElement('div'); wrap.className = 'lines';
-      cart.forEach((entry, index) => {
-        const item = byId.get(entry.id);
-        const line = document.createElement('div'); line.className = 'line';
-        const h = document.createElement('div'); h.className = 'h';
-        const n = document.createElement('div'); n.className = 'n'; n.textContent = item.name;
-        const p = document.createElement('div'); p.className = 'p'; p.textContent = money(item.price);
-        const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'lnk rm'; rm.textContent = 'إزالة'; rm.setAttribute('aria-label', 'إزالة ' + item.name);
-        rm.addEventListener('click', () => removeAt(index));
-        h.append(n, p, rm); line.append(h);
-        const s = document.createElement('div'); s.className = 's' + (requiresFee(item) ? ' fee' : ''); s.textContent = requiresFee(item) ? 'رسوم تأكيد الحجز 20 ر.س' : item.kind === 'منتج' ? 'منتج ضمن الطلب — يؤكد التوفر عبر واتساب' : 'بدون رسوم تأكيد — يخضع التوفر لمراجعة الصالون'; line.append(s);
-        if (item.kind !== 'منتج') {
-          const f = document.createElement('label'); f.className = 'field'; f.textContent = 'الموظفة المفضلة لهذه الخدمة (اختياري)';
-          const inp = document.createElement('input'); inp.type = 'text'; inp.placeholder = 'اسم الموظفة'; inp.value = entry.employee; inp.id = 'emp-' + index;
-          inp.addEventListener('input', ev => { entry.employee = ev.target.value; persist(); });
-          f.append(inp);
-          // folded until asked for; a saved name keeps it open
-          if (entry.employee) line.append(f);
-          else { const eb = document.createElement('button'); eb.type = 'button'; eb.className = 'lnk emp'; eb.textContent = '+ اختيار موظفة مفضلة (اختياري)'; eb.addEventListener('click', () => { eb.replaceWith(f); inp.focus(); }); line.append(eb); }
-        }
-        wrap.append(line);
-      });
-      host.append(wrap);
-      if (cart.some(e => byId.get(e.id).kind !== 'منتج')) { const av = document.createElement('p'); av.className = 'note gap'; av.textContent = 'الموظفة المفضلة اختيارية. الوقت والموظفة المفضلة يخضعان للتوفر، ويتم اعتماد الموعد بعد مراجعة الصالون.'; host.append(av); }
-      if (new Set(cart.map(e => e.id)).size < cart.length) { const dup = document.createElement('p'); dup.className = 'note'; dup.textContent = 'تكرار الخدمة يعني أكثر من عميلة؛ تُحسب رسوم التأكيد لكل عميلة.'; host.append(dup); }
-    }
-    const fee = feeCount() * bookingFeePerService, svc = servicesTotal();
-    $('tServices').textContent = money(svc); $('tLater').textContent = money(svc);
-    $('tFeeLbl').textContent = fee ? 'رسوم التأكيد بعد اعتماد الوقت' : 'رسوم التأكيد'; $('tFee').textContent = money(fee); $('tFeeZero').hidden = fee > 0;
-    // the order is a request: no transfer until a salon employee confirms the requested time is available
-    const nb = $('notice'); nb.replaceChildren();
-    if (fee) {
-      const st = document.createElement('strong'); st.textContent = 'لا تحولي رسوم التأكيد قبل أن تؤكد موظفة الصالون توفر الوقت المطلوب.';
-      nb.append(st, `بعد تأكيد التوفر يتم تحويل رسوم التأكيد (${money(fee)})، وبعد استلامها يُعتمد الحجز. رسوم التأكيد لا تُخصم من قيمة الخدمات وغير مستردة عند إلغائكِ بعد تأكيد الموعد، وإذا تعذر اعتماد الوقت المطلوب تتواصل معكِ الموظفة لترتيب الخيار المناسب.`);
-    } else nb.append('لا يوجد مبلغ مطلوب للتحويل. يؤكد الصالون توفر الموعد عبر واتساب.');
-    $('sumAmt').textContent = money(svc);
-    sheet.classList.toggle('is-empty', cart.length === 0);
-    $('sumLbl').textContent = cart.length ? `${cart.length === 1 ? 'خدمة واحدة' : cart.length === 2 ? 'خدمتان' : cart.length + ' خدمات'} · ${fee ? 'رسوم التأكيد ' + money(fee) : 'بدون رسوم تأكيد'}` : 'لم تختاري خدمة بعد';
-    persist(); setVisible(cart.length > 0); measure(); placeToast();
-  }
-
-  // ——— time options / date ———
-  $('time').innerHTML = '<option value="">اختاري الساعة</option>' + Array.from({ length: 12 }, (_, i) => i + 10).map(h => `<option value="${String(h).padStart(2, '0')}:00">${h % 12 || 12}:00 ${h < 12 ? 'صباحًا' : 'مساءً'}</option>`).join('');
-  // dates follow the salon's clock (Riyadh), not the device's time zone
-  const riyadhISO = (plusDays = 0) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Riyadh', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(Date.now() + plusDays * 864e5));
-  const todayISO = () => riyadhISO(0);
-  // no same-day bookings: same-day clients walk in; the first bookable day is tomorrow
-  const firstBookableISO = () => riyadhISO(1);
-  const SAME_DAY_MSG = 'الحجز لنفس اليوم غير متاح. لخدمة اليوم توجّهي للصالون مباشرة والدخول فوري، أو اختاري تاريخًا من الغد لحجز موعد.';
-  const dayError = v => !v ? '' : v === todayISO() ? SAME_DAY_MSG : v < todayISO() ? 'هذا التاريخ مضى؛ اختاري تاريخًا من الغد فصاعدًا.' : '';
-  $('day').min = firstBookableISO();
-  // restore the draft only now that the hour options exist; stale (24h+) drafts, past days and elapsed hours are dropped
-  try {
-    const saved = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
-    if (saved && Array.isArray(saved.cart) && !(saved.savedAt && Date.now() - saved.savedAt > DRAFT_TTL)) {
-      cart = saved.cart.filter(e => e && byId.has(e.id)).map(e => ({ id: e.id, employee: typeof e.employee === 'string' ? e.employee : '' }));
-      ['customer', 'mobile'].forEach(k => { if (typeof saved[k] === 'string') $(k).value = saved[k]; });
-      let restoredDay = false;
-      if (typeof saved.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(saved.day) && saved.day >= firstBookableISO()) { $('day').value = saved.day; restoredDay = $('day').value === saved.day; }
-      // a time is only meaningful with its day; syncHours() below drops it if that hour has already started today
-      if (restoredDay && typeof saved.time === 'string' && [...$('time').options].some(o => o.value && o.value === saved.time)) $('time').value = saved.time;
-      syncHours();
-    } else if (saved) localStorage.removeItem(DRAFT_KEY);
-  } catch (e) {}
-  // on today's date, hours that have started are not bookable
-  function syncHours() { $('day').min = firstBookableISO(); const today = $('day').value === todayISO(), now = new Date().getHours(); [...$('time').options].forEach(o => { if (o.value) o.disabled = today && Number(o.value.slice(0, 2)) <= now; }); if ($('time').selectedOptions[0]?.disabled) $('time').value = ''; }
-  function requestedDate() {
-    const v = $('day').value; if (!v) throw Object.assign(new Error('اختاري تاريخ الموعد قبل الإرسال.'), { field: 'day' });
-    if (dayError(v)) throw Object.assign(new Error(dayError(v)), { field: 'day' });
-    const [y, m, d] = v.split('-').map(Number);
-    const weekday = new Intl.DateTimeFormat('ar-SA', { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d, 12)));
-    const label = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d, 12)));
-    return { formatted: `${m}/${d}/${y}`, weekday, label };
-  }
-  function requestedTime() {
-    const v = $('time').value; if (!v) throw Object.assign(new Error('حددي الوقت المطلوب قبل الإرسال.'), { field: 'time' });
-    const [h, mi] = v.split(':').map(Number);
-    if (mi !== 0 || h < 10 || h > 21) throw Object.assign(new Error('اختاري بداية ساعة متاحة فقط.'), { field: 'time' });
-    if ($('day').value === todayISO() && h <= new Date().getHours()) throw Object.assign(new Error('هذه الساعة مضت اليوم؛ اختاري ساعة لاحقة أو يومًا آخر.'), { field: 'time' });
-    return `${h % 12 || 12} ${h < 12 ? 'صباحًا' : 'مساءً'}`;
-  }
-  // shows the chosen date as "الخميس، 24 سبتمبر" (Gregorian, Western digits); year only when it is not this year
-  function renderDayFace() {
-    const v = $('day').value, face = $('dayFace');
-    if (!v) { face.textContent = 'اختاري اليوم والشهر'; face.classList.add('empty'); return; }
-    const [y, m, d] = v.split('-').map(Number);
-    const opts = { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }; if (y !== new Date().getFullYear()) opts.year = 'numeric';
-    face.textContent = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', opts).format(new Date(Date.UTC(y, m - 1, d, 12)));
-    face.classList.remove('empty');
-  }
-  $('day').addEventListener('click', () => { try { $('day').showPicker(); } catch (e) {} });
-  $('day').addEventListener('change', () => { renderDayFace(); syncHours(); try { $('weekday').textContent = $('day').value ? `اليوم: ${requestedDate().weekday}` : 'اختاري التاريخ ليظهر اليوم.'; } catch (e) {} persist(); });
-  ['customer', 'mobile', 'time'].forEach(k => $(k).addEventListener('input', persist));
-
-  function bookingText() {
-    const customer = $('customer').value.trim();
-    const mobile = normalizeMobile($('mobile').value);
-    if (!cart.length) throw Object.assign(new Error('اختاري خدمة واحدة على الأقل.'), { field: null });
-    if (!customer) throw Object.assign(new Error('اكتبي اسم العميلة قبل الإرسال.'), { field: 'customer' });
-    if (!mobile) throw Object.assign(new Error('اكتبي رقم جوال سعودي صحيحًا، مثل 05XXXXXXXX.'), { field: 'mobile' });
-    const date = requestedDate(); const time = requestedTime();
-    // same service more than once = more than one client; grouped as "× n" with each client's preferred employee
-    const groups = [];
-    cart.forEach(e => { let g = groups.find(x => x.id === e.id); if (!g) { g = { id: e.id, n: 0, emps: [] }; groups.push(g); } g.n++; if (e.employee.trim()) g.emps.push(e.employee.trim()); });
-    const fee = feeCount() * bookingFeePerService, svc = servicesTotal();
-    const lines = ['طلب حجز — صالون شيفون', '', `الاسم: ${customer}`, `الجوال: ${mobile}`, `التاريخ: ${date.label}`, `الوقت المطلوب: ${time}`, '', 'الخدمات:'];
-    groups.forEach((g, i) => { const it = byId.get(g.id);
-      lines.push(`${i + 1}. ${it.name}${g.n > 1 ? ` × ${g.n}` : ''} — ${it.price} ريال${g.n > 1 ? ' للواحدة' : ''}${it.kind === 'منتج' ? ' (منتج)' : requiresFee(it) ? ' (رسوم تأكيد)' : ''}`);
-      if (g.emps.length) lines.push(`   الموظفة المفضلة: ${g.emps.join('، ')}`); });
-    lines.push('', `قيمة الخدمات: ${svc} ريال (تُدفع عند تقديم الخدمة)`, fee ? `رسوم التأكيد بعد اعتماد الوقت: ${fee} ريال` : 'رسوم التأكيد: 0 ريال', '', 'مدة كل خدمة: ساعة تقريبًا.', 'الوقت والموظفة يخضعان للتوفر ومراجعة الصالون.', '');
-    if (fee) lines.push('مهم:', 'لا تحولي رسوم التأكيد الآن.', 'انتظري أولًا تأكيد موظفة الصالون بأن الوقت المطلوب متوفر.', `بعد تأكيد التوفر من الموظفة يتم تحويل رسوم التأكيد (${fee} ريال) لاعتماد الحجز.`, '',
-      'بيانات التحويل — تُستخدم فقط بعد تأكيد الموظفة توفر الوقت:', `البنك: ${BANK.name}`, `اسم الحساب: ${BANK.account}`, 'الآيبان:', BANK.iban, '',
-      'بعد تأكيد التوفر واستلام رسوم التأكيد يتم اعتماد الحجز.', 'رسوم التأكيد لا تُخصم من قيمة الخدمات وغير مستردة عند إلغاء الموعد بعد تأكيده.');
-    else lines.push('لا يوجد مبلغ مطلوب للتحويل.', 'يؤكد الصالون توفر الموعد عبر واتساب.');
-    return lines.join('\n');
-  }
-  function clearInvalid() { ['customer', 'mobile', 'day', 'time'].forEach(k => $(k).removeAttribute('aria-invalid')); }
-  // inline validation on blur/change — the same rules bookingText() enforces on send
-  const checks = {
-    customer: () => $('customer').value.trim() ? '' : 'اكتبي اسمكِ الكامل.',
-    mobile: () => normalizeMobile($('mobile').value) ? '' : 'اكتبي رقم جوال سعودي صحيحًا، مثل 05XXXXXXXX.',
-    day: () => !$('day').value ? 'اختاري تاريخ الموعد.' : dayError($('day').value),
-    time: () => $('time').value ? '' : 'حددي الوقت المطلوب.'
-  };
-  Object.keys(checks).forEach(k => {
-    const el = $(k); const ev = el.tagName === 'SELECT' || el.type === 'date' ? 'change' : 'blur';
-    el.addEventListener(ev, () => { const msg = checks[k](); el.setAttribute('aria-invalid', msg ? 'true' : 'false'); if (!msg) el.removeAttribute('aria-invalid'); if (msg) { $('err').textContent = msg; } else if ($('err').textContent === (el.dataset.lastMsg || '')) { $('err').textContent = ''; } el.dataset.lastMsg = msg; });
-  });
-  $('mobile').addEventListener('blur', () => { const m = normalizeMobile($('mobile').value); if (m && m !== $('mobile').value) { $('mobile').value = m; persist(); } });
-  // conversion hook — no name, phone, IBAN or any personal data; pushes to dataLayer / gtag only if the page has them
-  function trackBookingWhatsAppClick() {
-    const items = cart.map(e => byId.get(e.id)), isProduct = i => i.kind === 'منتج';
-    const payload = { event: 'booking_whatsapp_click', items_count: items.length, services_count: items.filter(i => !isProduct(i)).length, products_count: items.filter(isProduct).length,
-      fee_services_count: feeCount(), items_value: servicesTotal(), confirmation_fee: feeCount() * bookingFeePerService, currency: 'SAR',
-      has_hair_styling_fee_service: items.some(i => i.category === 'قسم الشعر ( تساريح)' && requiresFee(i)), has_makeup_fee_service: items.some(i => i.category === 'المكياج' && requiresFee(i)) };
-    try { (window.dataLayer = window.dataLayer || []).push(payload); } catch (e) {}
-    try { if (typeof window.gtag === 'function') { const { event, ...params } = payload; window.gtag('event', event, params); } } catch (e) {}
-  }
-  // "start a new order": two-step confirm when there is something to lose
-  let resetTimer = null;
-  $('reset').addEventListener('click', () => {
-    const b = $('reset'), dirty = cart.length || ['customer', 'mobile', 'day', 'time'].some(k => $(k).value);
-    if (dirty && !b.classList.contains('armed')) { b.classList.add('armed'); b.textContent = 'اضغطي مرة أخرى لمسح الطلب'; clearTimeout(resetTimer); resetTimer = setTimeout(() => { b.classList.remove('armed'); b.textContent = 'بدء طلب جديد'; }, 4000); return; }
-    clearTimeout(resetTimer); b.classList.remove('armed'); b.textContent = 'بدء طلب جديد';
-    const ids = new Set(cart.map(e => e.id)); cart = []; removed = null; $('toast').hidden = true;
-    ['customer', 'mobile', 'day', 'time'].forEach(k => { $(k).value = ''; $(k).removeAttribute('aria-invalid'); });
-    $('err').textContent = ''; $('status').textContent = '';
-    renderDayFace(); syncHours(); renderCart(); ids.forEach(id => controls.get(id)?.());
-    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} // renderCart re-persists, so the draft is removed last
-  });
-  $('go').addEventListener('click', () => { if (visible) openSheet(); });
-  $('send').addEventListener('click', () => {
-    clearInvalid(); $('err').textContent = '';
-    $('status').textContent = '';
-    try { const url = `https://wa.me/${phone}?text=${encodeURIComponent(bookingText())}`; trackBookingWhatsAppClick(); const w = window.open(url, '_blank'); if (w) { try { w.opener = null; } catch (e) {} } else { location.href = url; } $('status').textContent = 'جارٍ فتح واتساب مع نص الطلب… إن لم يُفتح تلقائيًا اضغطي الزر مرة أخرى.'; buzz(12); }
-    catch (e) { $('err').textContent = e.message; if (e.field) { $(e.field).setAttribute('aria-invalid', 'true'); $(e.field).focus({ preventScroll: false }); } }
-  });
-
-  // ——— sheet physics: spring + drag with velocity handoff ———
-  const sheet = $('sheet');
-  let expanded = false, y = 0, travel = 0, anim = null, visible = false, hiddenY = 0, booted = false;
-  const deskMQ = matchMedia('(min-width: 900px)'); let desk = deskMQ.matches;
-  function measure() { if (desk) return; const sab = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sab')) || 0; const head = $('grab').offsetHeight + $('sum').offsetHeight; $('peekfoot').style.top = head + 'px'; const peek = head + $('peekfoot').offsetHeight + 18 + sab; document.documentElement.style.setProperty('--peek', peek + 'px'); const full = Math.min(window.innerHeight * 0.88, 760); sheet.style.height = full + 'px'; travel = full - peek; hiddenY = full + 80; if (!anim && !dragging) setY(!visible ? hiddenY : expanded ? 0 : travel); }
-  function setY(v) { if (desk) return; y = v; sheet.style.transform = `translateX(-50%) translateY(${v}px)`; const k = travel ? Math.min(1, Math.max(0, v / travel)) : 1; $('body').style.opacity = $('foot').style.opacity = String(1 - k); $('peekfoot').style.opacity = String(k); }
-  function spring(to, v0, bounce) { if (desk) return;
-    if (anim) cancelAnimationFrame(anim.raf);
-    if (reduced) { setY(to); anim = null; return; }
-    // damping ratio 1.0 (or 0.85 after a flick), response 0.36s — Apple-style parameters
-    const zeta = bounce ? 0.85 : 1.0, response = 0.36, omega = 2 * Math.PI / response;
-    let x = y - to, v = v0, last = performance.now();
-    const step = now => {
-      const dt = Math.min(0.032, (now - last) / 1000); last = now;
-      const a = -2 * zeta * omega * v - omega * omega * x; v += a * dt; x += v * dt;
-      setY(to + x);
-      if (Math.abs(x) < 0.3 && Math.abs(v) < 6) { setY(to); anim = null; return; }
-      anim.raf = requestAnimationFrame(step);
-    };
-    anim = { raf: requestAnimationFrame(step), velocity: () => v };
-  }
-  function openSheet(v0, bounce) { if (desk) return; if (v0 == null && anim) v0 = anim.velocity(); expanded = true; $('body').inert = false; $('foot').inert = false; $('peekfoot').inert = true; $('toggle').setAttribute('aria-expanded', 'true'); $('toggle').textContent = 'إغلاق'; sheet.classList.add('open'); spring(0, v0 || 0, bounce); }
-  function closeSheet(v0, bounce) { if (desk) return; if (v0 == null && anim) v0 = anim.velocity(); expanded = false; $('body').inert = true; $('foot').inert = true; $('peekfoot').inert = false; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; spring(travel, v0 || 0, bounce); }
-  $('toggle').addEventListener('click', () => expanded ? closeSheet() : openSheet());
-  function applyMode() {
-    desk = deskMQ.matches; sheet.classList.toggle('desk', desk);
-    if (anim) { cancelAnimationFrame(anim.raf); anim = null; }
-    if (desk) {
-      sheet.style.transform = ''; sheet.style.height = ''; $('body').style.opacity = ''; $('foot').style.opacity = ''; $('peekfoot').style.opacity = '';
-      sheet.inert = false; sheet.setAttribute('aria-hidden', 'false'); $('body').inert = false; $('foot').inert = false; $('peekfoot').inert = true; sheet.classList.add('open');
-    } else {
-      expanded = false; sheet.classList.remove('open'); $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل';
-      $('body').inert = true; $('foot').inert = true; $('peekfoot').inert = !visible; sheet.inert = !visible; sheet.setAttribute('aria-hidden', String(!visible));
-      measure(); setY(visible ? travel : hiddenY);
-    }
-  }
-  deskMQ.addEventListener('change', applyMode);
-  // the sheet exists only once something is in the order: it rises when the first service is added and leaves when the last is removed
-  function setVisible(v) {
-    if (v === visible) return; visible = v;
-    if (desk) { document.documentElement.classList.toggle('has-cart', v); return; }
-    document.documentElement.classList.toggle('has-cart', v); sheet.inert = !v; sheet.setAttribute('aria-hidden', String(!v));
-    // the peek footer (متابعة) must leave the inert state applyMode gave it while the cart was empty — otherwise the button is un-tappable until the sheet is toggled
-    if (v) { $('peekfoot').inert = false; if (booted) spring(travel, 0, false); else setY(travel); }
-    else { expanded = false; $('peekfoot').inert = true; $('toggle').setAttribute('aria-expanded', 'false'); $('toggle').textContent = 'تفاصيل'; sheet.classList.remove('open'); $('err').textContent = ''; if (booted) spring(hiddenY, 0, false); else setY(hiddenY); }
-  }
-
-  // drag from the grabber and summary rows, 1:1, rubber-band past the ends, project momentum on release
-  let dragging = false, startY = 0, startT = 0, hist = [], moved = false;
-  const rubber = (over, dim = 300, c = 0.55) => (over * dim * c) / (dim + c * Math.abs(over));
-  const project = (v, rate = 0.998) => (v / 1000) * rate / (1 - rate);
-  function down(e) { if (desk || !visible || (e.button && e.button !== 0)) return; dragging = true; moved = false; if (anim) { cancelAnimationFrame(anim.raf); anim = null; } startY = e.clientY - y; hist = [[e.clientY, performance.now()]]; e.currentTarget.setPointerCapture(e.pointerId); }
-  function move(e) { if (!dragging) return; let ny = e.clientY - startY; if (Math.abs(e.clientY - hist[0][0]) > 6) moved = true; if (ny < 0) ny = rubber(ny); else if (ny > travel) ny = travel + rubber(ny - travel); setY(ny); hist.push([e.clientY, performance.now()]); if (hist.length > 6) hist.shift(); }
-  function up(e) { if (!dragging) return; dragging = false;
-    if (!moved) { expanded ? closeSheet() : openSheet(); return; }
-    const [y0, t0] = hist[0], [y1, t1] = hist[hist.length - 1]; const dt = Math.max(1, t1 - t0); const v = (y1 - y0) / dt * 1000; // px/s, +down
-    const dest = y + project(v); const goOpen = Math.abs(v) > 250 ? v < 0 : dest < travel / 2;
-    goOpen ? openSheet(v, Math.abs(v) > 600) : closeSheet(v, Math.abs(v) > 600); }
-  for (const el of [$('grab'), $('sum')]) { el.addEventListener('pointerdown', down); el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); }
-  $('sum').querySelector('#toggle').addEventListener('pointerdown', e => e.stopPropagation());
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && expanded) closeSheet(); });
-
-  // ——— boot ———
-  $('search').addEventListener('input', e => { query = e.target.value; renderList(true); });
-  renderChips(); renderList(); renderCart(); syncHours(); renderDayFace();
-  $('time').addEventListener('focus', syncHours); $('time').addEventListener('pointerdown', syncHours);
-  applyMode(); booted = true; addEventListener('resize', measure); if (window.visualViewport) visualViewport.addEventListener('resize', measure);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-})();
-</script>
-</body>
+    </script>
+    <link
+      rel="preload"
+      href="assets/fonts/amiri-arabic-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/site.css" />
+    <script src="assets/booking.js" defer></script>
+    <script src="assets/experience.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#services">انتقلي إلى الخدمات</a>
+    <section class="experience" id="home" aria-labelledby="hero-title">
+      <header class="site-header">
+        <a class="brand" href="#home" aria-label="شيفون — الصفحة الرئيسية">
+          <img src="assets/brand-mark.svg" alt="" width="54" height="54" />
+          <span class="wordmark"
+            ><b>شيفون</b><span lang="en">CHIFFON</span></span
+          >
+        </a>
+        <span class="header-rule" aria-hidden="true"></span>
+        <nav aria-label="التنقل الرئيسي">
+          <a href="#services">خدماتنا</a>
+          <a href="#salon">الصالون</a>
+          <a
+            href="https://wa.me/966506628187"
+            target="_blank"
+            rel="noopener noreferrer"
+            >تواصلي معنا</a
+          >
+        </nav>
+      </header>
+      <div class="hero-stage">
+        <div
+          class="hero-art"
+          id="hero-art"
+          aria-hidden="true"
+          data-scene="poster"
+        >
+          <img
+            class="hero-poster"
+            src="assets/hero-poster.webp"
+            width="1487"
+            height="1058"
+            alt=""
+            fetchpriority="high"
+          />
+        </div>
+        <div class="hero-copy">
+          <h1 id="hero-title"><span>تفاصيلكِ</span><span>تزهر هنا.</span></h1>
+          <p class="hero-intro">مساحتكِ للعناية، ولمستكِ الخاصة.</p>
+          <p class="hero-description">
+            اختاري خدماتكِ، ونؤكد الموعد عبر واتساب.
+          </p>
+          <a class="hero-cta" href="#services"
+            ><span>ابدئي طلبكِ</span
+            ><img
+              src="assets/icons/arrow-left.svg"
+              width="23"
+              height="23"
+              alt=""
+          /></a>
+          <a
+            class="hero-location"
+            href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img
+              src="assets/icons/geo-alt.svg"
+              width="21"
+              height="21"
+              alt=""
+            />الرياض · مخرج 9</a
+          >
+        </div>
+        <button
+          class="motion-toggle"
+          id="motion-toggle"
+          type="button"
+          aria-pressed="false"
+          hidden
+        >
+          <img
+            src="assets/icons/pause.svg"
+            width="18"
+            height="18"
+            alt=""
+          /><span>إيقاف الحركة</span>
+        </button>
+      </div>
+      <div class="service-links" aria-label="استكشفي الخدمات">
+        <p>كل التفاصيل، لكِ.</p>
+        <a href="#services" data-service-query="شعر"
+          >الشعر<img
+            src="assets/icons/arrow-left.svg"
+            width="22"
+            height="22"
+            alt=""
+        /></a>
+        <a href="#services" data-service-query="المكياج"
+          >المكياج<img
+            src="assets/icons/arrow-left.svg"
+            width="22"
+            height="22"
+            alt=""
+        /></a>
+        <a href="#services" data-service-query="بشرة"
+          >العناية<img
+            src="assets/icons/arrow-left.svg"
+            width="22"
+            height="22"
+            alt=""
+        /></a>
+      </div>
+      <p class="hero-trust">الموعد يُعتمد بعد مراجعة الصالون.</p>
+    </section>
+    <section
+      class="services"
+      id="services"
+      aria-labelledby="services-title"
+      tabindex="-1"
+    >
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">عناية تبدأ باختياركِ</p>
+          <h2 id="services-title">ما الذي يسعدكِ اليوم؟</h2>
+        </div>
+        <p>
+          اختاري خدمة أو أكثر لطلبكِ.<br />الحجز من الغد، ويؤكد الصالون التوفر.
+        </p>
+      </div>
+      <div class="app" dir="rtl" lang="ar">
+        <div class="catalog">
+          <label class="search"
+            ><img
+              src="assets/icons/search.svg"
+              width="20"
+              height="20"
+              alt="" /><input
+              id="search"
+              type="search"
+              placeholder="ابحثي عن خدمة أو منتج"
+              aria-label="ابحثي عن خدمة أو منتج"
+              autocomplete="off"
+          /></label>
+          <div class="chips" id="chips" role="group" aria-label="الأقسام"></div>
+          <main class="list" id="list" aria-label="الخدمات والمنتجات"></main>
+          <p id="resultCount" class="sr-only" aria-live="polite"></p>
+          <p class="privacy">
+            بياناتكِ تُحفظ على جهازكِ فقط لإكمال الطلب، ولا تصل للصالون إلا عند
+            إرسالها عبر واتساب.
+          </p>
+        </div>
+        <aside class="sheet" id="sheet" aria-label="طلبك">
+          <div class="grab" id="grab"><div class="bar"></div></div>
+          <div class="sum" id="sum">
+            <div>
+              <div class="lbl" id="sumLbl">لم تختاري خدمة بعد</div>
+              <div class="amt" id="sumAmt">0 ر.س</div>
+            </div>
+            <button type="button" class="lnk" id="toggle" aria-expanded="false">
+              تفاصيل
+            </button>
+          </div>
+          <div class="peekfoot" id="peekfoot">
+            <button type="button" class="primary" id="go">متابعة</button>
+          </div>
+          <div class="body" id="body">
+            <div id="lines"></div>
+            <h2>بيانات الموعد</h2>
+            <div class="grid2">
+              <label class="field"
+                >التاريخ<span class="datebox"
+                  ><input
+                    id="day"
+                    type="date"
+                    aria-describedby="dayFace"
+                  /><span class="dateface empty" id="dayFace"
+                    >اختاري اليوم والشهر</span
+                  ></span
+                ></label
+              >
+              <label class="field"
+                >الوقت المطلوب<select id="time"></select
+              ></label>
+            </div>
+            <p class="note" id="sameDay">
+              الحجز متاح من الغد فصاعدًا. لخدمة اليوم تفضّلي بزيارة الصالون
+              مباشرة والدخول فوري —
+              <a
+                href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic"
+                target="_blank"
+                rel="noopener noreferrer"
+                >موقع الصالون</a
+              >.
+            </p>
+            <p class="note" id="weekday" hidden></p>
+            <p class="note">
+              مدة كل خدمة ساعة تقريبًا. الصالون يعمل من 10 صباحًا إلى 10 مساءً
+              وآخر موعد يبدأ 9 مساءً، وقد تقترح الموظفة وقتًا أبكر عند اختيار
+              أكثر من خدمة. اختيار الوقت لا يعني تأكيده تلقائيًا؛ يخضع للتوفر
+              ومراجعة الصالون.
+            </p>
+            <label class="field"
+              >الاسم<input
+                id="customer"
+                type="text"
+                autocomplete="name"
+                placeholder="اكتبي اسمكِ الكامل"
+            /></label>
+            <label class="field"
+              >الجوال<input
+                id="mobile"
+                type="tel"
+                inputmode="tel"
+                autocomplete="tel"
+                dir="ltr"
+                placeholder="05XXXXXXXX"
+            /></label>
+            <div class="totals">
+              <div>
+                <span>قيمة الخدمات والمنتجات</span><b id="tServices">0 ر.س</b>
+              </div>
+              <div class="now">
+                <span id="tFeeLbl">رسوم التأكيد بعد اعتماد الوقت</span
+                ><b id="tFee">0 ر.س</b>
+              </div>
+              <div class="zero" id="tFeeZero" hidden>
+                <span>لا يوجد مبلغ مطلوب للتحويل.</span>
+              </div>
+              <div>
+                <span>قيمة الخدمات تُدفع عند تقديم الخدمة</span
+                ><b id="tLater">0 ر.س</b>
+              </div>
+            </div>
+            <p class="notice" id="notice"></p>
+            <button type="button" class="lnk reset" id="reset">
+              بدء طلب جديد
+            </button>
+          </div>
+          <div class="foot" id="foot">
+            <div class="err" id="err" role="alert" aria-live="polite"></div>
+            <div class="ok" id="status" aria-live="polite"></div>
+            <button type="button" class="primary" id="send">
+              إرسال الطلب عبر واتساب
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+    <section class="salon" id="salon" aria-labelledby="salon-title">
+      <img
+        class="salon-photo"
+        src="hero-salon.jpg"
+        alt="استقبال صالون شيفون في الرياض"
+        width="1400"
+        height="933"
+        loading="lazy"
+      />
+      <div class="salon-copy">
+        <p class="eyebrow">لحظة عناية، وأثر يبقى</p>
+        <h2 id="salon-title">أهلًا بكِ في شيفون.</h2>
+        <p>ننتظركِ في الرياض، مخرج 9.<br />يوميًا من 10 صباحًا إلى 10 مساءً.</p>
+        <div class="salon-links">
+          <a
+            href="https://maps.app.goo.gl/1AcNZQyHX5CUG1ec9?g_st=ic"
+            target="_blank"
+            rel="noopener noreferrer"
+            >الموقع على الخرائط<img
+              src="assets/icons/arrow-left.svg"
+              width="20"
+              height="20"
+              alt="" /></a
+          ><a
+            href="https://www.tiktok.com/@chiffon.9"
+            target="_blank"
+            rel="noopener noreferrer"
+            >شاهدي أعمالنا<img
+              src="assets/icons/arrow-left.svg"
+              width="20"
+              height="20"
+              alt=""
+          /></a>
+        </div>
+      </div>
+    </section>
+    <footer class="site-footer">
+      <a class="footer-brand" href="#home"
+        >شيفون <span lang="en">CHIFFON</span></a
+      >
+      <p>الجمال يبدأ من هنا.</p>
+      <a href="tel:+966506628187" dir="ltr">+966 50 662 8187</a>
+    </footer>
+    <div
+      class="toast"
+      id="toast"
+      dir="rtl"
+      lang="ar"
+      role="status"
+      aria-live="polite"
+      hidden
+    >
+      <span id="toastMsg"></span
+      ><button type="button" class="lnk" id="undo">تراجع</button>
+    </div>
+    <noscript
+      ><p class="noscript">
+        لتجهيز طلبكِ فعّلي JavaScript، أو
+        <a href="https://wa.me/966506628187">تواصلي مع الصالون عبر واتساب</a>.
+      </p></noscript
+    >
+  </body>
 </html>
