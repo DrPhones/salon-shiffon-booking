@@ -1,7 +1,7 @@
 import * as THREE from "./vendor/three.module.min.js";
 
 /** A small, local WebGL2 scene. No scroll hijacking, remote assets or postprocessing. */
-export function createHero(host, toggle, motion) {
+export function createHero(host, sceneChanged) {
   const small = matchMedia("(max-width: 899px)");
   const coarse = matchMedia("(pointer: coarse)");
   const canvas = document.createElement("canvas");
@@ -22,6 +22,9 @@ export function createHero(host, toggle, motion) {
     alpha: true,
     antialias: true,
   });
+  renderer.debug.onShaderError = () => {
+    throw new Error("Hero shader compilation failed");
+  };
   renderer.setClearColor(0xf4f0e9, 0);
   renderer.setPixelRatio(
     Math.min(devicePixelRatio || 1, coarse.matches ? 1.4 : 1.65),
@@ -76,16 +79,24 @@ export function createHero(host, toggle, motion) {
     studio.add(panel);
   });
   const pmrem = new THREE.PMREMGenerator(renderer);
-  const environment = pmrem.fromScene(studio, 0.04, 0.1, 100, {
-    size: coarse.matches ? 128 : 256,
-  });
+  let environment;
+  try {
+    environment = pmrem.fromScene(studio, 0.04, 0.1, 100, {
+      size: coarse.matches ? 128 : 256,
+    });
+  } catch (error) {
+    renderer.dispose();
+    renderer.forceContextLoss();
+    throw error;
+  } finally {
+    studio.traverse((o) => {
+      o.geometry?.dispose();
+      o.material?.dispose();
+    });
+    pmrem.dispose();
+  }
   scene.environment = environment.texture;
   scene.environmentIntensity = 1.15;
-  studio.traverse((o) => {
-    o.geometry?.dispose();
-    o.material?.dispose();
-  });
-  pmrem.dispose();
 
   scene.add(new THREE.HemisphereLight(0xfff6ef, 0xaba0ba, 1.5));
   const key = new THREE.DirectionalLight(0xfff4e9, 2.6);
@@ -115,8 +126,8 @@ export function createHero(host, toggle, motion) {
   scene.add(sculpture);
   const time = { value: 0 };
   const vertexWave = `
-    transformed += normal * (sin(position.x * 2.1 + position.y * 1.4 + chiffonTime * 0.55) * 0.035
-      + sin(position.y * 3.2 - chiffonTime * 0.45) * 0.018);
+    transformed += normal * (sin(position.x * 2.1 + position.y * 1.4 + chiffonTime * 0.85) * 0.045
+      + sin(position.y * 3.2 - chiffonTime * 0.7) * 0.025);
   `;
   const silks = [
     { color: 0xd7c5dc, metalness: 0.38, roughness: 0.37, sheenColor: 0xf1dfef },
@@ -304,8 +315,7 @@ export function createHero(host, toggle, motion) {
   scene.add(floor);
 
   let raf = 0,
-    visible = true,
-    paused = false,
+    paused = true,
     disposed = false,
     lost = false,
     elapsed = 0,
@@ -336,44 +346,46 @@ export function createHero(host, toggle, motion) {
   }
   function render(now) {
     raf = 0;
-    if (disposed || lost || !visible || document.hidden || motion.matches)
-      return;
+    if (disposed || lost || paused) return;
     const interval = 1000 / (coarse.matches ? 30 : 45);
     if (now - last >= interval) {
-      const delta = Math.min((now - last) / 1000, 0.05);
+      // Advance in real time even when iOS limits the frame rate. Resetting
+      // `last` on resume prevents a jump after leaving the page or hero.
+      const delta = (now - last) / 1000;
       last = now;
       if (!paused) elapsed += delta;
       time.value = elapsed;
       rotationX += (pointerY * 0.055 - rotationX) * 0.035;
       rotationY += (pointerX * 0.1 - rotationY) * 0.035;
       sculpture.rotation.set(
-        paused
-          ? sculpture.rotation.x
-          : rotationX + Math.sin(elapsed * 0.12) * 0.025,
-        paused
-          ? sculpture.rotation.y
-          : rotationY + Math.sin(elapsed * 0.1) * 0.06,
-        -0.18 + Math.sin(elapsed * 0.15) * 0.015,
+        rotationX + Math.sin(elapsed * 0.4) * 0.06,
+        rotationY + Math.sin(elapsed * 0.45) * 0.24,
+        -0.18 + Math.sin(elapsed * 0.35) * 0.035,
       );
+      sculpture.position.y =
+        (small.matches ? 0 : 0.15) + Math.sin(elapsed * 0.65) * 0.1;
       pearls.forEach(
         ({ mesh, y }, i) =>
-          (mesh.position.y = y + Math.sin(elapsed * 0.4 + i) * 0.075),
+          (mesh.position.y = y + Math.sin(elapsed * 0.65 + i) * 0.12),
       );
-      renderer.render(scene, camera);
-      if (host.dataset.scene !== "ready") host.dataset.scene = "ready";
+      try {
+        renderer.render(scene, camera);
+        if (host.dataset.scene !== "ready") {
+          host.dataset.scene = "ready";
+          sceneChanged();
+        }
+      } catch (_) {
+        lost = true;
+        host.dataset.scene = "fallback";
+        sceneChanged();
+        return;
+      }
     }
-    if (!paused) raf = requestAnimationFrame(render);
+    if (!paused && !raf) raf = requestAnimationFrame(render);
   }
   function resume() {
-    if (
-      !disposed &&
-      !lost &&
-      visible &&
-      !document.hidden &&
-      !motion.matches &&
-      !raf
-    ) {
-      last = performance.now() - 100;
+    if (!disposed && !lost && !paused && !raf) {
+      last = performance.now();
       raf = requestAnimationFrame(render);
     }
   }
@@ -391,74 +403,52 @@ export function createHero(host, toggle, motion) {
     pointerX = 0;
     pointerY = 0;
   }
-  function visibility() {
-    document.hidden ? stop() : resume();
-  }
-  function pause() {
-    paused = !paused;
-    toggle.setAttribute("aria-pressed", String(paused));
-    toggle.querySelector("span").textContent = paused
-      ? "تشغيل الحركة"
-      : "إيقاف الحركة";
-    toggle.querySelector("img").src = paused
-      ? "assets/icons/play.svg"
-      : "assets/icons/pause.svg";
+  function setPlaying(playing) {
+    const wasPaused = paused;
+    paused = !playing;
     if (paused) stop();
-    else resume();
+    else if (wasPaused) resume();
   }
   function contextLost(e) {
     e.preventDefault();
     lost = true;
     stop();
     host.dataset.scene = "fallback";
-    toggle.hidden = true;
+    sceneChanged();
   }
   function contextRestored() {
     lost = false;
-    toggle.hidden = false;
-    resume();
-  }
-  function pageHide(e) {
-    if (e.persisted) stop();
-    else dispose();
-  }
-  function pageShow() {
+    // Draw once even if the user paused while the context was lost.
+    try {
+      renderer.render(scene, camera);
+      host.dataset.scene = "ready";
+    } catch (_) {
+      lost = true;
+      host.dataset.scene = "fallback";
+    }
+    sceneChanged();
     resume();
   }
   const resizeObserver = new ResizeObserver(resize);
-  const intersection = new IntersectionObserver(
-    (entries) => {
-      visible = entries[0].isIntersecting;
-      visible ? resume() : stop();
-    },
-    { threshold: 0 },
-  );
   canvas.addEventListener("webglcontextlost", contextLost, false);
   canvas.addEventListener("webglcontextrestored", contextRestored, false);
   stage.addEventListener("pointermove", pointer, { passive: true });
   stage.addEventListener("pointerleave", leave, { passive: true });
-  document.addEventListener("visibilitychange", visibility);
-  window.addEventListener("pagehide", pageHide);
-  window.addEventListener("pageshow", pageShow);
-  toggle.addEventListener("click", pause);
   host.append(canvas);
-  resize();
-  resizeObserver.observe(host);
-  intersection.observe(host);
-  toggle.hidden = false;
-  resume();
+  try {
+    resize();
+    resizeObserver.observe(host);
+  } catch (error) {
+    dispose();
+    throw error;
+  }
   function dispose() {
     if (disposed) return;
     disposed = true;
     stop();
     resizeObserver.disconnect();
-    intersection.disconnect();
     stage.removeEventListener("pointermove", pointer);
     stage.removeEventListener("pointerleave", leave);
-    document.removeEventListener("visibilitychange", visibility);
-    window.removeEventListener("pagehide", pageHide);
-    window.removeEventListener("pageshow", pageShow);
-    toggle.removeEventListener("click", pause);
     canvas.removeEventListener("webglcontextlost", contextLost);
     canvas.removeEventListener("webglcontextrestored", contextRestored);
     geometrySet.forEach((g) => g.dispose());
@@ -468,8 +458,7 @@ export function createHero(host, toggle, motion) {
     renderer.dispose();
     renderer.forceContextLoss();
     canvas.remove();
-    toggle.hidden = true;
     host.dataset.scene = "poster";
   }
-  return { dispose };
+  return { dispose, setPlaying };
 }

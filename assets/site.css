@@ -1414,9 +1414,7 @@ button:focus-visible {
     transition: none !important;
     animation: none !important;
   }
-  .hero-art canvas {
-    display: none;
-  }
+  /* JavaScript skips WebGL until the user explicitly chooses to play. */
 }
 @media (prefers-contrast: more) {
   :root {
