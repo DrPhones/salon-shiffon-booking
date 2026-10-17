@@ -1409,7 +1409,11 @@
     ).format(new Date(Date.UTC(y, m - 1, d, 12)));
     face.classList.remove("empty");
   }
+  // Refresh before the native picker opens: a tab may have crossed midnight in Riyadh.
+  $("day").addEventListener("focus", syncHours);
+  $("day").addEventListener("pointerdown", syncHours);
   $("day").addEventListener("click", () => {
+    syncHours();
     try {
       $("day").showPicker();
     } catch (e) {}
@@ -1883,6 +1887,10 @@
   renderDayFace();
   $("time").addEventListener("focus", syncHours);
   $("time").addEventListener("pointerdown", syncHours);
+  addEventListener("pageshow", syncHours);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) syncHours();
+  });
   applyMode();
   booted = true;
   addEventListener("resize", measure);

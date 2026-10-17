@@ -54,6 +54,8 @@ with sync_playwright() as p:
             expect(page.locator('#err')).to_contain_text('الحجز لنفس اليوم غير متاح')
             assert page.evaluate('window.opened.length')==0
             page.locator('#day').fill((today+timedelta(days=1)).isoformat())
+            # The invalid same-day attempt may clear an elapsed time; complete the valid request again.
+            page.locator('#time').select_option('10:00')
             page.locator('#send').click()
             urls=page.evaluate('window.opened')
             assert len(urls)==1

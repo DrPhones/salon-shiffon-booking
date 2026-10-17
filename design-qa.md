@@ -90,3 +90,9 @@ Evidence, under `/workspace/salon-design/`:
 - `webkit-mobile-blend.png` records the updated prefixed mask and live scene in WebKitGTK at 447 × 892; fonts were ready, development CSS was cache-busted, and the fade was allowed to finish.
 
 Checks passed at widths 320, 375, 390, 430 and 768: header/copy clearance, intentional masked overlap, no horizontal overflow, unobstructed CTA, and no runtime errors. The real-render 390px scenario also opened the catalogue, added a service and verified the booking sheet total. WebKit verified the current mask, artwork dimensions and layout. `git diff --check` passed. The rendered comparison confirms intact typography, spacing, palette, artwork and copy; no further P0/P1/P2 issues were found. The physical-iPhone test gap recorded above remains.
+
+## Tomorrow-only booking refinement
+
+Confirmed that the first bookable date is tomorrow in Asia/Riyadh and that same-day submission is rejected. Added date-limit refresh before opening/focusing the native picker and when returning to the page, so a tab left open across Riyadh midnight cannot retain yesterday's picker minimum. Existing draft restoration already drops dates that have become today or earlier.
+
+`tests/booking_date_smoke.py` passed **3/3** scenarios in Asia/Riyadh, America/Los_Angeles and Asia/Tokyo, including a month boundary, updated picker minimum, same-day rejection, removal of an expired draft date, and acceptance of the following day. The original booking smoke suite passed **4/4** scenarios again. Its valid-date step now explicitly reselects a time after the intentionally rejected same-day attempt, since an elapsed time may have been cleared. JavaScript syntax and diff checks passed. No external WhatsApp messages were sent. Visual styling is unchanged in this refinement.
